@@ -1,30 +1,40 @@
-package com.example.appbandodientuonline.model;
+package com.example.chuyendedidong2.Model;
 
 public class Category {
-    private int imgCat;
-    private String nameCat;
-
-    public Category(int imgCat, String nameCat) {
-        this.imgCat = imgCat;
-        this.nameCat = nameCat;
-    }
+    String img_url;
+    String name;
+    String type;
 
     public Category() {
     }
 
-    public int getImgCat() {
-        return imgCat;
+    public Category(String img_url, String name, String type) {
+        this.img_url = img_url;
+        this.name = name;
+        this.type = type;
     }
 
-    public void setImgCat(int imgCat) {
-        this.imgCat = imgCat;
+    public String getImg_url() {
+        return img_url;
     }
 
-    public String getNameCat() {
-        return nameCat;
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
     }
 
-    public void setNameCat(String nameCat) {
-        this.nameCat = nameCat;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

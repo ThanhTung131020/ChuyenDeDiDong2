@@ -1,4 +1,4 @@
-package com.example.appbandodientuonline.adapter;
+package com.example.chuyendedidong2.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,8 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
-import com.example.appbandodientuonline.R;
-import com.example.appbandodientuonline.model.ImageSilder;
+import com.example.chuyendedidong2.Model.ImageSilder;
+import com.example.chuyendedidong2.R;
+
 
 import java.util.List;
 

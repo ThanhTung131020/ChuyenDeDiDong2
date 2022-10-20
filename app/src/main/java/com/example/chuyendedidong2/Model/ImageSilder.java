@@ -1,4 +1,4 @@
-package com.example.appbandodientuonline.model;
+package com.example.chuyendedidong2.Model;
 
 public class ImageSilder {
     private int resourceID;
