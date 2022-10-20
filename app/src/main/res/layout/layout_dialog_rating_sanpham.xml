@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/background_dialog"
+    android:orientation="vertical"
+    android:layout_margin="16dp"
+    android:layout_height="wrap_content">
+    <TextView
+        android:padding="12dp"
+        android:text="đánh giá sản phẩm"
+        android:textColor="@android:color/background_dark"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:background="@drawable/background_yellow_16_top_left_right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+       <RatingBar
+           android:numStars="@android:integer/config_shortAnimTime"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_dialig_huyDon_no"
+                android:alpha="0.4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_dialog_boder_button"
+                android:text="no"
+                android:textSize="14sp"/>
+
+            <Button
+                android:id="@+id/btn_dialig_huyDon_ok"
+                android:background="@drawable/background_dialog__button_gray"
+                android:textSize="14sp"
+                android:text="ok"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
