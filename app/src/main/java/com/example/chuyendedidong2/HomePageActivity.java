@@ -9,11 +9,14 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.chuyendedidong2.Adapter.CategoryAdapter;
 import com.example.chuyendedidong2.Adapter.ImageSliderAdapter;
+import com.example.chuyendedidong2.Adapter.NewProductsAdapter;
 import com.example.chuyendedidong2.Model.Category;
 import com.example.chuyendedidong2.Model.ImageSilder;
+import com.example.chuyendedidong2.Model.NewProductModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -29,13 +32,21 @@ import java.util.Objects;
 import me.relex.circleindicator.CircleIndicator;
 
 public class HomePageActivity extends AppCompatActivity {
+    //img slider
     private ViewPager viewPager;
     private CircleIndicator circleIndicator;
     private ImageSliderAdapter imageSliderAdapter;
+    //bottom navigation
     private BottomNavigationView bottomNavigationView;
+    //category
     private CategoryAdapter categoryAdapter;
     private ArrayList<Category> categoryList;
     private RecyclerView rvCategory;
+    //new product
+    private RecyclerView rvNewProduct;
+    private ArrayList<NewProductModel> newProductModelList;
+    private NewProductsAdapter newProductsAdapter;
+    //firebase
     private FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +77,11 @@ public class HomePageActivity extends AppCompatActivity {
                 return true;
             }
         });
-        //recycler view category
+        //recycler view va firebase category
         rvCategory.setLayoutManager(new LinearLayoutManager(this,RecyclerView.HORIZONTAL,false));
         categoryList = new ArrayList<>();
         categoryAdapter = new CategoryAdapter(this,categoryList);
         rvCategory.setAdapter(categoryAdapter);
-
         db.collection("Category")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -84,10 +94,33 @@ public class HomePageActivity extends AppCompatActivity {
                                 categoryAdapter.notifyDataSetChanged();
                             }
                         } else {
-
+                            //Toast.makeText(HomePageActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+        //recycler view va firebase new product
+        rvNewProduct.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
+        //newProductModelList = new ArrayList<>();
+        createNewProduct();
+        newProductsAdapter = new NewProductsAdapter(this,newProductModelList);
+        rvNewProduct.setAdapter(newProductsAdapter);
+//        db.collection("NewProducts")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()){
+//                            for (QueryDocumentSnapshot document : task.getResult()){
+//                                NewProductModel newProductModel = document.toObject(NewProductModel.class);
+//                                newProductModelList.add(newProductModel);
+//                                categoryAdapter.notifyDataSetChanged();
+//                            }
+//                        }else {
+//                           Toast.makeText(HomePageActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+
     }
 
     private List<ImageSilder> getListImageSlider() {
@@ -98,9 +131,15 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private void setControl() {
+        rvNewProduct = findViewById(R.id.new_product_rec);
         rvCategory = findViewById(R.id.rvCat);
         bottomNavigationView = findViewById(R.id.botNavKhachHang);
         viewPager = findViewById(R.id.viewPager);
         circleIndicator = findViewById(R.id.circle_indicate);
+    }
+    private void createNewProduct(){
+        newProductModelList = new ArrayList<>();
+        newProductModelList.add(new NewProductModel("latop",1000,5,"https://th.bing.com/th/id/OIP.IJzazGh2VeCw8let2ORy6gHaFj?pid=ImgDet&rs=1"));
+        newProductModelList.add(new NewProductModel("phone",1000,5,""));
     }
 }
