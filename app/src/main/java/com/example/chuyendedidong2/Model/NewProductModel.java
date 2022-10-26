@@ -1,5 +1,7 @@
 package com.example.chuyendedidong2.Model;
 
+import java.util.ArrayList;
+
 public class NewProductModel {
     String name, desciption;
     int price,numStar;
@@ -60,5 +62,18 @@ public class NewProductModel {
 
     public void setImg_url(String img_url) {
         this.img_url = img_url;
+    }
+    public ArrayList<NewProductModel> createNewProduct(){
+        ArrayList<NewProductModel> newProductModelList;
+        newProductModelList = new ArrayList<>();
+        newProductModelList.add(new NewProductModel("latop",1000,5,"https://th.bing.com/th/id/OIP.IJzazGh2VeCw8let2ORy6gHaFj?pid=ImgDet&rs=1"));
+        newProductModelList.add(new NewProductModel("phone",1000,5,""));
+        newProductModelList.add(new NewProductModel("phone",1000,5,""));
+        newProductModelList.add(new NewProductModel("phone",1000,5,""));
+        newProductModelList.add(new NewProductModel("phone",1000,5,""));
+        newProductModelList.add(new NewProductModel("phone",1000,5,""));
+        newProductModelList.add(new NewProductModel("phone",1000,5,""));
+        newProductModelList.add(new NewProductModel("phone",1000,5,""));
+        return newProductModelList;
     }
 }

@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     android:background="@color/colorKhachHang"
     android:orientation="vertical"
+    tools:context=".Fragment.HomePageFragment"
     android:weightSum="17">
 
     <LinearLayout
-       android:layout_marginTop="5dp"
+        android:layout_marginTop="5dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -134,16 +135,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/botNavKhachHang"
-        android:layout_width="match_parent"
-        android:layout_gravity="bottom"
-        android:layout_height="wrap_content"
-        app:menu="@menu/menu_bot_khachhang"
-        app:itemIconTint="@color/custom_color_bottom_nav"
-        app:itemTextColor="@color/custom_color_bottom_nav"
-        android:background="@color/colorButtonKhachHang"
-        />
 </LinearLayout>
 
 

@@ -47,7 +47,9 @@ public class LoginActivity extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signIn(view);
+                startActivity(new Intent(LoginActivity.this,HomePageLoginActivity.class));
+                finishAffinity();
+                //signIn(view);
             }
         });
 
