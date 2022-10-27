@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class RegistrationActivity extends AppCompatActivity {
     EditText email, password, cpassword, sdt, diachi, hoten;
-    Button btnDangKy, btnDangNhap;
+    Button btnDangKy;
     RadioButton rdbCaNhan, rdbCuaHang, rdbShipper;
     private FirebaseAuth auth;
 
@@ -92,7 +92,7 @@ public class RegistrationActivity extends AppCompatActivity {
             Toast.makeText(this,"Nhập họ tên!",Toast.LENGTH_SHORT).show();
             return;
         }else if(TextUtils.isEmpty(diachi)){
-            Toast.makeText(this,"Nhập số địa chỉ!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Nhập địa chỉ!",Toast.LENGTH_SHORT).show();
             return;
         }
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
