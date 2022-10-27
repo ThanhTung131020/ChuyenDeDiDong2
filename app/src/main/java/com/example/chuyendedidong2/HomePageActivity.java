@@ -10,6 +10,11 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.chuyendedidong2.Adapter.ImageSliderAdapter;
 import com.example.chuyendedidong2.Adapter.NewProductsAdapter;
@@ -18,6 +23,8 @@ import com.example.chuyendedidong2.Model.NewProductModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +37,8 @@ public class HomePageActivity extends AppCompatActivity {
     private ImageSliderAdapter imageSliderAdapter;
     //bottom navigation
     private BottomNavigationView bottomNavigationView;
-
+    //spinner
+    private Spinner spinner;
     //new product
     ArrayList<NewProductModel> newProductModelList;
     private RecyclerView rvNewProduct;
@@ -40,7 +48,7 @@ public class HomePageActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         db = FirebaseFirestore.getInstance();
@@ -67,12 +75,26 @@ public class HomePageActivity extends AppCompatActivity {
             }
         });
         //newProductModelList = new ArrayList<>();
-
         rvNewProduct.setLayoutManager(new GridLayoutManager(this,3));
-        createNewProduct();
         newProductModel = new NewProductModel();
-        newProductsAdapter = new NewProductsAdapter(this,newProductModelList);
+        newProductsAdapter = new NewProductsAdapter(this,newProductModel.createNewProduct());
         rvNewProduct.setAdapter(newProductsAdapter);
+        //spinner
+        String[] spin = {"Mặc định","Theo giá cao đến thấp","Theo hãng"};
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,spin);
+        arrayAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(HomePageActivity.this, spin[i], Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private List<ImageSilder> getListImageSlider() {
@@ -83,20 +105,11 @@ public class HomePageActivity extends AppCompatActivity {
     }
 
     private void setControl() {
+        spinner = findViewById(R.id.spTinKiem);
         rvNewProduct = findViewById(R.id.rvProducts);
         bottomNavigationView = findViewById(R.id.botNavKhachHang);
         viewPager = findViewById(R.id.viewPager);
     }
-    public void createNewProduct(){
-        newProductModelList = new ArrayList<>();
-        newProductModelList.add(new NewProductModel("latop",1000,5,"https://th.bing.com/th/id/OIP.IJzazGh2VeCw8let2ORy6gHaFj?pid=ImgDet&rs=1"));
-        newProductModelList.add(new NewProductModel("phone",1000,5,""));
-        newProductModelList.add(new NewProductModel("phone",1000,5,""));
-        newProductModelList.add(new NewProductModel("phone",1000,5,""));
-        newProductModelList.add(new NewProductModel("phone",1000,5,""));
-        newProductModelList.add(new NewProductModel("phone",1000,5,""));
-        newProductModelList.add(new NewProductModel("phone",1000,5,""));
-        newProductModelList.add(new NewProductModel("phone",1000,5,""));
-    }
+
 
 }

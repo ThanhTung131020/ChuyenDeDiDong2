@@ -14,6 +14,10 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.chuyendedidong2.Adapter.ImageSliderAdapter;
 import com.example.chuyendedidong2.Adapter.NewProductsAdapter;
@@ -39,6 +43,8 @@ public class HomePageFragment extends Fragment {
     private RecyclerView rvNewProduct;
     private NewProductModel newProductModel;
     private NewProductsAdapter newProductsAdapter;
+    //spinner
+    private Spinner spinner;
     public HomePageFragment() {
 
     }
@@ -57,6 +63,7 @@ public class HomePageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
         rvNewProduct = view.findViewById(R.id.rvProducts);
         viewPager = view.findViewById(R.id.viewPager);
+        spinner = view.findViewById(R.id.spTinKiem);
         setEvent();
         return view;
     }
@@ -73,10 +80,25 @@ public class HomePageFragment extends Fragment {
         viewPager.setAdapter(imageSliderAdapter);
         //newProductModelList = new ArrayList<>();
         rvNewProduct.setLayoutManager(new GridLayoutManager(getContext(),3));
-        createNewProduct();
         newProductModel = new NewProductModel();
-        newProductsAdapter = new NewProductsAdapter(getContext(),newProductModelList);
+        newProductsAdapter = new NewProductsAdapter(getContext(),newProductModel.createNewProduct());
         rvNewProduct.setAdapter(newProductsAdapter);
+        //spinner
+        String[] spin = {"Mặc định","Theo giá cao đến thấp","Theo hãng"};
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,spin);
+        arrayAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getContext(), spin[i], Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
     public void createNewProduct(){
         newProductModelList = new ArrayList<>();
