@@ -20,9 +20,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.Activity_Gio_hang;
 import com.example.chuyendedidong2.Data.GioHang;
 import com.example.chuyendedidong2.MainActivity;
+import com.example.chuyendedidong2.Model.NewProductModel;
 import com.example.chuyendedidong2.R;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ import java.util.List;
 
 public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thongtin_donhang.ThongTinViewholder> {
     private Context mContext;
-    private List<GioHang> mListGioHang = new ArrayList<>();
+    private List<NewProductModel> mListGioHang = new ArrayList<>();
     private Adapter_GioHang adapter_gioHang;
     private MainActivity mainActivity;
     private Button btn_ok , btn_cancel;
@@ -39,7 +41,7 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
     public Adapter_thongtin_donhang(Context mContext) {
         this.mContext = mContext;
     }
-    public void setData(List<GioHang> list){
+    public void setData(List<NewProductModel> list){
         this.mListGioHang = list;
         notifyDataSetChanged();
     }
@@ -52,16 +54,14 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
         return new ThongTinViewholder(view);
 
     }
-
-
     @Override
     public void onBindViewHolder(@NonNull ThongTinViewholder holder, @SuppressLint("RecyclerView") int position) {
-        GioHang gioHang = mListGioHang.get(position);
-            holder.tv_tenSP.setText("tên sản phẩm: "+ gioHang.getTenSP());
-            holder.tv_giaSP.setText("giá sản phẩm: "+String.valueOf( gioHang.getGia()));
+        NewProductModel gioHang = mListGioHang.get(position);
+            holder.tv_tenSP.setText("tên sản phẩm: "+ gioHang.getName());
+            holder.tv_giaSP.setText("giá sản phẩm: "+String.valueOf( gioHang.getPrice()));
             holder.tv_soLuong.setText("X"+String.valueOf( gioHang.getSoLuong()));
-            holder.tv_tenCH.setText("tên cửa hàng"+gioHang.getTenCH());
-            holder.img_SPGioHang.setImageResource(R.drawable.img);
+            holder.tv_tenCH.setText("tên cửa hàng"+gioHang.getNameShop());
+            Glide.with(mContext).load(gioHang.getImg_url()).into(holder.img_SPGioHang);
             holder.btn_huy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

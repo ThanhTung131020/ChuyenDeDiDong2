@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.chuyendedidong2.Adapter.Adapter_GioHang;
 import com.example.chuyendedidong2.Data.GioHang;
+import com.example.chuyendedidong2.Model.NewProductModel;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -24,7 +25,8 @@ import java.util.List;
 public class Activity_Gio_hang extends AppCompatActivity {
 
     private static final int MY_REQUES_CODE = 10;
-    private static List<GioHang> list = new ArrayList<>();
+    private static List<NewProductModel> list = new ArrayList<>();
+    private NewProductModel newProductModel = new NewProductModel();
     private RecyclerView rcv_GioHang;
     private Adapter_GioHang adapter_gioHang;
     private TextView tv_tongTien;
@@ -62,7 +64,7 @@ public class Activity_Gio_hang extends AppCompatActivity {
         adapter_gioHang = new Adapter_GioHang(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcv_GioHang.setLayoutManager(linearLayoutManager);
-        adapter_gioHang.setDaTa(getListGH());
+        adapter_gioHang.setDaTa(newProductModel.createNewProduct());
         rcv_GioHang.setAdapter(adapter_gioHang);
         tongTien();
 
@@ -71,16 +73,16 @@ public class Activity_Gio_hang extends AppCompatActivity {
 
 
     // dữ liệu giả
-    private List<GioHang> getListGH() {
-
-
-        list.add(new GioHang(1, 1000, R.drawable.img, "ch1", "iphone 11"));
-        list.add(new GioHang(1, 1000, R.drawable.img, "ch1", "iphone 11"));
-        list.add(new GioHang(1, 1000, R.drawable.img, "ch1", "iphone 11"));
-        list.add(new GioHang(1, 1000, R.drawable.img, "ch1", "iphone 11"));
-
-        return list;
-    }
+//    private List<GioHang> getListGH() {
+//
+//
+//        list.add(new GioHang(1, 1000, R.drawable.img, "ch1", "iphone 11"));
+//        list.add(new GioHang(1, 1000, R.drawable.img, "ch1", "iphone 11"));
+//        list.add(new GioHang(1, 1000, R.drawable.img, "ch1", "iphone 11"));
+//        list.add(new GioHang(1, 1000, R.drawable.img, "ch1", "iphone 11"));
+//
+//        return list;
+//    }
     // tinh tong tien
 
 
@@ -89,12 +91,10 @@ public class Activity_Gio_hang extends AppCompatActivity {
         int tong = 0;
 
         for (int i = 0; i < list.size(); i++) {
-            tong += list.get(i).getGia();
+            tong += list.get(i).getPrice();
         }
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         tv_tongTien.setText("Tổng tiền: " + decimalFormat.format(tong) + "vnđ");
-
-
     }
 
 
