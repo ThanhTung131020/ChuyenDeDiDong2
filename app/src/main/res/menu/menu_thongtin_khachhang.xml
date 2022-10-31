@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<item android:id="@+id/mnu_choXacNhan"
+    android:title="cho xac nhan"
+    android:icon="@drawable/ic_baseline_remove_circle_outline_24"
+    app:showAsAction="always"/>
+    <item android:id="@+id/mnu_dangGiao"
+        android:title="dang giao"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_baseline_remove_circle_outline_24"
+
+        />
+    <item android:id="@+id/mnu_daGiao"
+        app:showAsAction="always"
+        android:title="da Giao"
+        android:icon="@drawable/ic_baseline_remove_circle_outline_24"
+        />
+
+</menu>
