@@ -18,119 +18,113 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:layout_weight="2">
 
             <ImageView
                 android:id="@+id/img_SPGioHang"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:padding="5dp"
                 android:src="@drawable/img" />
         </LinearLayout>
 
         <LinearLayout
-            android:weightSum="3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="5"
+            android:layout_weight="6"
             android:orientation="vertical"
-            android:padding="5dp">
+            android:padding="5dp"
+            android:weightSum="4">
 
             <TextView
-                android:layout_weight="1"
                 android:id="@+id/tv_tenSP"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_weight="1"
                 android:text="tensp"
                 android:textColor="@color/black"
                 android:textSize="10sp" />
 
             <TextView
-                android:layout_weight="1"
                 android:id="@+id/tv_giaSP"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="15dp"
+                android:layout_weight="1"
                 android:text="giasp"
                 android:textColor="@color/black"
                 android:textSize="10sp" />
 
             <TextView
-                android:layout_weight="1"
                 android:id="@+id/tv_tenCH"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="15dp"
+                android:layout_weight="1"
                 android:text="tench"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+
+            <TextView
+
+                android:id="@+id/tv_trangThaiDH"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                android:layout_weight="1"
+                android:text="Trạng thái đơn hàng: Đang giao"
                 android:textColor="@color/black"
                 android:textSize="10sp" />
         </LinearLayout>
 
         <LinearLayout
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:gravity="right"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="4">
 
             <ImageButton
-
-                android:id="@+id/btn_xoaItem"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:id="@+id/imgbtn_remove"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:background="@null"
-                android:src="@drawable/ic_baseline_cancel_24"
+                android:src="@drawable/ic_baseline_remove_circle_24"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_soLuong"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="x1"
                 android:textAlignment="center"
-                android:textSize="11sp" />
+                android:textSize="20sp" />
 
-            <LinearLayout
+            <Button
+                android:id="@+id/btn_DaNhanHang"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
 
-                android:layout_marginTop="25dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                >
+                android:backgroundTint="@color/teal_200"
+                android:text="đã nhận hàng"
+                android:textColor="@color/black"
+                android:textSize="6dp" />
 
-                <ImageButton
+            <Button
+                android:id="@+id/btn_huy"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
 
-                    android:id="@+id/btn_giamSL"
-                    android:layout_width="40dp"
-                    android:layout_height="35dp"
-                    android:background="@null"
-                    android:focusable="true"
-
-                    android:src="@drawable/ic_baseline_remove_circle_outline_24"
-
-                   />
-
-                <TextView
-                    android:id="@+id/tv_soLuong"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:background="@null"
-                    android:backgroundTint="#958989"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:text="1"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
-
-                <ImageButton
-
-                    android:id="@+id/btn_tangSL"
-                    android:layout_width="40dp"
-                    android:layout_height="35dp"
-                    android:background="@null"
-                    android:focusable="true"
-                    android:src="@drawable/ic_baseline_control_point_24"
-                    android:textColor="@color/black"
-                     />
-            </LinearLayout>
-
+                android:backgroundTint="@color/yellow"
+                android:text="hủy"
+                android:textColor="@color/black"
+                android:textSize="8sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

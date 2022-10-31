@@ -6,10 +6,11 @@
     android:layout_margin="16dp"
     android:layout_height="wrap_content">
     <TextView
+
         android:padding="12dp"
         android:text="đánh giá sản phẩm"
         android:textColor="@android:color/background_dark"
-        android:textSize="16sp"
+        android:textSize="25sp"
         android:gravity="center"
         android:background="@drawable/background_yellow_16_top_left_right"
         android:layout_width="match_parent"
@@ -21,8 +22,10 @@
         android:layout_height="wrap_content">
 
        <RatingBar
-           android:numStars="@android:integer/config_shortAnimTime"
-           android:layout_width="match_parent"
+           android:id="@+id/rtb_rating"
+
+            android:layout_gravity="center"
+           android:layout_width="240dp"
            android:layout_height="wrap_content"/>
         <LinearLayout
             android:layout_marginTop="16dp"
@@ -31,19 +34,20 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/btn_dialig_huyDon_no"
+                android:backgroundTint="@color/yellow"
+                android:id="@+id/btn_rating_no"
                 android:alpha="0.4"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/background_dialog_boder_button"
+
                 android:text="no"
                 android:textSize="14sp"/>
 
             <Button
-                android:id="@+id/btn_dialig_huyDon_ok"
-                android:background="@drawable/background_dialog__button_gray"
+                android:id="@+id/btn_rating_ok"
+                android:backgroundTint="@color/yellow"
                 android:textSize="14sp"
                 android:text="ok"
                 android:layout_width="0dp"
