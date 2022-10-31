@@ -45,16 +45,29 @@ public class NewProductsAdapter extends RecyclerView.Adapter<NewProductsAdapter.
         holder.newRating.setRating(newProductModel.getNumStar());
         holder.newPrice.setText(String.valueOf(newProductModel.getPrice()));
 
-        holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(context,ProductActivity.class);
-
-            intent.putExtra("image",newProductModel.getImg_url());
-            intent.putExtra("name",newProductModel.getName());
-            intent.putExtra("price",String.valueOf(newProductModel.getPrice()));
-            intent.putExtra("rating",String.valueOf(newProductModel.getNumStar()));
-            intent.putExtra("des",newProductModel.getDesciption());
-            intent.putExtra("nameShop",newProductModel.getNameShop());
-            context.startActivity(intent);
+//        holder.itemView.setOnClickListener(view -> {
+//            Intent intent = new Intent(context,ProductActivity.class);
+//
+//            intent.putExtra("image",newProductModel.getImg_url());
+//            intent.putExtra("name",newProductModel.getName());
+//            intent.putExtra("price",String.valueOf(newProductModel.getPrice()));
+//            intent.putExtra("rating",String.valueOf(newProductModel.getNumStar()));
+//            intent.putExtra("des",newProductModel.getDesciption());
+//            intent.putExtra("nameShop",newProductModel.getNameShop());
+//            context.startActivity(intent);
+//        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,ProductActivity.class);
+                intent.putExtra("image",newProductModel.getImg_url());
+                intent.putExtra("name",newProductModel.getName());
+                intent.putExtra("price",String.valueOf(newProductModel.getPrice()));
+                intent.putExtra("rating",String.valueOf(newProductModel.getNumStar()));
+                intent.putExtra("des",newProductModel.getDesciption());
+                intent.putExtra("nameShop",newProductModel.getNameShop());
+                context.startActivity(intent);
+            }
         });
     }
 
