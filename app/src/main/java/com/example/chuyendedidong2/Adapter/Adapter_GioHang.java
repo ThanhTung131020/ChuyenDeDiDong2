@@ -2,12 +2,9 @@ package com.example.chuyendedidong2.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,11 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.Activity_Gio_hang;
-import com.example.chuyendedidong2.Data.GioHang;
-import com.example.chuyendedidong2.Model.NewProductModel;
+import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.R;
-
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -29,7 +23,7 @@ import java.util.List;
 
 public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHangViewHolder> {
     private Context mContext;
-    private List<NewProductModel> mListGioHang = new ArrayList<>();
+    private List<ProductModel> mListGioHang = new ArrayList<>();
     private Activity_Gio_hang activityGioHang;
     public int _img_SP = 0;
     public String _tensp = "";
@@ -43,7 +37,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
         this.mContext = mContext;
     }
 
-    public void setDaTa(List<NewProductModel> list) {
+    public void setDaTa(List<ProductModel> list) {
         this.mListGioHang = list;
         notifyDataSetChanged();
     }
@@ -57,7 +51,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
 
     @Override
     public void onBindViewHolder(@NonNull GioHangViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        NewProductModel gioHang = mListGioHang.get(position);
+        ProductModel gioHang = mListGioHang.get(position);
 
         if (gioHang == null) {
             return;

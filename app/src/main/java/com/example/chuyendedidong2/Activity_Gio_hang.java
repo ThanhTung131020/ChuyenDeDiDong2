@@ -5,18 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
 import com.example.chuyendedidong2.Adapter.Adapter_GioHang;
-import com.example.chuyendedidong2.Data.GioHang;
-import com.example.chuyendedidong2.Model.NewProductModel;
+import com.example.chuyendedidong2.Model.ProductModel;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -25,13 +22,12 @@ import java.util.List;
 public class Activity_Gio_hang extends AppCompatActivity {
 
     private static final int MY_REQUES_CODE = 10;
-    private static List<NewProductModel> list = new ArrayList<>();
-    private NewProductModel newProductModel = new NewProductModel();
+    private static List<ProductModel> list = new ArrayList<>();
+    private ProductModel productModel = new ProductModel();
     private RecyclerView rcv_GioHang;
     private Adapter_GioHang adapter_gioHang;
     private TextView tv_tongTien;
     private Button btn_DatHang;
-    private GioHang gioHang;
 
 
     @Override
@@ -64,7 +60,7 @@ public class Activity_Gio_hang extends AppCompatActivity {
         adapter_gioHang = new Adapter_GioHang(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcv_GioHang.setLayoutManager(linearLayoutManager);
-        adapter_gioHang.setDaTa(newProductModel.createNewProduct());
+        adapter_gioHang.setDaTa(productModel.createNewProduct());
         rcv_GioHang.setAdapter(adapter_gioHang);
         tongTien();
 

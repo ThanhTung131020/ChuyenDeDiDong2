@@ -3,7 +3,6 @@ package com.example.chuyendedidong2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
@@ -17,19 +16,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 //import com.example.chuyendedidong2.Adapter.ImageSliderAdapter;
-import com.example.chuyendedidong2.Adapter.NewProductsAdapter;
+import com.example.chuyendedidong2.Adapter.ProductsAdapter;
 //import com.example.chuyendedidong2.Model.ImageSilder;
-import com.example.chuyendedidong2.Model.NewProductModel;
+import com.example.chuyendedidong2.Model.ProductModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import me.relex.circleindicator.CircleIndicator;
 
 public class HomePageActivity extends AppCompatActivity {
     //img slider
@@ -40,10 +33,10 @@ public class HomePageActivity extends AppCompatActivity {
     //spinner
     private Spinner spinner;
     //new product
-    ArrayList<NewProductModel> newProductModelList;
+    ArrayList<ProductModel> productModelList;
     private RecyclerView rvNewProduct;
-    private NewProductModel newProductModel;
-    private NewProductsAdapter newProductsAdapter;
+    private ProductModel productModel;
+    private ProductsAdapter newProductsAdapter;
     //firebase
     //private FirebaseFirestore db;
     @Override
@@ -76,8 +69,8 @@ public class HomePageActivity extends AppCompatActivity {
         });
         //newProductModelList = new ArrayList<>();
         rvNewProduct.setLayoutManager(new GridLayoutManager(this,3));
-        newProductModel = new NewProductModel();
-        newProductsAdapter = new NewProductsAdapter(this,newProductModel.createNewProduct());
+        productModel = new ProductModel();
+        newProductsAdapter = new ProductsAdapter(this, productModel.createNewProduct());
         rvNewProduct.setAdapter(newProductsAdapter);
         //spinner
         String[] spin = {"Mặc định","Theo giá cao đến thấp","Theo hãng"};

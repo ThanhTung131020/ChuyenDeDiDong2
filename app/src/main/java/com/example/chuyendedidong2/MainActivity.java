@@ -21,8 +21,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 
-import com.example.chuyendedidong2.Data.GioHang;
-
 import java.util.ArrayList;
 import java.util.List;
 

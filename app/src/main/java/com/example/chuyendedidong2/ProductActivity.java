@@ -1,12 +1,10 @@
 package com.example.chuyendedidong2;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,8 +12,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.chuyendedidong2.Adapter.NewProductsAdapter;
-import com.example.chuyendedidong2.Model.NewProductModel;
+import com.example.chuyendedidong2.Adapter.ProductsAdapter;
+import com.example.chuyendedidong2.Model.ProductModel;
 
 import java.util.ArrayList;
 
@@ -23,8 +21,8 @@ public class ProductActivity extends AppCompatActivity {
     private ImageView imageView;
     private RatingBar ratingBar;
     private TextView tvTenSP,tvGiaSP,tvTenCuaHang,tvMoTa;
-    private ArrayList<NewProductModel> newProductModelArrayList;
-    private NewProductsAdapter newProductsAdapter;
+    private ArrayList<ProductModel> productModelArrayList;
+    private ProductsAdapter newProductsAdapter;
     private LinearLayout linearLayout;
     private Button btnAddCart;
 
@@ -33,7 +31,7 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
         setControl();
-        NewProductModel newProductModel = getIntent().getParcelableExtra("chitiet");
+        ProductModel productModel = getIntent().getParcelableExtra("chitiet");
 //        tvTenSP.setText(newProductModel.getName());
 //        tvGiaSP.setText(String.valueOf(newProductModel.getPrice()));
 //        ratingBar.setNumStars(newProductModel.getNumStar());
