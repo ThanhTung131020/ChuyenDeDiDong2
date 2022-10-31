@@ -37,7 +37,7 @@ public class Activity_Gio_hang extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gio_hang);
         adapterGioHang();
-        getSupportActionBar().setTitle("gio hang");
+        //getSupportActionBar().setTitle("gio hang");
         anhxa();
         btn_DatHang.setOnClickListener(new View.OnClickListener() {
             @Override

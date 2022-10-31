@@ -21,7 +21,7 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText email, password, cpassword, sdt, diachi, hoten;
     Button btnDangKy, btnDangNhap;
     RadioButton rdbCaNhan, rdbCuaHang, rdbShipper;
-    private FirebaseAuth auth;
+    //private FirebaseAuth auth;
 
 
     @Override
@@ -30,7 +30,7 @@ public class RegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registration);
 
         //getSupportActionBar().hide();
-        auth = FirebaseAuth.getInstance();
+        //auth = FirebaseAuth.getInstance();
 
         //anh xa view
         setControl();
@@ -95,17 +95,17 @@ public class RegistrationActivity extends AppCompatActivity {
             Toast.makeText(this,"Nhập số địa chỉ!",Toast.LENGTH_SHORT).show();
             return;
         }
-        auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(RegistrationActivity.this,"Đăng ký thành công",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
-                }else {
-                    Toast.makeText(RegistrationActivity.this,"Đăng ký thất bại"+task.getException(),Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if(task.isSuccessful()){
+//                    Toast.makeText(RegistrationActivity.this,"Đăng ký thành công",Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
+//                }else {
+//                    Toast.makeText(RegistrationActivity.this,"Đăng ký thất bại"+task.getException(),Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
     }
     public void signIn(View view){

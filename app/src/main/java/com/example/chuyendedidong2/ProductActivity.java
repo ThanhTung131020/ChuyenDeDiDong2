@@ -5,6 +5,7 @@ import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -52,6 +53,12 @@ public class ProductActivity extends AppCompatActivity {
         tvMoTa.setText(des);
         tvTenCuaHang.setText(nameShop);
         ratingBar.setRating(Float.parseFloat(ratingbar));
+        btnAddCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProductActivity.this,Activity_Gio_hang.class));
+            }
+        });
     }
 
 

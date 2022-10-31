@@ -19,11 +19,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.chuyendedidong2.Adapter.ImageSliderAdapter;
+//import com.example.chuyendedidong2.Adapter.ImageSliderAdapter;
 import com.example.chuyendedidong2.Adapter.NewProductsAdapter;
 import com.example.chuyendedidong2.HomePageActivity;
 import com.example.chuyendedidong2.LoginActivity;
-import com.example.chuyendedidong2.Model.ImageSilder;
+//import com.example.chuyendedidong2.Model.ImageSilder;
 import com.example.chuyendedidong2.Model.NewProductModel;
 import com.example.chuyendedidong2.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -37,7 +37,7 @@ import me.relex.circleindicator.CircleIndicator;
 public class HomePageFragment extends Fragment {
     //img slider
     private ViewPager viewPager;
-    private ImageSliderAdapter imageSliderAdapter;
+    //private ImageSliderAdapter imageSliderAdapter;
     //new product
     ArrayList<NewProductModel> newProductModelList;
     private RecyclerView rvNewProduct;
@@ -67,17 +67,17 @@ public class HomePageFragment extends Fragment {
         setEvent();
         return view;
     }
-    private List<ImageSilder> getListImageSlider() {
-        List<ImageSilder> imageSilders = new ArrayList<>();
-        imageSilders.add(new ImageSilder(R.drawable.img));
-        imageSilders.add(new ImageSilder(R.drawable.img_1));
-        return imageSilders;
-    }
+//    private List<ImageSilder> getListImageSlider() {
+//        List<ImageSilder> imageSilders = new ArrayList<>();
+//        imageSilders.add(new ImageSilder(R.drawable.img));
+//        imageSilders.add(new ImageSilder(R.drawable.img_1));
+//        return imageSilders;
+//    }
 
     private void setEvent() {
         //image slider
-        imageSliderAdapter = new ImageSliderAdapter(getContext(),getListImageSlider());
-        viewPager.setAdapter(imageSliderAdapter);
+//        imageSliderAdapter = new ImageSliderAdapter(getContext(),getListImageSlider());
+//        viewPager.setAdapter(imageSliderAdapter);
         //newProductModelList = new ArrayList<>();
         rvNewProduct.setLayoutManager(new GridLayoutManager(getContext(),3));
         newProductModel = new NewProductModel();

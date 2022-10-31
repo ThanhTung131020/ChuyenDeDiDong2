@@ -10,4 +10,7 @@
     <color name="colorKhachHang">#9CB98E</color>
     <color name="colorButtonKhachHang">#C1B261</color>
     <color name="color_selected_bot_nav">#FF5722</color>
+    <color name="yellow">#D1C552</color>
+    <color name="backGround">#9CB98E</color>
+    <color name="CL_Button">#C1B261</color>
 </resources>

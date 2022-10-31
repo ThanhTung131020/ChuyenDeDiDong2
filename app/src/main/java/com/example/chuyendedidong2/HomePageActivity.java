@@ -16,9 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.chuyendedidong2.Adapter.ImageSliderAdapter;
+//import com.example.chuyendedidong2.Adapter.ImageSliderAdapter;
 import com.example.chuyendedidong2.Adapter.NewProductsAdapter;
-import com.example.chuyendedidong2.Model.ImageSilder;
+//import com.example.chuyendedidong2.Model.ImageSilder;
 import com.example.chuyendedidong2.Model.NewProductModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -34,7 +34,7 @@ import me.relex.circleindicator.CircleIndicator;
 public class HomePageActivity extends AppCompatActivity {
     //img slider
     private ViewPager viewPager;
-    private ImageSliderAdapter imageSliderAdapter;
+    //private ImageSliderAdapter imageSliderAdapter;
     //bottom navigation
     private BottomNavigationView bottomNavigationView;
     //spinner
@@ -45,21 +45,21 @@ public class HomePageActivity extends AppCompatActivity {
     private NewProductModel newProductModel;
     private NewProductsAdapter newProductsAdapter;
     //firebase
-    private FirebaseFirestore db;
+    //private FirebaseFirestore db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        db = FirebaseFirestore.getInstance();
+        //db = FirebaseFirestore.getInstance();
         setControl();
         setEvent();
 
     }
     private void setEvent() {
         //image slider
-        imageSliderAdapter = new ImageSliderAdapter(this,getListImageSlider());
-        viewPager.setAdapter(imageSliderAdapter);
+//        imageSliderAdapter = new ImageSliderAdapter(this,getListImageSlider());
+//        viewPager.setAdapter(imageSliderAdapter);
         //bottom navigation view
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -97,12 +97,12 @@ public class HomePageActivity extends AppCompatActivity {
         });
     }
 
-    private List<ImageSilder> getListImageSlider() {
-        List<ImageSilder> imageSilders = new ArrayList<>();
-        imageSilders.add(new ImageSilder(R.drawable.img));
-        imageSilders.add(new ImageSilder(R.drawable.img_1));
-        return imageSilders;
-    }
+//    private List<ImageSilder> getListImageSlider() {
+//        List<ImageSilder> imageSilders = new ArrayList<>();
+//        imageSilders.add(new ImageSilder(R.drawable.img));
+//        imageSilders.add(new ImageSilder(R.drawable.img_1));
+//        return imageSilders;
+//    }
 
     private void setControl() {
         spinner = findViewById(R.id.spTinKiem);

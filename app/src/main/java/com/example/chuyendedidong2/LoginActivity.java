@@ -20,13 +20,13 @@ public class LoginActivity extends AppCompatActivity {
     EditText email, password;
     Button btnDangNhap;
     Button btnDangKy;
-    FirebaseAuth auth;
+    //FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //getSupportActionBar().hide();
-        auth = FirebaseAuth.getInstance();
+        //auth = FirebaseAuth.getInstance();
         setControl();
         setEvent();
     }
@@ -71,18 +71,18 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this,"Mật khẩu lớn hơn 6 ký tự!",Toast.LENGTH_SHORT).show();
             return;
         }
-        auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(LoginActivity.this,"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                }else{
-                    Toast.makeText(LoginActivity.this,"Đăng nhập thất bại"+task.getException(),Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
+//        auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if(task.isSuccessful()){
+//                    Toast.makeText(LoginActivity.this,"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
+//                }else{
+//                    Toast.makeText(LoginActivity.this,"Đăng nhập thất bại"+task.getException(),Toast.LENGTH_SHORT).show();
+//                }
+//
+//            }
+//        });
 
     }
 }
