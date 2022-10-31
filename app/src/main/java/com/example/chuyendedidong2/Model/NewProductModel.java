@@ -8,7 +8,7 @@ public class NewProductModel implements Serializable {
     String name, desciption, nameShop;
     int price;
     float numStar;
-    String img_url;
+    String img_url,pic1,pic2,pic3;
 
     public NewProductModel(int soLuong, String name, String desciption, String nameShop, int price, float numStar, String img_url) {
         this.soLuong = soLuong;

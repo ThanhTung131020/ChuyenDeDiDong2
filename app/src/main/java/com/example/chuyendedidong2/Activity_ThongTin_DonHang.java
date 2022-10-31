@@ -17,7 +17,7 @@ import java.util.List;
 
 public class Activity_ThongTin_DonHang extends AppCompatActivity {
     private static List<NewProductModel> list = new ArrayList<>();
-    private NewProductModel newProductModel;
+    private NewProductModel newProductModel = new NewProductModel();
     private RecyclerView rcv_TTDH;
     private Adapter_thongtin_donhang adapter_thongtin_donhang;
 
