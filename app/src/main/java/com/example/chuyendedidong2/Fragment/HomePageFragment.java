@@ -18,6 +18,7 @@ import android.widget.Toast;
 //import com.example.chuyendedidong2.Adapter.ImageSliderAdapter;
 import com.example.chuyendedidong2.Adapter.ProductsAdapter;
 //import com.example.chuyendedidong2.Model.ImageSilder;
+import com.example.chuyendedidong2.Adapter.ProductsLoginAdapter;
 import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.R;
 
@@ -31,7 +32,7 @@ public class HomePageFragment extends Fragment {
     ArrayList<ProductModel> productModelList;
     private RecyclerView rvNewProduct;
     private ProductModel productModel;
-    private ProductsAdapter newProductsAdapter;
+    private ProductsLoginAdapter newProductsAdapter;
     //spinner
     private Spinner spinner;
     public HomePageFragment() {
@@ -70,7 +71,7 @@ public class HomePageFragment extends Fragment {
         //newProductModelList = new ArrayList<>();
         rvNewProduct.setLayoutManager(new GridLayoutManager(getContext(),3));
         productModel = new ProductModel();
-        newProductsAdapter = new ProductsAdapter(getContext(), productModel.createNewProduct());
+        newProductsAdapter = new ProductsLoginAdapter(getContext(), productModel.createNewProduct());
         rvNewProduct.setAdapter(newProductsAdapter);
         //spinner
         String[] spin = {"Mặc định","Theo giá cao đến thấp","Theo hãng"};
@@ -88,16 +89,5 @@ public class HomePageFragment extends Fragment {
 
             }
         });
-    }
-    public void createNewProduct(){
-        productModelList = new ArrayList<>();
-        productModelList.add(new ProductModel("latop",1000,5,"https://th.bing.com/th/id/OIP.IJzazGh2VeCw8let2ORy6gHaFj?pid=ImgDet&rs=1"));
-        productModelList.add(new ProductModel("phone",1000,5,""));
-        productModelList.add(new ProductModel("phone",1000,5,""));
-        productModelList.add(new ProductModel("phone",1000,5,""));
-        productModelList.add(new ProductModel("phone",1000,5,""));
-        productModelList.add(new ProductModel("phone",1000,5,""));
-        productModelList.add(new ProductModel("phone",1000,5,""));
-        productModelList.add(new ProductModel("phone",1000,5,""));
     }
 }

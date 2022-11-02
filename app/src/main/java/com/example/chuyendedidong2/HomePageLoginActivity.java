@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.chuyendedidong2.Fragment.CartFragment;
 import com.example.chuyendedidong2.Fragment.HomePageFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -38,8 +40,12 @@ public class HomePageLoginActivity extends AppCompatActivity {
                         replaceFrament(new HomePageFragment());
                         break;
                     case R.id.mnBill:
+                        startActivity(new Intent(HomePageLoginActivity.this,Activity_ThongTin_DonHang.class));
                         break;
                     case R.id.mnUser:
+                        break;
+                    case R.id.mnCart:
+                        replaceFrament(new CartFragment());
                         break;
                 }
                 return true;

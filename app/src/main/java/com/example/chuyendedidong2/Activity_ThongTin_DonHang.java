@@ -32,7 +32,7 @@ public class Activity_ThongTin_DonHang extends AppCompatActivity {
         adapter_thongtin_donhang = new Adapter_thongtin_donhang(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcv_TTDH.setLayoutManager(linearLayoutManager);
-        adapter_thongtin_donhang.setData(productModel.createNewProduct());
+        adapter_thongtin_donhang.setData(productModel.createProductCart());
         rcv_TTDH.setAdapter(adapter_thongtin_donhang);
 
 

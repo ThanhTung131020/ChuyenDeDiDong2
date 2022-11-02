@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.ProductActivity;
+import com.example.chuyendedidong2.ProductsLoginActivity;
 import com.example.chuyendedidong2.R;
 
 import java.util.ArrayList;
@@ -42,21 +43,10 @@ public class ProductsLoginAdapter extends RecyclerView.Adapter<ProductsLoginAdap
         holder.newRating.setRating(productModel.getNumStar());
         holder.newPrice.setText(String.valueOf(productModel.getPrice()));
 
-//        holder.itemView.setOnClickListener(view -> {
-//            Intent intent = new Intent(context,ProductActivity.class);
-//
-//            intent.putExtra("image",newProductModel.getImg_url());
-//            intent.putExtra("name",newProductModel.getName());
-//            intent.putExtra("price",String.valueOf(newProductModel.getPrice()));
-//            intent.putExtra("rating",String.valueOf(newProductModel.getNumStar()));
-//            intent.putExtra("des",newProductModel.getDesciption());
-//            intent.putExtra("nameShop",newProductModel.getNameShop());
-//            context.startActivity(intent);
-//        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ProductActivity.class);
+                Intent intent = new Intent(context, ProductsLoginActivity.class);
                 intent.putExtra("image", productModel.getImg_url());
                 intent.putExtra("name", productModel.getName());
                 intent.putExtra("price",String.valueOf(productModel.getPrice()));

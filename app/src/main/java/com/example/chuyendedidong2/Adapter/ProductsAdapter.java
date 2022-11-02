@@ -65,6 +65,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                 intent.putExtra("rating",String.valueOf(productModel.getNumStar()));
                 intent.putExtra("des", productModel.getDesciption());
                 intent.putExtra("nameShop", productModel.getNameShop());
+                intent.putExtra("sl", productModel.getSoLuong());
                 context.startActivity(intent);
             }
         });

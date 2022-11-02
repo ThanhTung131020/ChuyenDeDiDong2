@@ -8,7 +8,7 @@
     android:paddingRight="50dp"
     android:paddingLeft="50dp"
     android:background="@color/colorKhachHang"
-    tools:context=".ProductActivity">
+    tools:context=".ProductsLoginActivity">
 
     <Toolbar
         android:id="@+id/toolbar"

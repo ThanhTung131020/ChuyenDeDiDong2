@@ -15,11 +15,15 @@ import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.Adapter.ProductsAdapter;
+import com.example.chuyendedidong2.Fragment.CartFragment;
 import com.example.chuyendedidong2.Model.ProductModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 
-public class ProductActivity extends AppCompatActivity {
+public class ProductsLoginActivity extends AppCompatActivity {
     private ImageView imageView;
     private Toolbar toolbar;
     private RatingBar ratingBar;
@@ -28,26 +32,32 @@ public class ProductActivity extends AppCompatActivity {
     private ProductsAdapter newProductsAdapter;
     private LinearLayout linearLayout;
     private Button btnAddCart;
+    private ProductModel products;;
+    private ProductModel sanPham;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product);
+        setContentView(R.layout.activity_products_login);
+
         setControl();
-        ProductModel productModel = getIntent().getParcelableExtra("chitiet");
+       // final ProductModel[] productModel = {getIntent().getParcelableExtra("chitiet")};
 
         //setSupportActionBar(toolbar);
         //getSupportActionBar().setTitle("Sản phẩm");
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-       String name = intent.getStringExtra("name");
-       String image = intent.getStringExtra("image");
-       String price = intent.getStringExtra("price");
-       String ratingbar = intent.getStringExtra("rating");
-       String des = intent.getStringExtra("des");
-       String nameShop = intent.getStringExtra("nameShop");
-       //
+        String name = intent.getStringExtra("name");
+        String image = intent.getStringExtra("image");
+        String price = intent.getStringExtra("price");
+        String ratingbar = intent.getStringExtra("rating");
+        String des = intent.getStringExtra("des");
+        String nameShop = intent.getStringExtra("nameShop");
+        String soluong = intent.getStringExtra("sl");
+
+        //
         Glide.with(getApplicationContext()).load(image).into(imageView);
         tvTenSP.setText(name);
         tvGiaSP.setText(price);
@@ -57,13 +67,15 @@ public class ProductActivity extends AppCompatActivity {
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProductActivity.this, Activity_Gio_hang.class));
-                Toast.makeText(ProductActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
+
+                //startActivity(new Intent(ProductsLoginActivity.this, HomePageLoginActivity.class));
+                Toast.makeText(ProductsLoginActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
             }
         });
+//        sanPham = new ProductModel(Integer.parseInt(soluong),name,des,nameShop,Integer.parseInt(price),Float.parseFloat(ratingbar),image);
+//        Toast.makeText(ProductsLoginActivity.this, name , Toast.LENGTH_SHORT).show();
+//        products.createProductCart().add(sanPham);
     }
-
-
     private void setControl() {
         toolbar = findViewById(R.id.toolbar);
         btnAddCart = findViewById(R.id.btnAddCart);
