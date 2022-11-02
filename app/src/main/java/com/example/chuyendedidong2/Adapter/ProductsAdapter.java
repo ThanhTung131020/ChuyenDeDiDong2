@@ -24,7 +24,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
 
     private Context context;
     private ArrayList<ProductModel> list;
-    String img;
     public ProductsAdapter(Context context, ArrayList<ProductModel> list) {
         this.context = context;
         this.list = list;

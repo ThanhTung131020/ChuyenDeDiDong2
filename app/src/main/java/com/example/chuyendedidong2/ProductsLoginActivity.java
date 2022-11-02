@@ -32,8 +32,7 @@ public class ProductsLoginActivity extends AppCompatActivity {
     private ProductsAdapter newProductsAdapter;
     private LinearLayout linearLayout;
     private Button btnAddCart;
-    private ProductModel products;;
-    private ProductModel sanPham;
+    private ProductModel products;
 
 
     @Override
@@ -47,28 +46,38 @@ public class ProductsLoginActivity extends AppCompatActivity {
         //setSupportActionBar(toolbar);
         //getSupportActionBar().setTitle("Sản phẩm");
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
-        String image = intent.getStringExtra("image");
-        String price = intent.getStringExtra("price");
-        String ratingbar = intent.getStringExtra("rating");
-        String des = intent.getStringExtra("des");
-        String nameShop = intent.getStringExtra("nameShop");
-        String soluong = intent.getStringExtra("sl");
+        Bundle bundle = intent.getBundleExtra("sanpham");
+        String name = bundle.getString("name");
+        String image = bundle.getString("image");
+        int price = bundle.getInt("price");
+        float rating = bundle.getFloat("rating");
+        String des = bundle.getString("des");
+        String nameShop = bundle.getString("nameShop");
+        int soluong = bundle.getInt("sl");
+
+//        Intent intent = getIntent();
+//        String name = intent.getStringExtra("name");
+//        String image = intent.getStringExtra("image");
+//        String price = intent.getStringExtra("price");
+//        String ratingbar = intent.getStringExtra("rating");
+//        String des = intent.getStringExtra("des");
+//        String nameShop = intent.getStringExtra("nameShop");
+//        String soluong = intent.getStringExtra("sl");
 
         //
         Glide.with(getApplicationContext()).load(image).into(imageView);
         tvTenSP.setText(name);
-        tvGiaSP.setText(price);
+        tvGiaSP.setText(String.valueOf(price));
         tvMoTa.setText(des);
         tvTenCuaHang.setText(nameShop);
-        ratingBar.setRating(Float.parseFloat(ratingbar));
+        ratingBar.setRating(rating);
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //startActivity(new Intent(ProductsLoginActivity.this, HomePageLoginActivity.class));
+                products = new ProductModel();
+                products.createProductCart().add(new ProductModel(soluong,name,des,nameShop,price,rating,image));
+                startActivity(new Intent(ProductsLoginActivity.this, Activity_Gio_hang.class));
                 Toast.makeText(ProductsLoginActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
             }
         });

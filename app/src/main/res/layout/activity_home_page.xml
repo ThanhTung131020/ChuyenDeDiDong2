@@ -45,8 +45,8 @@
         android:layout_weight="4"
         android:layout_width="match_parent"
         android:layout_height="0dp">
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>
@@ -57,72 +57,11 @@
         android:layout_weight="3"
         android:layout_width="match_parent"
         android:layout_height="0dp">
-        <LinearLayout
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_width="0dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2">
-            <ImageButton
-                android:id="@+id/ivCategory1"
-                android:background="@drawable/radius_image"
-                android:src="@drawable/dienthoaivaphukien"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
-            <TextView
-                android:id="@+id/tvCategory1"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:layout_margin="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Điện thoại và phụ kiện"/>
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
-            <ImageButton
-                android:id="@+id/ivCategory2"
-                android:background="@drawable/radius_image"
-                android:src="@drawable/laptopvapc"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
-            <TextView
-                android:id="@+id/tvCategory2"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:layout_margin="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Laptop và PC"/>
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
-            <ImageButton
-                android:id="@+id/ivCategory3"
-                android:background="@drawable/radius_image"
-                android:src="@drawable/thietbidientu"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
-            <TextView
-                android:id="@+id/tvCategory3"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:gravity="center"
-                android:layout_margin="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Thiết bị điện tử"/>
-        </LinearLayout>
+            android:id="@+id/rv_category"
+            />
 
     </LinearLayout>
     <LinearLayout
