@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+android:background="@color/backgroud_cuahang"
+    tools:context=".Fragment.ThontincuahangFragment">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CỬA HÀNG CỦA BẠN"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="50dp"
+        android:textStyle="bold"
+        />
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Tên cửa hàng:"
+            android:textColor="@color/black"
+            android:textSize="17sp"/>
+        <EditText
+            android:id="@+id/edtTen_PF"
+            android:layout_width="0dp"
+            android:text="Điện máy xanh"
+            android:layout_height="match_parent"
+            android:layout_weight="5"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Địa chỉ: "
+            android:textColor="@color/black"
+            android:textSize="17sp"/>
+        <EditText
+            android:id="@+id/edtSDT_PF"
+            android:layout_width="0dp"
+            android:text="103 Đường số 2 Linh Xuân Thủ Đức"
+            android:layout_height="match_parent"
+            android:layout_weight="5"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Số sản phẩm đã bán: "
+            android:textColor="@color/black"
+            android:textSize="17sp"/>
+        <EditText
+            android:id="@+id/edtDiaChi_PF"
+            android:layout_width="0dp"
+            android:text="579"
+            android:layout_height="match_parent"
+            android:layout_weight="5"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Số sản phẩm đang có: "
+            android:textColor="@color/black"
+            android:textSize="17sp"/>
+        <EditText
+            android:id="@+id/edtEmail_PF"
+            android:layout_width="0dp"
+            android:text="189"
+            android:layout_height="match_parent"
+            android:layout_weight="5"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Mã số thuế: "
+            android:textColor="@color/black"
+            android:textSize="15sp"/>
+        <EditText
+            android:id="@+id/edtMatKhau_PF"
+            android:layout_width="0dp"
+            android:text="34567876GR467H"
+            android:layout_height="match_parent"
+            android:layout_weight="5"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnDangXuat_store"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_khachhang"
+            android:text="Đăng xuất"
+            />
+        <Button
+            android:id="@+id/btnSua_store"
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_khachhang"
+            android:text="Sửa"/>
+    </LinearLayout>
+</LinearLayout>
