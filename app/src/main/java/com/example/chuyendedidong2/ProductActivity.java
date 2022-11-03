@@ -57,8 +57,7 @@ public class ProductActivity extends AppCompatActivity {
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProductActivity.this, Activity_Gio_hang.class));
-                Toast.makeText(ProductActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductActivity.this, "Bạn phải đăng nhập!", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -5,12 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingRight="50dp"
-    android:paddingLeft="50dp"
     android:background="@color/colorKhachHang"
     tools:context=".ProductsLoginActivity">
 
     <Toolbar
+        android:backgroundTint="@color/white"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,6 +36,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp" />
     <LinearLayout
+        android:paddingRight="50dp"
+        android:paddingLeft="50dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"

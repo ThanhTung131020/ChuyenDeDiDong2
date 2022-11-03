@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.example.chuyendedidong2.Fragment.CartFragment;
 import com.example.chuyendedidong2.Fragment.HomePageFragment;
+import com.example.chuyendedidong2.Fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -43,6 +44,7 @@ public class HomePageLoginActivity extends AppCompatActivity {
                         startActivity(new Intent(HomePageLoginActivity.this,Activity_ThongTin_DonHang.class));
                         break;
                     case R.id.mnUser:
+                        replaceFrament(new ProfileFragment());
                         break;
                     case R.id.mnCart:
                         replaceFrament(new CartFragment());
