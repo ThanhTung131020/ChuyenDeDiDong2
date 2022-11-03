@@ -16,8 +16,8 @@
         android:layout_height="0dp">
         <ImageButton
             android:id="@+id/imgBt_back_to_home"
-            android:backgroundTint="@color/black"
-            android:src="@drawable/button_back"
+            android:backgroundTint="@color/purple_700"
+            android:src="@drawable/btn_back"
             android:layout_width="40dp"
             android:layout_height="40dp"/>
         <TextView
@@ -30,7 +30,7 @@
             android:layout_height="match_parent"/>
     </LinearLayout>
     <LinearLayout
-        android:layout_weight="11"
+        android:layout_weight="9"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         >
@@ -38,7 +38,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_TTDH"
             android:layout_width="match_parent"
-            android:layout_height="588dp" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
     <LinearLayout
@@ -53,6 +53,30 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-</LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <Button
+            android:id="@+id/btnQLSP"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="2"
+            android:text="Quản lý sản phẩm"
+            android:textAlignment="center"
+            android:textSize="18dp"/>
+        <Button
+            android:id="@+id/btnXoa"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:text="Xóa"
+            android:textSize="18dp"/>
+    </LinearLayout>
 
 </LinearLayout>
