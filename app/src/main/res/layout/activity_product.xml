@@ -8,14 +8,7 @@
     android:background="@color/colorKhachHang"
     tools:context=".ProductActivity">
 
-    <Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        />
+
     <ImageView
         android:id="@+id/ivProduct"
         android:layout_gravity="center"
