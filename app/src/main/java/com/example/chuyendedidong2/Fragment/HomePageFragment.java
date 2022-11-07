@@ -3,6 +3,7 @@ package com.example.chuyendedidong2.Fragment;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -48,6 +49,8 @@ public class HomePageFragment extends Fragment {
     private ProductsLoginAdapter newProductsAdapter;
     //spinner
     private Spinner spinner;
+    private SearchView searchView;
+    private ProductsAdapter productsAdapter;
     public HomePageFragment() {
     }
 
@@ -66,6 +69,22 @@ public class HomePageFragment extends Fragment {
         rv_imgSlider = view.findViewById(R.id.rv_viewPager_login);
         spinner = view.findViewById(R.id.spTinKiem);
         rvCat = view.findViewById(R.id.rv_category_login);
+        searchView = view.findViewById(R.id.search_view_data);
+        //filter searchView
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                newProductsAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                newProductsAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
         setEvent();
         return view;
     }
@@ -103,6 +122,7 @@ public class HomePageFragment extends Fragment {
 
             }
         });
+
     }
     public void creatCategoryList(){
         categoryModelList = new ArrayList<>();

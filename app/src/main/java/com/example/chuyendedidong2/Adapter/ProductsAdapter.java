@@ -30,16 +30,17 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     private Context context;
     private ArrayList<ProductModel> list;
     private ArrayList<ProductModel> listOld;
+
     public ProductsAdapter(Context context, ArrayList<ProductModel> list) {
         this.context = context;
         this.list = list;
-        this.listOld  = list;
+        this.listOld = list;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.new_product_item_layout,parent,false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.new_product_item_layout, parent, false));
     }
 
     @Override
@@ -64,11 +65,11 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context,ProductActivity.class);
+                Intent intent = new Intent(context, ProductActivity.class);
                 intent.putExtra("image", productModel.getImg_url());
                 intent.putExtra("name", productModel.getName());
-                intent.putExtra("price",String.valueOf(productModel.getPrice()));
-                intent.putExtra("rating",String.valueOf(productModel.getNumStar()));
+                intent.putExtra("price", String.valueOf(productModel.getPrice()));
+                intent.putExtra("rating", String.valueOf(productModel.getNumStar()));
                 intent.putExtra("des", productModel.getDesciption());
                 intent.putExtra("nameShop", productModel.getNameShop());
                 intent.putExtra("sl", productModel.getSoLuong());
@@ -89,33 +90,71 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String str = charSequence.toString();
-                if(str.isEmpty()){
-                    list = listOld;
-                }
-                else {
-                   List<ProductModel> pro = new ArrayList<>();
-                    for (ProductModel item : pro){
-                        if(item.getName().toLowerCase().contains(str.toLowerCase())){
+                if (str.isEmpty()) {
+                    list =  listOld;
+                } else {
+                    List<ProductModel> pro = new ArrayList<>();
+                    for (ProductModel item : listOld) {
+                        if (item.getName().contains(str)) {
                             pro.add(item);
                         }
 
                     }
+                    list = (ArrayList<ProductModel>) pro;
                 }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = list;
 
-                return null;
+
+                return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                list = (ArrayList<ProductModel>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
+    }
+    public Filter getFilterPhone() {
 
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String str = charSequence.toString();
+                if (str.isEmpty()) {
+                    list =  listOld;
+                } else {
+                    List<ProductModel> pro = new ArrayList<>();
+                    for (ProductModel item : listOld) {
+                        if (item.getName().contains(str)) {
+                            pro.add(item);
+                        }
+
+                    }
+                    list = (ArrayList<ProductModel>) pro;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = list;
+
+
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                list = (ArrayList<ProductModel>) filterResults.values;
+                notifyDataSetChanged();
             }
         };
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView newName, newPrice;
         RatingBar newRating;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.ivNewProduct);
