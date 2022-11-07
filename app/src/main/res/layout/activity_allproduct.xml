@@ -27,7 +27,7 @@
             android:textAlignment="center"
             android:text="Tất cả sản phẩm"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"/>
     </LinearLayout>
     <LinearLayout
         android:layout_weight="9"
@@ -36,7 +36,7 @@
         >
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_TTDH"
+            android:id="@+id/rcv_TTSP"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
