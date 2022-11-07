@@ -14,5 +14,7 @@
     <color name="backGround">#9CB98E</color>
     <color name="CL_Button">#C1B261</color>
     <color name="backgroud_cuahang">#FFFDC8</color>
+    <color name="colorBotNavCuaHang">#4697D1</color>
+    <color name="donhang_dagiao">#4BAC8F</color>
 
 </resources>
