@@ -42,7 +42,7 @@
                 android:text="Đã bán: 12" />
         </LinearLayout>
         <CheckBox
-            android:id="@+id/chbSanPham "
+            android:id="@+id/chbSanPham"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
