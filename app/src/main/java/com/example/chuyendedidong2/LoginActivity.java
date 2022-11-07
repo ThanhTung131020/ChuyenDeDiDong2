@@ -31,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
     RadioGroup rdo;
     FirebaseAuth auth;
     FirebaseDatabase database;
-    DiaLogLoanding diaLogLoanding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
         //getSupportActionBar().hide();
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        diaLogLoanding = new DiaLogLoanding(this);
         setControl();
         setEvent();
     }
@@ -64,7 +62,6 @@ public class LoginActivity extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                diaLogLoanding.ShowDiaLog("Đang đăng nhập... ");
                 signIn(view);
             }
         });
@@ -78,16 +75,13 @@ public class LoginActivity extends AppCompatActivity {
         String email = this.email.getText().toString();
         String password = this.password.getText().toString();
         if (TextUtils.isEmpty(email)){
-            diaLogLoanding.HideDialog();
-            this.email.setError("Nhập email!");
+            Toast.makeText(this,"Nhập email!",Toast.LENGTH_SHORT).show();
             return;
         }else if(TextUtils.isEmpty(password)){
-            diaLogLoanding.HideDialog();
-            this.password.setError("Nhập mật khẩu!");
+            Toast.makeText(this,"Nhập mật khẩu!",Toast.LENGTH_SHORT).show();
             return;
         }else if(password.length() < 6){
-            diaLogLoanding.HideDialog();
-            this.password.setError("Mật khẩu lớn hơn 6 ký tự!");
+            Toast.makeText(this,"Mật khẩu lớn hơn 6 ký tự!",Toast.LENGTH_SHORT).show();
             return;
         }
         auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -100,12 +94,10 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (snapshot.hasChild(auth.getUid())){
-                                    diaLogLoanding.HideDialog();
                                     Intent intent = new Intent(LoginActivity.this,HomePageLoginActivity.class);
                                     Toast.makeText(LoginActivity.this,"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
                                     startActivity(intent);
                                 }else {
-                                    diaLogLoanding.HideDialog();
                                     Toast.makeText(LoginActivity.this,"Đăng nhập thất bại",Toast.LENGTH_SHORT).show();
                                     return;
                                 }
@@ -121,11 +113,9 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (snapshot.hasChild(auth.getUid())){
-                                    diaLogLoanding.HideDialog();
                                     Toast.makeText(LoginActivity.this,"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(LoginActivity.this,HomePageCuaHangActivity.class));
                                 }else {
-                                    diaLogLoanding.HideDialog();
                                     Toast.makeText(LoginActivity.this,"Đăng nhập thất bại",Toast.LENGTH_SHORT).show();
                                     return;
                                 }
@@ -136,29 +126,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
                     }
-                }else if (rdbShipper.isChecked()) {
-                    DatabaseReference rootCaNhan = database.getReference("shipper");
-                    rootCaNhan.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.hasChild(auth.getUid())) {
-                                diaLogLoanding.HideDialog();
-                                Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(LoginActivity.this, TrangChuShipperActivity.class));
-                            } else {
-                                diaLogLoanding.HideDialog();
-                                Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
-                                return;
-                            }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                }
-                else{
-                    diaLogLoanding.HideDialog();
+                }else{
                     Toast.makeText(LoginActivity.this,"Đăng nhập thất bại"+task.getException(),Toast.LENGTH_SHORT).show();
                 }
 
