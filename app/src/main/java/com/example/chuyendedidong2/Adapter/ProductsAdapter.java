@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -17,16 +19,21 @@ import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.ProductActivity;
 import com.example.chuyendedidong2.R;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 
-public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder> {
+public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder> implements Filterable {
 
     private Context context;
     private ArrayList<ProductModel> list;
+    private ArrayList<ProductModel> listOld;
     public ProductsAdapter(Context context, ArrayList<ProductModel> list) {
         this.context = context;
         this.list = list;
+        this.listOld  = list;
     }
 
     @NonNull
@@ -73,6 +80,36 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String str = charSequence.toString();
+                if(str.isEmpty()){
+                    list = listOld;
+                }
+                else {
+                   List<ProductModel> pro = new ArrayList<>();
+                    for (ProductModel item : pro){
+                        if(item.getName().toLowerCase().contains(str.toLowerCase())){
+                            pro.add(item);
+                        }
+
+                    }
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+
+            }
+        };
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

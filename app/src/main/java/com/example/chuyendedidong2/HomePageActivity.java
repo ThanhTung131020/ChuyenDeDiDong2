@@ -2,6 +2,7 @@ package com.example.chuyendedidong2;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,6 +54,7 @@ public class HomePageActivity extends AppCompatActivity {
     private CategoryModel categoryModel;
     private RecyclerView rvCat;
     private CategoryAdapter categoryAdapter;
+    private SearchView search;
     //firebase
     //private FirebaseFirestore db;
     @Override
@@ -71,6 +73,13 @@ public class HomePageActivity extends AppCompatActivity {
         rv_imgSlider.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         imageSliderAdapter = new ImageSliderAdapter(this,imageSliders);
         rv_imgSlider.setAdapter(imageSliderAdapter);
+
+
+        //searchView
+        search = findViewById(R.id.search_view_data);
+
+
+        //
         //bottom navigation view
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -86,6 +95,7 @@ public class HomePageActivity extends AppCompatActivity {
             }
         });
         //category
+
         creatCategoryList();
         rvCat.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         categoryAdapter = new CategoryAdapter(this,categoryModelList);
@@ -95,6 +105,9 @@ public class HomePageActivity extends AppCompatActivity {
         productModel = new ProductModel();
         newProductsAdapter = new ProductsAdapter(this, productModel.createNewProduct());
         rvNewProduct.setAdapter(newProductsAdapter);
+
+
+
         //spinner
         String[] spin = {"Mặc định","Theo giá cao đến thấp","Theo hãng"};
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,spin);
@@ -111,7 +124,10 @@ public class HomePageActivity extends AppCompatActivity {
 
             }
         });
+
     }
+
+
 
 //    private List<ImageSilder> getListImageSlider() {
 //        List<ImageSilder> imageSilders = new ArrayList<>();
@@ -126,6 +142,7 @@ public class HomePageActivity extends AppCompatActivity {
         rvCat = findViewById(R.id.rv_category);
         bottomNavigationView = findViewById(R.id.botNavKhachHang);
         rv_imgSlider = findViewById(R.id.rv_viewPager);
+
     }
     public void creatCategoryList(){
         categoryModelList = new ArrayList<>();

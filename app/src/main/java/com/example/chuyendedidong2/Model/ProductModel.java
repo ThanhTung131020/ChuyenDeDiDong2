@@ -1,8 +1,9 @@
 package com.example.chuyendedidong2.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ProductModel {
+public class ProductModel implements Serializable {
     String productID;
     String img_url;
     float numStar;
@@ -13,6 +14,14 @@ public class ProductModel {
     String type;
     String pic1,pic2,pic3;
     private boolean isAddToCart;
+
+    public ProductModel(String img_url, String name, int price, int soLuong, String nameShop) {
+        this.img_url = img_url;
+        this.name = name;
+        this.price = price;
+        this.soLuong = soLuong;
+        this.nameShop = nameShop;
+    }
 
     public ProductModel(String productID, String img_url, float numStar, String name, int price, int soLuong, String desciption, String nameShop, String type, String pic1, String pic2, String pic3) {
         this.productID = productID;

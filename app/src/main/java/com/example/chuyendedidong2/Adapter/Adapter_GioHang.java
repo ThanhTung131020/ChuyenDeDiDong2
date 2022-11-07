@@ -2,6 +2,8 @@ package com.example.chuyendedidong2.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.Activity_Gio_hang;
+import com.example.chuyendedidong2.Activity_ThongTin_DonHang;
 import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.R;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +57,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
     public void onBindViewHolder(@NonNull GioHangViewHolder holder, @SuppressLint("RecyclerView") int position) {
         ProductModel gioHang = mListGioHang.get(position);
 
+
         if (gioHang == null) {
             return;
         }
@@ -72,6 +77,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
             holder.btn_tangSL.setVisibility(View.VISIBLE);
             holder.btn_giamSL.setVisibility(View.VISIBLE);
         }
+
         holder.btn_tangSL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,6 +132,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
 
             }
         });
+
         holder.btn_xoaItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,7 +149,11 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
         _tensp = strtenSP;
         _soLuong = iSoLuong;
 
-
+        Intent intent = new Intent(mContext , Activity_ThongTin_DonHang.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_products" , gioHang);
+        intent.putExtras(bundle);
+        mContext.startActivity(intent);
 
 
     }

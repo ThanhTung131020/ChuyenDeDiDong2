@@ -32,23 +32,22 @@ public class Activity_ThongTin_DonHang extends AppCompatActivity {
         adapter_thongtin_donhang = new Adapter_thongtin_donhang(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcv_TTDH.setLayoutManager(linearLayoutManager);
-        adapter_thongtin_donhang.setData(productModel.createProductCart());
+        adapter_thongtin_donhang.setData(getListGH());
         rcv_TTDH.setAdapter(adapter_thongtin_donhang);
+
 
 
     }
 
 
 
-//    private List<GioHang> getListGH() {
-//
-//
-//        list.add(new GioHang(1, 1000, R.drawable.img, "ch1", "iphone 11"));
-//        list.add(new GioHang(1, 1000, R.drawable.img, "ch1", "iphone 11"));
-//        list.add(new GioHang(1, 1000, R.drawable.img, "ch1", "iphone 11"));
-//        list.add(new GioHang(1, 1000, R.drawable.img, "ch1", "iphone 11"));
-//
-//        return list;
-//    }
+    private List<ProductModel> getListGH() {
+        Bundle bundle = getIntent().getExtras();
+        ProductModel prd = (ProductModel) bundle.get("object_products");
+        list.add(new ProductModel(prd.getImg_url() , prd.getName() , prd.getPrice() , prd.getSoLuong(),prd.getNameShop()));
+        return list;
+
+
+    }
 
 }
