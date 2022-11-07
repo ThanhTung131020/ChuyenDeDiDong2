@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="6dp"
+    android:layout_marginRight="6dp"
+    android:layout_marginBottom="3dp"
+
+    android:backgroundTint="@color/backGround"
+    app:cardCornerRadius="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="2">
+
+            <ImageView
+                android:id="@+id/img_SPGioHang"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:adjustViewBounds="true"
+                android:padding="5dp"
+                android:src="@drawable/img" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:weightSum="3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/tv_tenSP"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="tensp"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/tv_giaSP"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                android:text="giasp"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/tv_tenCH"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="15dp"
+                android:text="tench"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="right"
+            android:orientation="vertical">
+
+            <ImageButton
+
+                android:id="@+id/btn_xoaItem"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:src="@drawable/ic_baseline_cancel_24"
+                android:textAlignment="center"
+                android:textSize="11sp" />
+
+            <LinearLayout
+
+                android:layout_marginTop="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                >
+
+                <ImageButton
+
+                    android:id="@+id/btn_giamSL"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:background="@null"
+                    android:focusable="true"
+
+                    android:src="@drawable/ic_baseline_remove_circle_outline_24"
+
+                   />
+
+                <TextView
+                    android:id="@+id/tv_soLuong"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:background="@null"
+                    android:backgroundTint="#958989"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+
+                <ImageButton
+
+                    android:id="@+id/btn_tangSL"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:src="@drawable/ic_baseline_control_point_24"
+                    android:textColor="@color/black"
+                     />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
