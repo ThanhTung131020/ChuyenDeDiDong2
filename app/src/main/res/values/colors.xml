@@ -14,5 +14,9 @@
     <color name="backGround">#9CB98E</color>
     <color name="CL_Button">#C1B261</color>
     <color name="backgroud_cuahang">#FFFDC8</color>
+    <color name="backgroud_shipper">#FACCAB</color>
+    <color name="btn_blue">#4697D1</color>
+
+
 
 </resources>
