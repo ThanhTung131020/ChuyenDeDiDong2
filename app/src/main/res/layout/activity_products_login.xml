@@ -95,7 +95,7 @@
                 android:id="@+id/tvMoTa"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Cháº¥t liá»‡u khung nhÃ´m vÃ  máº·t lÆ°ng kÃ­nh cÆ°á»ng lá»±c, KÃ­ch thÆ°á»›c, khá»‘i lÆ°á»£ng 150g"
+                android:text="test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test "
                 android:textColor="@color/black">
             </TextView>
         </LinearLayout>
