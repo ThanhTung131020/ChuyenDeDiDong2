@@ -142,6 +142,7 @@ public class RegistrationActivity extends AppCompatActivity {
         root.child(pathID).setValue(shipper, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                diaLogLoanding.HideDialog();
                 Toast.makeText(RegistrationActivity.this,"Đăng ký thành công",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
                 finish();
