@@ -4,10 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -16,9 +19,10 @@ import com.example.chuyendedidong2.R;
 
 import java.util.ArrayList;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>  {
     private Context context;
     private ArrayList<CategoryModel> list;
+
 
     public CategoryAdapter(Context context, ArrayList<CategoryModel> list) {
         this.context = context;
@@ -37,6 +41,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         CategoryModel categoryModel = list.get(position);
         Glide.with(context).load(categoryModel.getCatImg()).into(holder.img_cat);
         holder.tvCat.setText(categoryModel.getCatName());
+        holder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 
     @Override
@@ -47,13 +58,19 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         return list.size();
     }
 
+
+
+
     public class CategoryViewHolder extends RecyclerView.ViewHolder{
         ImageView img_cat;
         TextView tvCat;
+        CardView item;
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             img_cat = itemView.findViewById(R.id.iv_cat);
             tvCat = itemView.findViewById(R.id.tv_cat);
+            item = itemView.findViewById(R.id.layout_item_category);
+
         }
     }
 }

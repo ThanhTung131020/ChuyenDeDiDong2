@@ -88,28 +88,36 @@ public class RegistrationActivity extends AppCompatActivity {
         String diachi = this.diachi.getText().toString();
 
         if (TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Nhập email!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.email.setError("Nhập email!");
             return;
         }else if(TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Nhập mật khẩu!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.password.setError("Nhập password!");
             return;
         }else if(TextUtils.isEmpty(cpassword)){
-            Toast.makeText(this,"Nhập mật khẩu!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.cpassword.setError("Nhập lại password!");
             return;
         }else if(password.length() < 6){
-            Toast.makeText(this,"Mật khẩu lớn hơn 6 ký tự!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.password.setError("Password không dưới 6 ký tự!");
             return;
         }else if(!password.equals(cpassword)){
-            Toast.makeText(this,"Nhập lại mật khẩu không giống nhau!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.cpassword.setError("Password không giống nhau!");
             return;
         }else if(TextUtils.isEmpty(sdt)){
-            Toast.makeText(this,"Nhập số điện thoại!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.sdt.setError("Nhập SĐT!");
             return;
         }else if(TextUtils.isEmpty(hoten)){
-            Toast.makeText(this,"Nhập họ tên!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.hoten.setError("Nhập Họ Tên!");
             return;
         }else if(TextUtils.isEmpty(diachi)){
-            Toast.makeText(this,"Nhập địa chỉ!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.diachi.setError("Nhập địa chỉ!");
             return;
         }
 
