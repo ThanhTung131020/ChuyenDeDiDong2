@@ -44,7 +44,7 @@
         android:background="@drawable/edit_text_gb"
         android:ems="10"
         android:hint="Địa chỉ"
-        android:inputType="text"
+        android:inputType="textPersonName"
         android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
@@ -60,7 +60,7 @@
         android:background="@drawable/edit_text_gb"
         android:ems="10"
         android:hint="Họ tên"
-        android:inputType="text"
+        android:inputType="textPersonName"
         android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -69,7 +69,6 @@
         app:layout_constraintWidth_percent=".8" />
 
     <EditText
-
         android:id="@+id/edtMatKhau"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -107,7 +106,7 @@
         android:background="@drawable/edit_text_gb"
         android:ems="10"
         android:hint="Số điện thoại"
-        android:inputType="phone"
+        android:inputType="text|phone"
         android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +114,6 @@
         app:layout_constraintWidth_percent=".8" />
 
     <RadioGroup
-
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="50dp"
