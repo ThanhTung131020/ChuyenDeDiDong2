@@ -33,6 +33,7 @@ public class RegistrationActivity extends AppCompatActivity {
     Personal personal;
     Shop shop;
     Shipper shipper;
+    DiaLogLoanding diaLogLoanding;
     private FirebaseAuth auth;
     private FirebaseDatabase database;
 
@@ -45,6 +46,7 @@ public class RegistrationActivity extends AppCompatActivity {
         //getSupportActionBar().hide();
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+        diaLogLoanding = new DiaLogLoanding(this);
 
         //anh xa view
         setControl();
@@ -71,6 +73,7 @@ public class RegistrationActivity extends AppCompatActivity {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                diaLogLoanding.ShowDiaLog("Đang tạo tài khoản...");
                 signUp(view);
             }
         });
@@ -125,6 +128,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         addShipperOnDataBase(shipper);
                     }
                 }else {
+                    diaLogLoanding.HideDialog();
                     Toast.makeText(RegistrationActivity.this,"Đăng ký thất bại"+task.getException(),Toast.LENGTH_SHORT).show();
                 }
             }
@@ -151,6 +155,7 @@ public class RegistrationActivity extends AppCompatActivity {
         root.child(pathID).setValue(shop, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                diaLogLoanding.HideDialog();
                 Toast.makeText(RegistrationActivity.this,"Đăng ký thành công",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
                 finish();
@@ -163,6 +168,7 @@ public class RegistrationActivity extends AppCompatActivity {
         root.child(pathID).setValue(personal, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                diaLogLoanding.HideDialog();
                 Toast.makeText(RegistrationActivity.this,"Đăng ký thành công",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
                 finish();
