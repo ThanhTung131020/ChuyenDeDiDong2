@@ -28,6 +28,7 @@ import com.example.chuyendedidong2.Model.CategoryModel;
 import com.example.chuyendedidong2.Model.ImageSlider;
 import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.R;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -42,7 +43,7 @@ public class HomePageFragment extends Fragment {
     private CategoryModel categoryModel;
     private RecyclerView rvCat;
     private CategoryAdapter categoryAdapter;
-    //new product
+    //product
     ArrayList<ProductModel> productModelList;
     private RecyclerView rvNewProduct;
     private ProductModel productModel;
@@ -51,6 +52,8 @@ public class HomePageFragment extends Fragment {
     private Spinner spinner;
     private SearchView searchView;
     private ProductsAdapter productsAdapter;
+    //firebase database
+    private FirebaseDatabase database;
     public HomePageFragment() {
     }
 
@@ -65,6 +68,7 @@ public class HomePageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
+        database = FirebaseDatabase.getInstance();
         rvNewProduct = view.findViewById(R.id.rvProducts);
         rv_imgSlider = view.findViewById(R.id.rv_viewPager_login);
         spinner = view.findViewById(R.id.spTinKiem);
@@ -102,6 +106,7 @@ public class HomePageFragment extends Fragment {
         categoryAdapter = new CategoryAdapter(getContext(),categoryModelList);
         rvCat.setAdapter(categoryAdapter);
         //product
+        productModelList = new ArrayList<>();
         rvNewProduct.setLayoutManager(new GridLayoutManager(getContext(),3));
         productModel = new ProductModel();
         newProductsAdapter = new ProductsLoginAdapter(getContext(), productModel.createNewProduct());
@@ -124,6 +129,7 @@ public class HomePageFragment extends Fragment {
         });
 
     }
+
     public void creatCategoryList(){
         categoryModelList = new ArrayList<>();
         categoryModelList.add(new CategoryModel("cat001","https://firebasestorage.googleapis.com/v0/b/chuyendedidong2-4ba31.appspot.com/o/Ellipse%2015%20(1).png?alt=media&token=f9fd9685-3073-46cd-9abe-e525a167d021","Máy tính"));

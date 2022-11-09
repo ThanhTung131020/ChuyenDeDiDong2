@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import com.example.chuyendedidong2.Fragment.CartFragment;
 import com.example.chuyendedidong2.Fragment.HomePageFragment;
 import com.example.chuyendedidong2.Fragment.ProfileFragment;
+import com.example.chuyendedidong2.Fragment.SanPhamCuaHangFragment;
 import com.example.chuyendedidong2.Fragment.ThontincuahangFragment;
 import com.example.chuyendedidong2.Fragment.TrangChuCuaHangFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -39,7 +40,7 @@ public class HomePageCuaHangActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.mnSanPhamCuaHang:
-                        //replaceFrament(new HomePageFragment());
+                        replaceFrament(new SanPhamCuaHangFragment());
                         break;
                     case R.id.mnThongTinCuaHang:
                         replaceFrament(new ThontincuahangFragment());

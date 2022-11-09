@@ -30,6 +30,11 @@ import com.example.chuyendedidong2.Model.ImageSlider;
 import com.example.chuyendedidong2.Model.ProductModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -41,7 +46,6 @@ public class HomePageActivity extends AppCompatActivity {
     private RecyclerView rv_imgSlider;
     private ImageSlider imageSlider;
     private ImageSliderAdapter imageSliderAdapter;
-    //private ImageSliderAdapter imageSliderAdapter;
     //bottom navigation
     private BottomNavigationView bottomNavigationView;
     //spinner
@@ -57,13 +61,13 @@ public class HomePageActivity extends AppCompatActivity {
     private RecyclerView rvCat;
     private CategoryAdapter categoryAdapter;
     //firebase
-    //private FirebaseFirestore db;
+    private FirebaseDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        //db = FirebaseFirestore.getInstance();
+        database = FirebaseDatabase.getInstance();
         setControl();
         setEvent();
 
@@ -89,14 +93,17 @@ public class HomePageActivity extends AppCompatActivity {
             }
         });
         //category
-        creatCategoryList();
+        categoryModelList = new ArrayList<>();
+        getCategoryFromDataBase();
         rvCat.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         categoryAdapter = new CategoryAdapter(this,categoryModelList);
         rvCat.setAdapter(categoryAdapter);
-        //newProductModelList = new ArrayList<>();
+        //product
+        productModelList = new ArrayList<>();
+        getProductFromDataBase();
         rvNewProduct.setLayoutManager(new GridLayoutManager(this,3));
         productModel = new ProductModel();
-        newProductsAdapter = new ProductsAdapter(this, productModel.createNewProduct());
+        newProductsAdapter = new ProductsAdapter(this, productModelList);
         rvNewProduct.setAdapter(newProductsAdapter);
         //spinner
         String[] spin = {"Mặc định","Theo giá cao đến thấp","Theo hãng"};
@@ -116,13 +123,6 @@ public class HomePageActivity extends AppCompatActivity {
         });
     }
 
-//    private List<ImageSilder> getListImageSlider() {
-//        List<ImageSilder> imageSilders = new ArrayList<>();
-//        imageSilders.add(new ImageSilder(R.drawable.img));
-//        imageSilders.add(new ImageSilder(R.drawable.img_1));
-//        return imageSilders;
-//    }
-
     private void setControl() {
         spinner = findViewById(R.id.spTinKiem);
         rvNewProduct = findViewById(R.id.rvProducts);
@@ -130,11 +130,48 @@ public class HomePageActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.botNavKhachHang);
         rv_imgSlider = findViewById(R.id.rv_viewPager);
     }
-    public void creatCategoryList(){
-        categoryModelList = new ArrayList<>();
-        categoryModelList.add(new CategoryModel("cat001","https://firebasestorage.googleapis.com/v0/b/chuyendedidong2-4ba31.appspot.com/o/Ellipse%2015%20(1).png?alt=media&token=f9fd9685-3073-46cd-9abe-e525a167d021","Máy tính"));
-        categoryModelList.add(new CategoryModel("cat002","https://firebasestorage.googleapis.com/v0/b/chuyendedidong2-4ba31.appspot.com/o/Ellipse%2014.png?alt=media&token=62bd7504-42a9-4a37-ab75-81b2745d7680","Laptop"));
-        categoryModelList.add(new CategoryModel("cat003","https://firebasestorage.googleapis.com/v0/b/chuyendedidong2-4ba31.appspot.com/o/Ellipse%2013%20(1).png?alt=media&token=dcbc49ac-9027-4c1d-bcf4-adbee15c45aa","Điện thoại"));
+    public void getCategoryFromDataBase(){
+        DatabaseReference root = database.getReference("category");
+        root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (categoryModelList != null){
+                    categoryModelList.clear();
+                }
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    CategoryModel category = dataSnapshot.getValue(CategoryModel.class);
+                    categoryModelList.add(category);
+                }
+                categoryAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void getProductFromDataBase() {
+        DatabaseReference root = database.getReference("product");
+        root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (productModelList != null){
+                    productModelList.clear();
+                }
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    ProductModel product = dataSnapshot.getValue(ProductModel.class);
+                    productModelList.add(product);
+                }
+                newProductsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     public void creatImgSliderList(){
         imageSliders = new ArrayList<>();
