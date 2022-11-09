@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.chuyendedidong2.Fragment.CartFragment;
@@ -60,5 +61,9 @@ public class HomePageLoginActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragmentKhachHang,fragment);
         fragmentTransaction.commit();
     }
+    public void timKiem(){
+
+    }
+
 
 }

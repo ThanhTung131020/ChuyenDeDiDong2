@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -20,14 +22,17 @@ import com.example.chuyendedidong2.ProductsLoginActivity;
 import com.example.chuyendedidong2.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ProductsLoginAdapter extends RecyclerView.Adapter<ProductsLoginAdapter.ViewHolder> {
+public class ProductsLoginAdapter extends RecyclerView.Adapter<ProductsLoginAdapter.ViewHolder> implements Filterable {
     private Context context;
     private ArrayList<ProductModel> list;
+    private ArrayList<ProductModel> listOld;
     String img;
     public ProductsLoginAdapter(Context context, ArrayList<ProductModel> list) {
         this.context = context;
         this.list = list;
+        this.listOld = list;
     }
 
     @NonNull
@@ -72,6 +77,40 @@ public class ProductsLoginAdapter extends RecyclerView.Adapter<ProductsLoginAdap
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String str = charSequence.toString();
+                if (str.isEmpty()) {
+                    list =  listOld;
+                } else {
+                    List<ProductModel> pro = new ArrayList<>();
+                    for (ProductModel item : listOld) {
+                        if (item.getName().contains(str)) {
+                            pro.add(item);
+                        }
+
+                    }
+                    list = (ArrayList<ProductModel>) pro;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = list;
+
+
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                list = (ArrayList<ProductModel>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

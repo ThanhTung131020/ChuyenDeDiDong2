@@ -37,7 +37,7 @@ public class ProductActivity extends AppCompatActivity {
         ProductModel productModel = getIntent().getParcelableExtra("chitiet");
 
         //setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle("Sản phẩm");
+      // getSupportActionBar().setTitle("Sản phẩm");
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
@@ -54,6 +54,7 @@ public class ProductActivity extends AppCompatActivity {
         tvMoTa.setText(des);
         tvTenCuaHang.setText(nameShop);
         ratingBar.setRating(Float.parseFloat(ratingbar));
+
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

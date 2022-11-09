@@ -25,11 +25,11 @@
         android:id="@+id/edtEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/edit_text_gb"
         android:ems="10"
         android:hint="Email"
-        android:inputType="textEmailAddress"
+        android:inputType="textPersonName"
         android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
         android:background="@drawable/edit_text_gb"
         android:ems="10"
         android:hint="Địa chỉ"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
@@ -60,7 +60,7 @@
         android:background="@drawable/edit_text_gb"
         android:ems="10"
         android:hint="Họ tên"
-        android:inputType="textPersonName"
+        android:inputType="text"
         android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -69,6 +69,7 @@
         app:layout_constraintWidth_percent=".8" />
 
     <EditText
+
         android:id="@+id/edtMatKhau"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -106,7 +107,7 @@
         android:background="@drawable/edit_text_gb"
         android:ems="10"
         android:hint="Số điện thoại"
-        android:inputType="text|phone"
+        android:inputType="phone"
         android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -114,6 +115,7 @@
         app:layout_constraintWidth_percent=".8" />
 
     <RadioGroup
+
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -124,16 +126,15 @@
         app:layout_constraintTop_toBottomOf="@+id/edtDiaChi">
 
         <RadioButton
-            android:id="@+id/rdbCaNhan"
+            android:id="@+id/rdbCuaHang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:checked="true"
             android:text="Cá nhân" />
 
         <RadioButton
-            android:id="@+id/rdbCuaHang"
+            android:id="@+id/rdbCaNhan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
