@@ -9,10 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.chuyendedidong2.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class ThontincuahangFragment extends Fragment {
 
+    FirebaseDatabase database;
+    FirebaseAuth auth;
 
     public ThontincuahangFragment() {
         // Required empty public constructor
@@ -29,6 +33,8 @@ public class ThontincuahangFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_thontincuahang, container, false);
+        database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         return view;
     }
