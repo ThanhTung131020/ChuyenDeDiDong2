@@ -76,7 +76,7 @@ public class ProductsLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 products = new ProductModel();
-                products.createProductCart().add(new ProductModel(soluong,name,des,nameShop,price,rating,image));
+                //products.createProductCart().add(new ProductModel(soluong,name,des,nameShop,price,rating,image));
                 startActivity(new Intent(ProductsLoginActivity.this, HomePageLoginActivity.class));
                 Toast.makeText(ProductsLoginActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
             }

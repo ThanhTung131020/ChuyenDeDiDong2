@@ -17,6 +17,7 @@ public class Activity_ThongTin_DonHang extends AppCompatActivity {
     private ProductModel productModel = new ProductModel();
     private RecyclerView rcv_TTDH;
     private Adapter_thongtin_donhang adapter_thongtin_donhang;
+    private ProductModel product;
 
 
     @Override
@@ -28,26 +29,22 @@ public class Activity_ThongTin_DonHang extends AppCompatActivity {
     }
 
     private void adapterTTDH() {
+        productModel = new ProductModel();
         rcv_TTDH = findViewById(R.id.rcv_TTDH);
         adapter_thongtin_donhang = new Adapter_thongtin_donhang(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcv_TTDH.setLayoutManager(linearLayoutManager);
-        adapter_thongtin_donhang.setData(getListGH());
+        adapter_thongtin_donhang.setData(product.createNewProduct());
         rcv_TTDH.setAdapter(adapter_thongtin_donhang);
-
-
-
     }
 
 
 
-    private List<ProductModel> getListGH() {
-        Bundle bundle = getIntent().getExtras();
-        ProductModel prd = (ProductModel) bundle.get("object_products");
-        list.add(new ProductModel(prd.getImg_url() , prd.getName() , prd.getPrice() , prd.getSoLuong(),prd.getNameShop()));
-        return list;
-
-
-    }
+//    private List<ProductModel> getListGH() {
+//        Bundle bundle = getIntent().getExtras();
+//        ProductModel prd = (ProductModel) bundle.get("object_products");
+//        list.add(new ProductModel(prd.getImg_url() , prd.getName() , prd.getPrice() , prd.getSoLuong(),prd.getNameShop()));
+//        return list;
+//    }
 
 }

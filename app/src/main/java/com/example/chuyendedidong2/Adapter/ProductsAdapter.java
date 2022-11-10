@@ -61,6 +61,9 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
                 intent.putExtra("des", productModel.getDesciption());
                 intent.putExtra("nameShop", productModel.getNameShop());
                 intent.putExtra("sl", productModel.getSoLuong());
+                intent.putExtra("pic1", productModel.getPic1());
+                intent.putExtra("pic2", productModel.getPic2());
+                intent.putExtra("pic3", productModel.getPic3());
                 context.startActivity(intent);
             }
         });

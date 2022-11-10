@@ -68,7 +68,7 @@ public class CartFragment extends Fragment {
         adapter_gioHang = new Adapter_GioHang(getContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         rcv_GioHang.setLayoutManager(linearLayoutManager);
-        adapter_gioHang.setDaTa(productModel.createProductCart());
+        adapter_gioHang.setDaTa(productModel.createNewProduct());
         rcv_GioHang.setAdapter(adapter_gioHang);
         tongTien();
 
