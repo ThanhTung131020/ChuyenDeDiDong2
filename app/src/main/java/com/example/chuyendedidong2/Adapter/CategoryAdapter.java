@@ -63,6 +63,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public int getItemCount() {
+//        if (list != null){
+//           ;
+//        }
         return list.size();
     }
 

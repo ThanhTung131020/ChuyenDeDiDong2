@@ -6,7 +6,6 @@
     app:cardCornerRadius="10dp"
     android:id="@+id/layout_item_category"
     android:layout_height="match_parent">
-
     <LinearLayout
 
         android:id="@+id/layout_cart"
@@ -16,7 +15,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
-
         <ImageView
 
             android:adjustViewBounds="true"
@@ -26,7 +24,6 @@
             android:layout_weight="1"
             android:paddingTop="10dp"
             android:src="@drawable/laptopvapc" />
-
         <TextView
             android:background="@drawable/selected_item_category"
             android:id="@+id/tv_cat"

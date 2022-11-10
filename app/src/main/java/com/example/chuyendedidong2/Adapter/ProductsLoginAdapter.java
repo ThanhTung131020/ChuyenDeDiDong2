@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.Model.ProductModel;
-import com.example.chuyendedidong2.ProductActivity;
 import com.example.chuyendedidong2.ProductsLoginActivity;
 import com.example.chuyendedidong2.R;
 
@@ -38,7 +37,7 @@ public class ProductsLoginAdapter extends RecyclerView.Adapter<ProductsLoginAdap
     @NonNull
     @Override
     public ProductsLoginAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ProductsLoginAdapter.ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.new_product_item_layout,parent,false));
+        return new ProductsLoginAdapter.ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_layout,parent,false));
     }
 
     @Override

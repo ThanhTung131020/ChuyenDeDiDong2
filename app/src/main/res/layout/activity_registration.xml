@@ -25,11 +25,11 @@
         android:id="@+id/edtEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_gb"
         android:ems="10"
         android:hint="Email"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -126,15 +126,16 @@
         app:layout_constraintTop_toBottomOf="@+id/edtDiaChi">
 
         <RadioButton
-            android:id="@+id/rdbCuaHang"
+            android:id="@+id/rdbCaNhan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:checked="true"
             android:text="Cá nhân" />
 
         <RadioButton
-            android:id="@+id/rdbCaNhan"
+            android:id="@+id/rdbCuaHang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
