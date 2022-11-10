@@ -44,7 +44,7 @@
         android:background="@drawable/edit_text_gb"
         android:ems="10"
         android:hint="Mật khẩu"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

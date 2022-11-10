@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SortedList;
+import androidx.recyclerview.widget.SortedListAdapterCallback;
 
 import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.Model.ProductModel;
@@ -21,6 +23,8 @@ import com.example.chuyendedidong2.R;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -30,6 +34,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     private Context context;
     private ArrayList<ProductModel> list;
     private ArrayList<ProductModel> listOld;
+    private SortedList<ProductModel> pro;
+    private SortedListAdapterCallback<ProductModel> pro2;
 
     public ProductsAdapter(Context context, ArrayList<ProductModel> list) {
         this.context = context;
@@ -48,8 +54,9 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         ProductModel productModel = list.get(position);
         Glide.with(context).load(productModel.getImg_url()).into(holder.imageView);
         holder.newName.setText(productModel.getName());
-        holder.newRating.setRating(productModel.getNumStar());
+        holder.newRating.setRating( productModel.getNumStar());
         holder.newPrice.setText(String.valueOf(productModel.getPrice()));
+
 
 //        holder.itemView.setOnClickListener(view -> {
 //            Intent intent = new Intent(context,ProductActivity.class);
@@ -78,6 +85,39 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         });
     }
 
+    public void sortPrice() {
+        Collections.sort(list, new Comparator<ProductModel>() {
+            @Override
+            public int compare(ProductModel productModel, ProductModel t1) {
+                return productModel.getPrice() - t1.getPrice();
+            }
+
+        });
+        notifyDataSetChanged();
+
+    }
+    public void sort() {
+        Collections.sort(list, new Comparator<ProductModel>() {
+            @Override
+            public int compare(ProductModel productModel, ProductModel t1) {
+                return productModel.getName().compareTo(t1.getName());
+            }
+
+        });
+        notifyDataSetChanged();
+
+    }
+    public void sortStar() {
+        Collections.sort(list, new Comparator<ProductModel>() {
+            @Override
+            public int compare(ProductModel productModel, ProductModel t1) {
+                return (int) (productModel.getNumStar() - t1.getNumStar());
+            }
+
+        });
+        notifyDataSetChanged();
+
+    }
     @Override
     public int getItemCount() {
         return list.size();
@@ -91,7 +131,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String str = charSequence.toString();
                 if (str.isEmpty()) {
-                    list =  listOld;
+                    list = listOld;
                 } else {
                     List<ProductModel> pro = new ArrayList<>();
                     for (ProductModel item : listOld) {
@@ -116,14 +156,16 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
             }
         };
     }
+
     public Filter getFilterPhone() {
 
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
-                String str = charSequence.toString();
+                String str = "điện thoại";
+                 str = charSequence.toString();
                 if (str.isEmpty()) {
-                    list =  listOld;
+                    list = listOld;
                 } else {
                     List<ProductModel> pro = new ArrayList<>();
                     for (ProductModel item : listOld) {
