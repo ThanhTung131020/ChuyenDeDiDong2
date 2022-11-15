@@ -2,25 +2,28 @@ package com.example.chuyendedidong2.Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProductModel implements Serializable {
     String product_id,img_url;
     float numStar;
     String name;
-    int price, soLuong;
+    int price;
+    int soLuong;
     String desciption;
     String idShop;
     String nameShop;
     String type_id;
     String pic1,pic2,pic3;
 
-    public ProductModel(String product_id, String img_url, float numStar, String name, int price, int soLuong, String desciption, String idShop, String nameShop, String pic1, String pic2, String pic3) {
+
+    public ProductModel(String product_id, String img_url, float numStar, String name, int price, String desciption, String idShop, String nameShop, String pic1, String pic2, String pic3) {
         this.product_id = product_id;
         this.img_url = img_url;
         this.numStar = numStar;
         this.name = name;
         this.price = price;
-        this.soLuong = soLuong;
         this.desciption = desciption;
         this.idShop = idShop;
         this.nameShop = nameShop;
@@ -32,15 +35,13 @@ public class ProductModel implements Serializable {
     public ProductModel() {
     }
 
-    public ProductModel(String img_url, float numStar, String name, int price, int soLuong, String desciption, String idShop, String nameShop) {
-        this.img_url = img_url;
-        this.numStar = numStar;
-        this.name = name;
-        this.price = price;
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
-        this.desciption = desciption;
-        this.idShop = idShop;
-        this.nameShop = nameShop;
     }
 
     public String getType_id() {
@@ -84,14 +85,6 @@ public class ProductModel implements Serializable {
         this.pic3 = pic3;
     }
 
-
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
-    }
 
     public String getName() {
         return name;
@@ -140,15 +133,31 @@ public class ProductModel implements Serializable {
     public void setImg_url(String img_url) {
         this.img_url = img_url;
     }
+
+    public String getProduct_id() {
+        return product_id;
+    }
+
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
+    }
+
     public ArrayList<ProductModel> createNewProduct(){
         ArrayList<ProductModel> productModelList;
         productModelList = new ArrayList<>();
-        productModelList.add(new ProductModel("https://th.bing.com/th/id/R.96e8ffe8f607a9f0dc2b92f3b6171e02?rik=2%2fV2Qy1ABcP2bQ&riu=http%3a%2f%2f2.bp.blogspot.com%2f_riY6CYFfwgY%2fTK6shtzHj4I%2fAAAAAAAAAFw%2fgVMDAljK2wU%2fs1600%2fMay-tinh-de-ban-01.jpg&ehk=P9B1e30r9k%2bdVX%2boCe8q3ZkHXapQuavB627ihBoXPpM%3d&risl=&pid=ImgRaw&r=0",0,"máy tính",5000000,4,"desc1233","Bx4MGBrJrpYa0nF9pPE5SiMPs7C2","shop123"));
-        productModelList.add(new ProductModel("https://th.bing.com/th/id/R.96e8ffe8f607a9f0dc2b92f3b6171e02?rik=2%2fV2Qy1ABcP2bQ&riu=http%3a%2f%2f2.bp.blogspot.com%2f_riY6CYFfwgY%2fTK6shtzHj4I%2fAAAAAAAAAFw%2fgVMDAljK2wU%2fs1600%2fMay-tinh-de-ban-01.jpg&ehk=P9B1e30r9k%2bdVX%2boCe8q3ZkHXapQuavB627ihBoXPpM%3d&risl=&pid=ImgRaw&r=0",0,"máy tính",5000000,4,"desc1233","Bx4MGBrJrpYa0nF9pPE5SiMPs7C2","shop123"));
-        productModelList.add(new ProductModel("https://th.bing.com/th/id/R.96e8ffe8f607a9f0dc2b92f3b6171e02?rik=2%2fV2Qy1ABcP2bQ&riu=http%3a%2f%2f2.bp.blogspot.com%2f_riY6CYFfwgY%2fTK6shtzHj4I%2fAAAAAAAAAFw%2fgVMDAljK2wU%2fs1600%2fMay-tinh-de-ban-01.jpg&ehk=P9B1e30r9k%2bdVX%2boCe8q3ZkHXapQuavB627ihBoXPpM%3d&risl=&pid=ImgRaw&r=0",0,"máy tính",5000000,4,"desc1233","Bx4MGBrJrpYa0nF9pPE5SiMPs7C2","shop123"));
-        productModelList.add(new ProductModel("https://th.bing.com/th/id/R.96e8ffe8f607a9f0dc2b92f3b6171e02?rik=2%2fV2Qy1ABcP2bQ&riu=http%3a%2f%2f2.bp.blogspot.com%2f_riY6CYFfwgY%2fTK6shtzHj4I%2fAAAAAAAAAFw%2fgVMDAljK2wU%2fs1600%2fMay-tinh-de-ban-01.jpg&ehk=P9B1e30r9k%2bdVX%2boCe8q3ZkHXapQuavB627ihBoXPpM%3d&risl=&pid=ImgRaw&r=0",0,"máy tính",5000000,4,"desc1233","Bx4MGBrJrpYa0nF9pPE5SiMPs7C2","shop123"));
-        productModelList.add(new ProductModel("https://th.bing.com/th/id/R.96e8ffe8f607a9f0dc2b92f3b6171e02?rik=2%2fV2Qy1ABcP2bQ&riu=http%3a%2f%2f2.bp.blogspot.com%2f_riY6CYFfwgY%2fTK6shtzHj4I%2fAAAAAAAAAFw%2fgVMDAljK2wU%2fs1600%2fMay-tinh-de-ban-01.jpg&ehk=P9B1e30r9k%2bdVX%2boCe8q3ZkHXapQuavB627ihBoXPpM%3d&risl=&pid=ImgRaw&r=0",0,"máy tính",5000000,4,"desc1233","Bx4MGBrJrpYa0nF9pPE5SiMPs7C2","shop123"));
+        productModelList.add(new ProductModel("sp01","https://th.bing.com/th/id/R.96e8ffe8f607a9f0dc2b92f3b6171e02?rik=2%2fV2Qy1ABcP2bQ&riu=http%3a%2f%2f2.bp.blogspot.com%2f_riY6CYFfwgY%2fTK6shtzHj4I%2fAAAAAAAAAFw%2fgVMDAljK2wU%2fs1600%2fMay-tinh-de-ban-01.jpg&ehk=P9B1e30r9k%2bdVX%2boCe8q3ZkHXapQuavB627ihBoXPpM%3d&risl=&pid=ImgRaw&r=0",0,"máy tính",500000,"desc1233","Bx4MGBrJrpYa0nF9pPE5SiMPs7C2","shop123","","",""));
+        productModelList.add(new ProductModel("sp02","https://th.bing.com/th/id/R.96e8ffe8f607a9f0dc2b92f3b6171e02?rik=2%2fV2Qy1ABcP2bQ&riu=http%3a%2f%2f2.bp.blogspot.com%2f_riY6CYFfwgY%2fTK6shtzHj4I%2fAAAAAAAAAFw%2fgVMDAljK2wU%2fs1600%2fMay-tinh-de-ban-01.jpg&ehk=P9B1e30r9k%2bdVX%2boCe8q3ZkHXapQuavB627ihBoXPpM%3d&risl=&pid=ImgRaw&r=0",0,"máy tính",5000000,"desc1233","Bx4MGBrJrpYa0nF9pPE5SiMPs7C2","shop123","","",""));
+        productModelList.add(new ProductModel("sp03","https://th.bing.com/th/id/R.96e8ffe8f607a9f0dc2b92f3b6171e02?rik=2%2fV2Qy1ABcP2bQ&riu=http%3a%2f%2f2.bp.blogspot.com%2f_riY6CYFfwgY%2fTK6shtzHj4I%2fAAAAAAAAAFw%2fgVMDAljK2wU%2fs1600%2fMay-tinh-de-ban-01.jpg&ehk=P9B1e30r9k%2bdVX%2boCe8q3ZkHXapQuavB627ihBoXPpM%3d&risl=&pid=ImgRaw&r=0",0,"máy tính",5000000,"desc1233","Bx4MGBrJrpYa0nF9pPE5SiMPs7C2","shop123","","",""));
+        productModelList.add(new ProductModel("sp04","https://th.bing.com/th/id/R.96e8ffe8f607a9f0dc2b92f3b6171e02?rik=2%2fV2Qy1ABcP2bQ&riu=http%3a%2f%2f2.bp.blogspot.com%2f_riY6CYFfwgY%2fTK6shtzHj4I%2fAAAAAAAAAFw%2fgVMDAljK2wU%2fs1600%2fMay-tinh-de-ban-01.jpg&ehk=P9B1e30r9k%2bdVX%2boCe8q3ZkHXapQuavB627ihBoXPpM%3d&risl=&pid=ImgRaw&r=0",0,"máy tính",5000000,"desc1233","Bx4MGBrJrpYa0nF9pPE5SiMPs7C2","shop123","","",""));
+        productModelList.add(new ProductModel("sp05","https://th.bing.com/th/id/R.96e8ffe8f607a9f0dc2b92f3b6171e02?rik=2%2fV2Qy1ABcP2bQ&riu=http%3a%2f%2f2.bp.blogspot.com%2f_riY6CYFfwgY%2fTK6shtzHj4I%2fAAAAAAAAAFw%2fgVMDAljK2wU%2fs1600%2fMay-tinh-de-ban-01.jpg&ehk=P9B1e30r9k%2bdVX%2boCe8q3ZkHXapQuavB627ihBoXPpM%3d&risl=&pid=ImgRaw&r=0",0,"máy tính",5000000,"desc1233","Bx4MGBrJrpYa0nF9pPE5SiMPs7C2","shop123","","",""));
         return productModelList;
+    }
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("name", name);
+        hashMap.put("price", price);
+        hashMap.put("desciption",desciption);
+        return hashMap;
     }
 
 }

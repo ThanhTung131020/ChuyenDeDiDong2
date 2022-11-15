@@ -3,6 +3,7 @@ package com.example.chuyendedidong2.Fragment;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -28,7 +29,11 @@ import com.example.chuyendedidong2.Model.CategoryModel;
 import com.example.chuyendedidong2.Model.ImageSlider;
 import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -101,15 +106,16 @@ public class HomePageFragment extends Fragment {
         rv_imgSlider.setAdapter(imageSliderAdapter);
 
         //category
-        creatCategoryList();
+        categoryModelList = new ArrayList<>();
+        getCategoryFromDataBase();
         rvCat.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         categoryAdapter = new CategoryAdapter(getContext(),categoryModelList);
         rvCat.setAdapter(categoryAdapter);
         //product
         productModelList = new ArrayList<>();
+        getProductFromDataBase();
         rvNewProduct.setLayoutManager(new GridLayoutManager(getContext(),3));
-        productModel = new ProductModel();
-        newProductsAdapter = new ProductsLoginAdapter(getContext(), productModel.createNewProduct());
+        newProductsAdapter = new ProductsLoginAdapter(getContext(), productModelList);
         rvNewProduct.setAdapter(newProductsAdapter);
         //spinner
         String[] spin = {"Mặc định","Theo giá cao đến thấp","Theo hãng"};
@@ -130,6 +136,48 @@ public class HomePageFragment extends Fragment {
 
     }
 
+    public void getCategoryFromDataBase(){
+        DatabaseReference root = database.getReference("category");
+        root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (categoryModelList != null){
+                    categoryModelList.clear();
+                }
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    CategoryModel category = dataSnapshot.getValue(CategoryModel.class);
+                    categoryModelList.add(category);
+                }
+                categoryAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void getProductFromDataBase() {
+        DatabaseReference root = database.getReference("product");
+        root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (productModelList != null){
+                    productModelList.clear();
+                }
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    ProductModel product = dataSnapshot.getValue(ProductModel.class);
+                    productModelList.add(product);
+                }
+                newProductsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     public void creatCategoryList(){
         categoryModelList = new ArrayList<>();
         categoryModelList.add(new CategoryModel("cat001","https://firebasestorage.googleapis.com/v0/b/chuyendedidong2-4ba31.appspot.com/o/Ellipse%2015%20(1).png?alt=media&token=f9fd9685-3073-46cd-9abe-e525a167d021","Máy tính"));

@@ -44,8 +44,6 @@ public class Activity_Gio_hang extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 
 
