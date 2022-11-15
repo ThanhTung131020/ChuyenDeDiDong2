@@ -21,6 +21,8 @@ import com.example.chuyendedidong2.ProductsLoginActivity;
 import com.example.chuyendedidong2.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ProductsLoginAdapter extends RecyclerView.Adapter<ProductsLoginAdapter.ViewHolder> implements Filterable {
@@ -111,7 +113,39 @@ public class ProductsLoginAdapter extends RecyclerView.Adapter<ProductsLoginAdap
             }
         };
     }
+    public void sortPrice() {
+        Collections.sort(list, new Comparator<ProductModel>() {
+            @Override
+            public int compare(ProductModel productModel, ProductModel t1) {
+                return productModel.getPrice() - t1.getPrice();
+            }
 
+        });
+        notifyDataSetChanged();
+
+    }
+    public void sort() {
+        Collections.sort(list, new Comparator<ProductModel>() {
+            @Override
+            public int compare(ProductModel productModel, ProductModel t1) {
+                return productModel.getName().toLowerCase().compareTo(t1.getName().toLowerCase());
+            }
+
+        });
+        notifyDataSetChanged();
+
+    }
+    public void sortStar() {
+        Collections.sort(list, new Comparator<ProductModel>() {
+            @Override
+            public int compare(ProductModel productModel, ProductModel t1) {
+                return (int) (productModel.getNumStar() - t1.getNumStar());
+            }
+
+        });
+        notifyDataSetChanged();
+
+    }
     public class ViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
         TextView newName, newPrice;

@@ -44,7 +44,7 @@ public class Activity_ThongTin_DonHang extends AppCompatActivity {
     private List<ProductModel> getListGH() {
         Bundle bundle = getIntent().getExtras();
         ProductModel prd = (ProductModel) bundle.get("object_products");
-        list.add(new ProductModel(prd.getImg_url() , prd.getName() , prd.getPrice() , prd.getSoLuong(),prd.getNameShop()));
+       // list.add(new ProductModel(prd.getImg_url() , prd.getName() , prd.getPrice() , prd.getSoLuong(),prd.getNameShop()));
         return list;
 
 

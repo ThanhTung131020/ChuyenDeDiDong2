@@ -1,8 +1,19 @@
 package com.example.chuyendedidong2.Model;
 
+import androidx.annotation.NonNull;
+
+import com.example.chuyendedidong2.Adapter.ProductsAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ProductModel {
+
+public class ProductModel implements Serializable {
     String productID;
     String img_url;
     float numStar;
@@ -189,4 +200,6 @@ public class ProductModel {
         productModelList.add(new ProductModel(1,"name","nameshop","shop123",1000000,5,"123456789"));
         return productModelList;
     }
+
+
 }

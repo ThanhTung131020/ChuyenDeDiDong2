@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     RadioGroup rdo;
     FirebaseAuth auth;
     FirebaseDatabase database;
+    DiaLogLoanding diaLogLoanding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         //getSupportActionBar().hide();
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+        diaLogLoanding = new DiaLogLoanding(this);
         setControl();
         setEvent();
     }
@@ -62,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                diaLogLoanding.ShowDiaLog("Đang đăng nhập");
                 signIn(view);
             }
         });
@@ -72,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(LoginActivity.this,RegistrationActivity.class));
     }
     public void signIn(View view){
+
         String email = this.email.getText().toString();
         String password = this.password.getText().toString();
         if (TextUtils.isEmpty(email)){

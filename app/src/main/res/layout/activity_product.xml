@@ -7,8 +7,14 @@
     android:orientation="vertical"
     android:background="@color/colorKhachHang"
     tools:context=".ProductActivity">
-
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorKhachHang">
     <ImageView
         android:id="@+id/ivProduct"
         android:layout_gravity="center"
@@ -83,12 +89,13 @@
             android:layout_weight="1"
             android:orientation="horizontal">
             <TextView
+
                 android:layout_marginRight="50dp"
                 android:layout_marginBottom="10dp"
                 android:id="@+id/tvMoTa"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Cháº¥t liá»‡u khung nhÃ´m vÃ  máº·t lÆ°ng kÃ­nh cÆ°á»ng lá»±c, KÃ­ch thÆ°á»›c, khá»‘i lÆ°á»£ng 150g"
+
                 android:textColor="@color/black">
             </TextView>
         </LinearLayout>
@@ -151,6 +158,6 @@
         android:text="Thêm giỏ hàng"
         >
     </Button>
-
-
+</LinearLayout>
+</ScrollView>
 </LinearLayout>

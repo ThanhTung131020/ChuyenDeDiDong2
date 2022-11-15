@@ -23,11 +23,12 @@ public class ProductActivity extends AppCompatActivity {
     private ImageView imageView;
     private Toolbar toolbar;
     private RatingBar ratingBar;
-    private TextView tvTenSP,tvGiaSP,tvTenCuaHang,tvMoTa;
+    private TextView tvTenSP, tvGiaSP, tvTenCuaHang, tvMoTa;
     private ArrayList<ProductModel> productModelArrayList;
     private ProductsAdapter newProductsAdapter;
     private LinearLayout linearLayout;
     private Button btnAddCart;
+    private LoginActivity loginActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,28 +38,35 @@ public class ProductActivity extends AppCompatActivity {
         ProductModel productModel = getIntent().getParcelableExtra("chitiet");
 
         //setSupportActionBar(toolbar);
-      // getSupportActionBar().setTitle("Sản phẩm");
+        // getSupportActionBar().setTitle("Sản phẩm");
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-       String name = intent.getStringExtra("name");
-       String image = intent.getStringExtra("image");
-       String price = intent.getStringExtra("price");
-       String ratingbar = intent.getStringExtra("rating");
-       String des = intent.getStringExtra("des");
-       String nameShop = intent.getStringExtra("nameShop");
-       //
+        String name = intent.getStringExtra("name");
+        String image = intent.getStringExtra("image");
+        String price = intent.getStringExtra("price");
+        String ratingbar = intent.getStringExtra("rating");
+        String des = intent.getStringExtra("des");
+        String nameShop = intent.getStringExtra("nameShop");
+        //
         Glide.with(getApplicationContext()).load(image).into(imageView);
         tvTenSP.setText(name);
         tvGiaSP.setText(price);
         tvMoTa.setText(des);
         tvTenCuaHang.setText(nameShop);
         ratingBar.setRating(Float.parseFloat(ratingbar));
+        ratingBar.setEnabled(false);
 
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ProductActivity.this, "Bạn phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                if (loginActivity == null) {
+                    Intent intent1 = new Intent(ProductActivity.this, LoginActivity.class);
+                    startActivity(intent1);
+                } else {
+                    Toast.makeText(ProductActivity.this, "Bạn phải đăng nhập!", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }

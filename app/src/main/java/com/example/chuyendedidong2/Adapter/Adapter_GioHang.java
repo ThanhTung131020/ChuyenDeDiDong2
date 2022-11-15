@@ -151,7 +151,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
 
         Intent intent = new Intent(mContext , Activity_ThongTin_DonHang.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("object_products" , gioHang);
+        bundle.putSerializable("object_products" , (Serializable) gioHang);
         intent.putExtras(bundle);
         mContext.startActivity(intent);
 

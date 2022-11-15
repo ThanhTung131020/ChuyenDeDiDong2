@@ -21,6 +21,8 @@
            android:layout_width="match_parent"
            android:layout_height="0dp">
            <ImageView
+
+               android:adjustViewBounds="true"
                android:background="@drawable/radius_image_product"
                android:id="@+id/ivNewProduct"
                android:layout_width="match_parent"
@@ -48,16 +50,16 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp">
+
             <TextView
-                android:gravity="center"
                 android:id="@+id/tvNPName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:paddingBottom="5dp"
                 android:text="Samsung galaxy"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-               />
+                android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout
             android:layout_weight="1"

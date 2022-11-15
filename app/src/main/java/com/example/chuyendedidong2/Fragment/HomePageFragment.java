@@ -26,6 +26,7 @@ import com.example.chuyendedidong2.Adapter.ProductsAdapter;
 //import com.example.chuyendedidong2.Model.ImageSilder;
 import com.example.chuyendedidong2.Adapter.ProductsLoginAdapter;
 import com.example.chuyendedidong2.HomePageActivity;
+import com.example.chuyendedidong2.Interface.IclickItemCategoryListener;
 import com.example.chuyendedidong2.Model.CategoryModel;
 import com.example.chuyendedidong2.Model.ImageSlider;
 import com.example.chuyendedidong2.Model.ProductModel;
@@ -55,10 +56,11 @@ public class HomePageFragment extends Fragment {
     private ProductModel productModel;
     private ProductsLoginAdapter newProductsAdapter;
     //spinner
+    public  ProductsAdapter productsAdapter;
     private Spinner spinner;
     private SearchView searchView;
-    private ProductsAdapter productsAdapter;
-    private HomePageActivity homePageActivity;
+    private ProductsAdapter pro;
+     static HomePageActivity homePageActivity;
 
     public HomePageFragment() {
     }
@@ -95,6 +97,12 @@ public class HomePageFragment extends Fragment {
         });
 
         setEvent();
+        rvCat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         return view;
     }
 
@@ -108,15 +116,20 @@ public class HomePageFragment extends Fragment {
         //category
         creatCategoryList();
         rvCat.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        categoryAdapter = new CategoryAdapter(getContext(), categoryModelList);
+        categoryAdapter = new CategoryAdapter(getContext(), categoryModelList, new IclickItemCategoryListener() {
+            @Override
+            public void OnclickItemCategory(CategoryModel categoryModel) {
+
+            }
+        });
         rvCat.setAdapter(categoryAdapter);
         //product
         rvNewProduct.setLayoutManager(new GridLayoutManager(getContext(), 3));
         productModel = new ProductModel();
-        newProductsAdapter = new ProductsLoginAdapter(getContext(), homePageActivity.createNewProduct() );
+        newProductsAdapter = new ProductsLoginAdapter(getContext(),createNewProduct() );
         rvNewProduct.setAdapter(newProductsAdapter);
         //spinner
-        String[] spin = {"Mặc định", "Theo giá cao đến thấp", "Theo hãng"};
+        String[] spin = {"Mặc định", "sắp xếp theo giá sản phẩm", "sắp xếp theo tên sản phẩm", "sắp xếp theo đánh giá"};
         ArrayAdapter arrayAdapter = new ArrayAdapter(getContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, spin);
         arrayAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
@@ -124,19 +137,13 @@ public class HomePageFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                if(i ==1 ){
+                if (i == 1) {
+          newProductsAdapter.sortPrice();
+                } else if (i == 2) {
+                    newProductsAdapter.sort();
 
-                    productsAdapter.sortPrice();
-
-
-                }
-                else if(i ==2 ){
-
-                    productsAdapter.sort();
-                }
-                else {
-
-                    productsAdapter.sortStar();
+                } else if (i == 3) {
+                   newProductsAdapter.sortStar();
 
                 }
             }
@@ -148,11 +155,39 @@ public class HomePageFragment extends Fragment {
         });
 
     }
+ public  ArrayList<ProductModel> createNewProduct() {
+
+        ArrayList<ProductModel> productModelList;
+
+        productModelList = new ArrayList<>();
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference();
+        databaseReference.child("product").addValueEventListener(new ValueEventListener() {
+            @Override
+
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                productModelList.clear();
+                for (DataSnapshot snap : snapshot.getChildren()) {
+                    ProductModel productModel = snap.getValue(ProductModel.class);
+
+                    productModelList.add(productModel);
+                }
+                newProductsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return productModelList;
 
 
-
+    }
     public void creatCategoryList() {
         categoryModelList = new ArrayList<>();
+
         categoryModelList.add(new CategoryModel("cat001", "https://firebasestorage.googleapis.com/v0/b/chuyendedidong2-4ba31.appspot.com/o/Ellipse%2015%20(1).png?alt=media&token=f9fd9685-3073-46cd-9abe-e525a167d021", "Máy tính"));
         categoryModelList.add(new CategoryModel("cat002", "https://firebasestorage.googleapis.com/v0/b/chuyendedidong2-4ba31.appspot.com/o/Ellipse%2014.png?alt=media&token=62bd7504-42a9-4a37-ab75-81b2745d7680", "Laptop"));
         categoryModelList.add(new CategoryModel("cat003", "https://firebasestorage.googleapis.com/v0/b/chuyendedidong2-4ba31.appspot.com/o/Ellipse%2013%20(1).png?alt=media&token=dcbc49ac-9027-4c1d-bcf4-adbee15c45aa", "Điện thoại"));
