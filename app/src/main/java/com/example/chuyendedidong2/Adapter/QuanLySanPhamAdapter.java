@@ -1,6 +1,7 @@
 package com.example.chuyendedidong2.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.Model.Sanpham;
+import com.example.chuyendedidong2.ProductActivity;
 import com.example.chuyendedidong2.R;
 import java.util.ArrayList;
 
 public class QuanLySanPhamAdapter extends RecyclerView.Adapter<QuanLySanPhamAdapter.QLSPViewHolder> {
     Context context;
-    ArrayList<Sanpham> list;//data
+    ArrayList<Sanpham> list;
     int resource;
+
 
 
     public QuanLySanPhamAdapter(Context context, int resource, ArrayList<Sanpham> list) {
@@ -39,6 +42,15 @@ public class QuanLySanPhamAdapter extends RecyclerView.Adapter<QuanLySanPhamAdap
         Glide.with(context).load(sanpham.getImvsanPham()).into(holder.imvsanPham);
         holder.txtGia.setText(String.valueOf(sanpham.getGia()));
         holder.txtSPDB.setText("Da ban: " + String.valueOf(sanpham.getSoLuong()));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProductActivity.class);
+                intent.putExtra("price",String.valueOf(sanpham.getGia()));
+                intent.putExtra("so luong", sanpham.getSoLuong());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

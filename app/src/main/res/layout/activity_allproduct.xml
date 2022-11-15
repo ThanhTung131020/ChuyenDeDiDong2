@@ -36,7 +36,7 @@
         >
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_TTSP"
+            android:id="@+id/rcv_ThongTinSanPham"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"
             android:text="Tổng sản phẩm" />
     <EditText
+        android:id="@+id/edtTongSP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     </LinearLayout>

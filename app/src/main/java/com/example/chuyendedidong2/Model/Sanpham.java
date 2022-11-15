@@ -8,9 +8,9 @@ public class Sanpham {
     }
 
     public Sanpham(String imvsanPham, int gia, int soLuong) {
-        this.imvsanPham = imvsanPham;
-        this.gia = gia;
-        this.soLuong = soLuong;
+        this.imvsanPham =imvsanPham;
+        this.gia =gia;
+        this.soLuong =soLuong;
     }
 
     public String getImvsanPham() {
