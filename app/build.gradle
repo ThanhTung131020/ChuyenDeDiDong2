@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.chuyendedidong2"
-        minSdk 21
+        minSdk 26
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -50,7 +50,4 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     //img slider
 
-
-    implementation 'com.github.bumptech.glide:glide:4.14.2'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 }

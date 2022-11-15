@@ -43,17 +43,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         holder.newRating.setRating(productModel.getNumStar());
         holder.newPrice.setText(String.valueOf(productModel.getPrice()));
 
-//        holder.itemView.setOnClickListener(view -> {
-//            Intent intent = new Intent(context,ProductActivity.class);
-//
-//            intent.putExtra("image",newProductModel.getImg_url());
-//            intent.putExtra("name",newProductModel.getName());
-//            intent.putExtra("price",String.valueOf(newProductModel.getPrice()));
-//            intent.putExtra("rating",String.valueOf(newProductModel.getNumStar()));
-//            intent.putExtra("des",newProductModel.getDesciption());
-//            intent.putExtra("nameShop",newProductModel.getNameShop());
-//            context.startActivity(intent);
-//        });
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
