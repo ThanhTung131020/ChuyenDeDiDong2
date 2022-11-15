@@ -1,5 +1,6 @@
 package com.example.chuyendedidong2.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -79,23 +80,41 @@ public class SanPhamCuaHangFragment extends Fragment {
 
     private void getProductFromDatabase() {
         DatabaseReference root = database.getReference("product");
-//        listProduct.add(new ProductModel("https://th.bing.com/th/id/R.96e8ffe8f607a9f0dc2b92f3b6171e02?rik=2%2fV2Qy1ABcP2bQ&riu=http%3a%2f%2f2.bp.blogspot.com%2f_riY6CYFfwgY%2fTK6shtzHj4I%2fAAAAAAAAAFw%2fgVMDAljK2wU%2fs1600%2fMay-tinh-de-ban-01.jpg&ehk=P9B1e30r9k%2bdVX%2boCe8q3ZkHXapQuavB627ihBoXPpM%3d&risl=&pid=ImgRaw&r=0",0,"máy tính",5000000,4,"desc1233","Bx4MGBrJrpYa0nF9pPE5SiMPs7C2","shop123"));
-//        listProduct.add(new ProductModel("https://th.bing.com/th/id/R.96e8ffe8f607a9f0dc2b92f3b6171e02?rik=2%2fV2Qy1ABcP2bQ&riu=http%3a%2f%2f2.bp.blogspot.com%2f_riY6CYFfwgY%2fTK6shtzHj4I%2fAAAAAAAAAFw%2fgVMDAljK2wU%2fs1600%2fMay-tinh-de-ban-01.jpg&ehk=P9B1e30r9k%2bdVX%2boCe8q3ZkHXapQuavB627ihBoXPpM%3d&risl=&pid=ImgRaw&r=0",0,"máy tính",5000000,4,"desc1233","Bx4MGBrJrpYa0nF9pPE5SiMPs7C2","shop123"));
-//        root.setValue(listProduct);
-        root.addValueEventListener(new ValueEventListener() {
+        root.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (listProduct != null){
-                    listProduct.clear();
-                }
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    String id = dataSnapshot.child("idShop").getValue().toString();
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                String id = snapshot.child("idShop").getValue().toString();
                     if (id.equals(auth.getUid())){
-                        ProductModel product = dataSnapshot.getValue(ProductModel.class);
-                        listProduct.add(product);
+                        ProductModel product = snapshot.getValue(ProductModel.class);
+                        if (product != null){
+                            listProduct.add(product);
+                            sanPhamCuaHangAdapter.notifyDataSetChanged();
+                        }
+                    }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                ProductModel product = snapshot.getValue(ProductModel.class);
+                if (product == null || listProduct == null || listProduct.isEmpty()){
+                    return;
+                }
+                for (int i = 0; i < listProduct.size(); i++){
+                    if (product.getProduct_id() == listProduct.get(i).getProduct_id()){
+                        listProduct.set(i, product);
                     }
                 }
                 sanPhamCuaHangAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
             }
 
             @Override
@@ -103,5 +122,27 @@ public class SanPhamCuaHangFragment extends Fragment {
 
             }
         });
+//        root.addValueEventListener(new ValueEventListener() {
+//            @SuppressLint("NotifyDataSetChanged")
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (listProduct != null){
+//                    listProduct.clear();
+//                }
+//                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+//                    String id = dataSnapshot.child("idShop").getValue().toString();
+//                    if (id.equals(auth.getUid())){
+//                        ProductModel product = dataSnapshot.getValue(ProductModel.class);
+//                        listProduct.add(product);
+//                    }
+//                }
+//                sanPhamCuaHangAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 }

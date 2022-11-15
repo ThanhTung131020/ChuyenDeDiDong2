@@ -47,7 +47,6 @@ public class ProductsLoginAdapter extends RecyclerView.Adapter<ProductsLoginAdap
         holder.newName.setText(productModel.getName());
         holder.newRating.setRating(productModel.getNumStar());
         holder.newPrice.setText(String.valueOf(productModel.getPrice()));
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

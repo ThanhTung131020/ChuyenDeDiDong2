@@ -1,6 +1,8 @@
 package com.example.chuyendedidong2.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.Model.ProductModel;
+import com.example.chuyendedidong2.ProductsLoginActivity;
 import com.example.chuyendedidong2.R;
+import com.example.chuyendedidong2.SuaSanPhamActivity;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -38,7 +44,25 @@ public class SanPhamCuaHangAdapter extends RecyclerView.Adapter<SanPhamCuaHangAd
         ProductModel product = list.get(position);
         Glide.with(context).load(product.getImg_url()).into(holder.ivSP);
         holder.tvNameSP.setText(product.getName());
-        holder.tvSLSP.setText("Số lượng: " + product.getSoLuong());
+        holder.tvSLSP.setText("Đã bán: ");
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, SuaSanPhamActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("simage",product.getImg_url());
+                bundle.putString("sid",product.getProduct_id());
+                bundle.putString("sname",product.getName());
+                bundle.putInt("sprice", product.getPrice());
+                bundle.putFloat("srating", product.getNumStar());
+                bundle.putString("sdes",product.getDesciption());
+                bundle.putString("snameShop",product.getNameShop());
+                //bundle.putInt("ssl", product.getSoLuong());
+                intent.putExtra("suasanpham",bundle);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override

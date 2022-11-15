@@ -1,5 +1,8 @@
 package com.example.chuyendedidong2.Model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Personal {
     String id, name, sdt, diachi, email;
 
@@ -53,4 +56,13 @@ public class Personal {
     public void setDiachi(String diachi) {
         this.diachi = diachi;
     }
+
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("name", name);
+        hashMap.put("sdt", sdt);
+        hashMap.put("diachi",diachi);
+        return hashMap;
+    }
+
 }

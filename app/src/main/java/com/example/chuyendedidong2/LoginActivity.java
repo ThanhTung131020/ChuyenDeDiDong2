@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
     public void signIn(View view){
         String email = this.email.getText().toString();
         String password = this.password.getText().toString();
+
         if (TextUtils.isEmpty(email)){
             diaLogLoanding.HideDialog();
             this.email.setError("Nhập email!");

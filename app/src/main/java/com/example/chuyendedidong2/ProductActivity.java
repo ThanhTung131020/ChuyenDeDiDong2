@@ -34,7 +34,6 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
         setControl();
-        ProductModel productModel = getIntent().getParcelableExtra("chitiet");
 
         //setSupportActionBar(toolbar);
       // getSupportActionBar().setTitle("Sản phẩm");

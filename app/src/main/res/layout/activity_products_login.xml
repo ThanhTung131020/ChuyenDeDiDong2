@@ -10,7 +10,6 @@
     tools:context=".ProductsLoginActivity">
 
     <Toolbar
-
         android:textAlignment="center"
         android:title="chi tiết sản phẩm"
         android:backgroundTint="@color/backGround"
