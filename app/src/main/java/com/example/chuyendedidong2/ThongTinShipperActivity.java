@@ -10,5 +10,6 @@ public class ThongTinShipperActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thong_tin_shipper);
+        //getSupportActionBar().setTitle("Thông tin của bạn");
     }
 }

@@ -12,7 +12,8 @@ import com.example.chuyendedidong2.Model.ProductModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Activity_ThongTin_DonHang extends AppCompatActivity {
+public class Activity_ThongTin_DonHang extends AppCompatActivity
+{
     private static List<ProductModel> list = new ArrayList<>();
     private ProductModel productModel = new ProductModel();
     private RecyclerView rcv_TTDH;

@@ -20,7 +20,8 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
     Context context;
     ArrayList<ImageSlider> list;
 
-    public ImageSliderAdapter(Context context, ArrayList<ImageSlider> list) {
+    public ImageSliderAdapter(Context context, ArrayList<ImageSlider> list)
+    {
         this.context = context;
         this.list = list;
     }

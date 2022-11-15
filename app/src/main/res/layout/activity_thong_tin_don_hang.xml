@@ -23,10 +23,10 @@
             android:layout_height="40dp"/>
         <TextView
             android:textColor="@color/white"
-            android:textSize="17sp"
-            android:paddingTop="10dp"
+            android:textSize="22sp"
+            android:paddingTop="20dp"
             android:textAlignment="center"
-            android:text="đơn hàng đang chờ xác nhận!"
+            android:text="Đơn hàng đang chờ xác nhận!"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>

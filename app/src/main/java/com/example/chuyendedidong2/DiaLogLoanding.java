@@ -18,7 +18,8 @@ public class DiaLogLoanding extends AppCompatActivity {
     public DiaLogLoanding(Context context) {
         this.context = context;
     }
-    public void ShowDiaLog(String title){
+    public void ShowDiaLog(String title)
+    {
         dialog = new Dialog(context);
         dialog.setContentView(R.layout.activity_dia_log_loanding);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

@@ -22,7 +22,8 @@ public class HomePageCuaHangActivity extends AppCompatActivity {
     BottomNavigationView bot_cuahang;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trang_chu_cua_hang);
         setControl();

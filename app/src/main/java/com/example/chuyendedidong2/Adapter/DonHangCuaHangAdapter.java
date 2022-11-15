@@ -25,7 +25,8 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
     Context context;
     ArrayList<DonHangCuaHang> list;
 
-    public DonHangCuaHangAdapter(Context context, ArrayList<DonHangCuaHang> list) {
+    public DonHangCuaHangAdapter(Context context, ArrayList<DonHangCuaHang> list)
+    {
         this.context = context;
         this.list = list;
     }

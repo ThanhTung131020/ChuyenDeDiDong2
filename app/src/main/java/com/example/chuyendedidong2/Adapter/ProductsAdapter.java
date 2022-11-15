@@ -37,7 +37,8 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     private SortedList<ProductModel> pro;
     private SortedListAdapterCallback<ProductModel> pro2;
 
-    public ProductsAdapter(Context context, ArrayList<ProductModel> list) {
+    public ProductsAdapter(Context context, ArrayList<ProductModel> list)
+    {
         this.context = context;
         this.list = list;
         this.listOld = list;
