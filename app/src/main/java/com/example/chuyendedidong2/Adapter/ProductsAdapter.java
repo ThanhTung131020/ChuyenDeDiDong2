@@ -46,7 +46,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.new_product_item_layout, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_layout, parent, false));
     }
 
     @Override
@@ -57,18 +57,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         holder.newRating.setRating( productModel.getNumStar());
         holder.newPrice.setText(String.valueOf(productModel.getPrice()));
 
-
-//        holder.itemView.setOnClickListener(view -> {
-//            Intent intent = new Intent(context,ProductActivity.class);
-//
-//            intent.putExtra("image",newProductModel.getImg_url());
-//            intent.putExtra("name",newProductModel.getName());
-//            intent.putExtra("price",String.valueOf(newProductModel.getPrice()));
-//            intent.putExtra("rating",String.valueOf(newProductModel.getNumStar()));
-//            intent.putExtra("des",newProductModel.getDesciption());
-//            intent.putExtra("nameShop",newProductModel.getNameShop());
-//            context.startActivity(intent);
-//        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
