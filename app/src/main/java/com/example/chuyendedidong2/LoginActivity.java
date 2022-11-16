@@ -137,26 +137,27 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
                     }
-                }else if (rdbShipper.isChecked()) {
-                    DatabaseReference rootCaNhan = database.getReference("shipper");
-                    rootCaNhan.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if (snapshot.hasChild(auth.getUid())) {
-                                diaLogLoanding.HideDialog();
-                                Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(LoginActivity.this, TrangChuShipperActivity.class));
-                            } else {
-                                diaLogLoanding.HideDialog();
-                                Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
-                                return;
+                    else if (rdbShipper.isChecked()) {
+                        DatabaseReference rootCaNhan = database.getReference("shipper");
+                        rootCaNhan.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.hasChild(auth.getUid())) {
+                                    diaLogLoanding.HideDialog();
+                                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(LoginActivity.this, TrangChuShipperActivity.class));
+                                } else {
+                                    diaLogLoanding.HideDialog();
+                                    Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
                             }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
                 else{
                     diaLogLoanding.HideDialog();
