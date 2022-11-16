@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>  {
     private Context context;
     private ArrayList<CategoryModel> list;
+    private ProductsAdapter productsAdapter;
 
 
     public CategoryAdapter(Context context, ArrayList<CategoryModel> list) {
@@ -47,6 +50,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
             }
         });
+        holder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Toast.makeText(context, "hello  ", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
     }
 
@@ -62,8 +73,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         ImageView img_cat;
         TextView tvCat;
         CardView item;
+        LinearLayout layout;
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
+
             img_cat = itemView.findViewById(R.id.iv_cat);
             tvCat = itemView.findViewById(R.id.tv_cat);
             item = itemView.findViewById(R.id.layout_item_category);

@@ -7,13 +7,17 @@
     android:id="@+id/layout_item_category"
     android:layout_height="match_parent">
     <LinearLayout
+
+        android:id="@+id/layout_cart"
         android:layout_width="match_parent"
         android:weightSum="2"
-        android:background="@color/backGround"
+        android:background="@color/white"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
         <ImageView
+
+            android:adjustViewBounds="true"
             android:id="@+id/iv_cat"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -21,11 +25,12 @@
             android:paddingTop="10dp"
             android:src="@drawable/laptopvapc" />
         <TextView
-            android:gravity="center"
+            android:background="@drawable/selected_item_category"
             android:id="@+id/tv_cat"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:padding="10dp"
             android:text="@string/app_name"
             android:textColor="@color/black" />
