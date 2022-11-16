@@ -47,7 +47,7 @@ public class Activity_allproduct extends AppCompatActivity {
         tvgiasp = findViewById(R.id.tvgiasp);
         tvspdaban = findViewById(R.id.tvspDaBan);
         edtTongSP = findViewById(R.id.edtTongSP);
-        btnXoa = findViewById(R.id.btnSua);
+        btnXoa = findViewById(R.id.btnXoa);
         btnQlySP = findViewById(R.id.btnQLSP);
 
 
@@ -84,6 +84,6 @@ public class Activity_allproduct extends AppCompatActivity {
             tong += listSP.get(i).getSoLuong();
         }
         DecimalFormat decimalFormat = new DecimalFormat("###");
-        edtTongSP.setText("Tổng sản phẩm : " + decimalFormat.format(tong) + "sản phẩm");
+        edtTongSP.setText("Tổng sản phẩm: " + decimalFormat.format(tong) + "sản phẩm");
     }
 }
