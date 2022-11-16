@@ -44,8 +44,6 @@ public class Activity_Gio_hang extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 
 
@@ -60,7 +58,7 @@ public class Activity_Gio_hang extends AppCompatActivity {
         adapter_gioHang = new Adapter_GioHang(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcv_GioHang.setLayoutManager(linearLayoutManager);
-        adapter_gioHang.setDaTa(productModel.createProductCart());
+        adapter_gioHang.setDaTa(productModel.createNewProduct());
         rcv_GioHang.setAdapter(adapter_gioHang);
         tongTien();
     }

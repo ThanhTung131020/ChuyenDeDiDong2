@@ -3,6 +3,8 @@ package com.example.chuyendedidong2.Fragment;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +29,11 @@ import com.example.chuyendedidong2.Model.CategoryModel;
 import com.example.chuyendedidong2.Model.ImageSlider;
 import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -41,13 +48,17 @@ public class HomePageFragment extends Fragment {
     private CategoryModel categoryModel;
     private RecyclerView rvCat;
     private CategoryAdapter categoryAdapter;
-    //new product
+    //product
     ArrayList<ProductModel> productModelList;
     private RecyclerView rvNewProduct;
     private ProductModel productModel;
     private ProductsLoginAdapter newProductsAdapter;
     //spinner
     private Spinner spinner;
+    private SearchView searchView;
+    private ProductsAdapter productsAdapter;
+    //firebase database
+    private FirebaseDatabase database;
     public HomePageFragment() {
     }
 
@@ -62,10 +73,27 @@ public class HomePageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
+        database = FirebaseDatabase.getInstance();
         rvNewProduct = view.findViewById(R.id.rvProducts);
         rv_imgSlider = view.findViewById(R.id.rv_viewPager_login);
         spinner = view.findViewById(R.id.spTinKiem);
         rvCat = view.findViewById(R.id.rv_category_login);
+        searchView = view.findViewById(R.id.search_view_data);
+        //filter searchView
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                newProductsAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                newProductsAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
         setEvent();
         return view;
     }
@@ -78,14 +106,16 @@ public class HomePageFragment extends Fragment {
         rv_imgSlider.setAdapter(imageSliderAdapter);
 
         //category
-        creatCategoryList();
+        categoryModelList = new ArrayList<>();
+        getCategoryFromDataBase();
         rvCat.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         categoryAdapter = new CategoryAdapter(getContext(),categoryModelList);
         rvCat.setAdapter(categoryAdapter);
         //product
+        productModelList = new ArrayList<>();
+        getProductFromDataBase();
         rvNewProduct.setLayoutManager(new GridLayoutManager(getContext(),3));
-        productModel = new ProductModel();
-        newProductsAdapter = new ProductsLoginAdapter(getContext(), productModel.createNewProduct());
+        newProductsAdapter = new ProductsLoginAdapter(getContext(), productModelList);
         rvNewProduct.setAdapter(newProductsAdapter);
         //spinner
         String[] spin = {"Mặc định","Theo giá cao đến thấp","Theo hãng"};
@@ -100,6 +130,50 @@ public class HomePageFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+    }
+
+    public void getCategoryFromDataBase(){
+        DatabaseReference root = database.getReference("category");
+        root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (categoryModelList != null){
+                    categoryModelList.clear();
+                }
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    CategoryModel category = dataSnapshot.getValue(CategoryModel.class);
+                    categoryModelList.add(category);
+                }
+                categoryAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void getProductFromDataBase() {
+        DatabaseReference root = database.getReference("product");
+        root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (productModelList != null){
+                    productModelList.clear();
+                }
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    ProductModel product = dataSnapshot.getValue(ProductModel.class);
+                    productModelList.add(product);
+                }
+                newProductsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });

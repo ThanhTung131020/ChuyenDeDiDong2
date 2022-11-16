@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colorKhachHang"
-    tools:context=".ProductActivity">
-
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/colorKhachHang"
+        android:weightSum="1"
+        tools:context=".ProductActivity">
     <Toolbar
+        android:textAlignment="center"
+        android:title="chi tiết sản phẩm"
+        android:backgroundTint="@color/backGround"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/backGround"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        />
+        android:theme="?attr/actionBarTheme"/>
     <ImageView
         android:id="@+id/ivProduct"
         android:layout_gravity="center"
@@ -27,6 +30,7 @@
     </ImageView>
 
     <RatingBar
+
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -129,19 +133,19 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp">
         <ImageView
-            android:id="@+id/ivSanPham1"
+            android:id="@+id/ivPic1"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_weight="1"
             android:src="@drawable/ic_launcher_background"/>
         <ImageView
-            android:id="@+id/ivSanPham2"
+            android:id="@+id/ivPic2"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:layout_weight="1"
             android:src="@drawable/ic_launcher_background"/>
         <ImageView
-            android:id="@+id/ivSanPham3"
+            android:id="@+id/ivPic3"
             android:layout_width="wrap_content"
             android:layout_height="80dp"
             android:layout_weight="1"

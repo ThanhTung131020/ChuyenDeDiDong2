@@ -5,17 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+
     android:background="@color/colorKhachHang"
     tools:context=".ProductsLoginActivity">
 
     <Toolbar
-        android:backgroundTint="@color/white"
+        android:textAlignment="center"
+        android:title="chi tiết sản phẩm"
+        android:backgroundTint="@color/backGround"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/backGround"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+
         />
     <ImageView
         android:id="@+id/ivProduct"
@@ -95,7 +99,7 @@
                 android:id="@+id/tvMoTa"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Cháº¥t liá»‡u khung nhÃ´m vÃ  máº·t lÆ°ng kÃ­nh cÆ°á»ng lá»±c, KÃ­ch thÆ°á»›c, khá»‘i lÆ°á»£ng 150g"
+                android:text="test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test "
                 android:textColor="@color/black">
             </TextView>
         </LinearLayout>

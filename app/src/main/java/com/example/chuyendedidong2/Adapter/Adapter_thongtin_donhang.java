@@ -58,6 +58,15 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
             holder.tv_tenSP.setText("tên sản phẩm: "+ gioHang.getName());
             holder.tv_giaSP.setText("giá sản phẩm: "+String.valueOf( gioHang.getPrice()));
             holder.tv_soLuong.setText("X"+String.valueOf( gioHang.getSoLuong()));
+            holder.tv_ttDH.setText("đang giao");
+            if(holder.tv_ttDH.getText() == "chờ xác nhận"){
+                holder.btn_daNhanhang.setEnabled(true);
+            }
+            else if(holder.tv_ttDH.getText() == "đã giao"){
+            holder.btn_daNhanhang.setVisibility(View.VISIBLE);
+            }
+
+
             holder.tv_tenCH.setText("tên cửa hàng"+gioHang.getNameShop());
             Glide.with(mContext).load(gioHang.getImg_url()).into(holder.img_SPGioHang);
             holder.btn_huy.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +100,7 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
 
     public class ThongTinViewholder extends RecyclerView.ViewHolder {
         private ImageView img_SPGioHang;
-        private TextView tv_giaSP, tv_tenSP, tv_tenCH , tv_soLuong;
+        private TextView tv_giaSP, tv_tenSP, tv_tenCH , tv_soLuong , tv_ttDH;
         private Button btn_huy , btn_daNhanhang;
         private ImageButton imgbtn_remove;
 
@@ -107,6 +116,7 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
             btn_huy = itemView.findViewById(R.id.btn_huy);
             tv_soLuong = itemView.findViewById(R.id.tv_soLuong);
             btn_daNhanhang = itemView.findViewById(R.id.btn_DaNhanHang);
+            tv_ttDH = itemView.findViewById(R.id.tv_trangThaiDH);
 
         }
     }
