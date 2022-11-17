@@ -47,18 +47,18 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
-        btn_DatHang = view.findViewById(R.id.btnDatHang);
+     //   btn_DatHang = view.findViewById(R.id.btnDatHang);
         rcv_GioHang = view.findViewById(R.id.rvGioHang);
-        tv_tongTien = view.findViewById(R.id.tvTongTien);
+      //  tv_tongTien = view.findViewById(R.id.tvTongTien);
         adapterGioHang();
         //getSupportActionBar().setTitle("gio hang");
-        btn_DatHang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext()  , Activity_ThongTin_DonHang.class);
-                startActivity(intent);
-            }
-        });
+//        btn_DatHang.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext()  , Activity_ThongTin_DonHang.class);
+//                startActivity(intent);
+//            }
+//        });
         return view;
     }
     // set adapter giỏ hàng
@@ -70,7 +70,7 @@ public class CartFragment extends Fragment {
         rcv_GioHang.setLayoutManager(linearLayoutManager);
         adapter_gioHang.setDaTa(productModel.createProductCart());
         rcv_GioHang.setAdapter(adapter_gioHang);
-        tongTien();
+      //  tongTien();
 
 
     }

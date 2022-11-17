@@ -59,6 +59,15 @@
             />
 
     </LinearLayout>
+
+    <TextView
+        android:gravity="center"
+        android:textSize="10dp"
+        android:text="danh mục sản phẩm"
+        android:id="@+id/tv_danhmucSP"
+        android:layout_width="match_parent"
+        android:layout_height="13dp" />
+
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_weight="8"

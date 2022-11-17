@@ -38,6 +38,7 @@ public class Activity_Gio_hang extends AppCompatActivity {
         //getSupportActionBar().setTitle("gio hang");
         anhxa();
         btn_DatHang.setOnClickListener(new View.OnClickListener() {
+            //them 1 don hang vao gio hang
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Activity_Gio_hang.this  , Activity_ThongTin_DonHang.class);
@@ -51,7 +52,7 @@ public class Activity_Gio_hang extends AppCompatActivity {
 
 
     private void anhxa() {
-        btn_DatHang = findViewById(R.id.btn_dathang);
+      //  btn_DatHang = findViewById(R.id.btn_dathang);
     }
 
     // set adapter giỏ hàng
@@ -62,19 +63,10 @@ public class Activity_Gio_hang extends AppCompatActivity {
         rcv_GioHang.setLayoutManager(linearLayoutManager);
         adapter_gioHang.setDaTa(productModel.createProductCart());
         rcv_GioHang.setAdapter(adapter_gioHang);
-        tongTien();
+
     }
 
-    public void tongTien() {
-        tv_tongTien = findViewById(R.id.tv_tongTien);
-        int tong = 0;
 
-        for (int i = 0; i < list.size(); i++) {
-            tong += list.get(i).getPrice();
-        }
-        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        tv_tongTien.setText("Tổng tiền: " + decimalFormat.format(tong) + "vnđ");
-    }
 
 
 }
