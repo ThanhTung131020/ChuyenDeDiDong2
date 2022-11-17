@@ -11,13 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.chuyendedidong2.Adapter.DonHangCuaHangAdapter;
-import com.example.chuyendedidong2.Model.DonHangCuaHang;
+import com.example.chuyendedidong2.Model.DonHang;
 import com.example.chuyendedidong2.R;
+
+import java.util.ArrayList;
 
 
 public class TrangChuCuaHangFragment extends Fragment {
 
-    DonHangCuaHang donHangCuaHang;
+    ArrayList<DonHang> list = new ArrayList<>();
+    DonHang donHangCuaHang;
     DonHangCuaHangAdapter donHangCuaHangAdapter;
     RecyclerView rv_donhang;
 
@@ -41,9 +44,15 @@ public class TrangChuCuaHangFragment extends Fragment {
     }
 
     private void setEvent() {
-        donHangCuaHang = new DonHangCuaHang();
-        donHangCuaHangAdapter = new DonHangCuaHangAdapter(getContext(),donHangCuaHang.createList());
+        donHangCuaHang = new DonHang();
+        donHangCuaHangAdapter = new DonHangCuaHangAdapter(getContext(),createList());
         rv_donhang.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         rv_donhang.setAdapter(donHangCuaHangAdapter);
     }
+    public ArrayList<DonHang> createList(){
+        list.add(new DonHang("dh01",3,"123","sp01","",1000,1,"","","","","","","","","",""));
+        list.add(new DonHang("dh01",1,"123","sp01","",1000,1,"","","","","","","","","",""));
+        return list;
+    }
+
 }

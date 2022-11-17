@@ -86,15 +86,18 @@
                 android:src="@drawable/ic_baseline_cancel_24"
                 android:textAlignment="center"
                 android:textSize="11sp" />
-
+            <Button
+                android:backgroundTint="@color/yellow"
+                android:id="@+id/btn_dathang"
+                android:text="Mua ngay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
             <LinearLayout
-
-                android:layout_marginTop="25dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 >
-
                 <ImageButton
 
                     android:id="@+id/btn_giamSL"

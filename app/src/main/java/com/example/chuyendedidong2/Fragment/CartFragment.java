@@ -59,21 +59,12 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
-        btn_DatHang = view.findViewById(R.id.btnDatHang);
         rcv_GioHang = view.findViewById(R.id.rvGioHang);
-        tv_tongTien = view.findViewById(R.id.tvTongTien);
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         getDataBase();
         adapterGioHang();
         //getSupportActionBar().setTitle("gio hang");
-        btn_DatHang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext()  , Activity_ThongTin_DonHang.class);
-                startActivity(intent);
-            }
-        });
         return view;
     }
 
@@ -107,18 +98,6 @@ public class CartFragment extends Fragment {
         rcv_GioHang.setLayoutManager(linearLayoutManager);
         adapter_gioHang.setDaTa(list);
         rcv_GioHang.setAdapter(adapter_gioHang);
-        tongTien();
     }
 
-    public void tongTien() {
-
-        int tong = 0;
-
-        for (int i = 0; i < list.size(); i++) {
-            //tong += list.get(i).getProduct_price();
-            tong += list.get(i).getProduct_price();
-        }
-        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        tv_tongTien.setText("Tổng tiền: " + decimalFormat.format(tong) + "vnđ");
-    }
 }

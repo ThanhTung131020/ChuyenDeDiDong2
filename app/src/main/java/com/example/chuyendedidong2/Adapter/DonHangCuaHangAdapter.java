@@ -1,8 +1,8 @@
 package com.example.chuyendedidong2.Adapter;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,16 +16,17 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.chuyendedidong2.Model.DonHangCuaHang;
+import com.example.chuyendedidong2.Model.DonHang;
 import com.example.chuyendedidong2.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAdapter.DHCHViewHolder> {
     Context context;
-    ArrayList<DonHangCuaHang> list;
+    ArrayList<DonHang> list;
 
-    public DonHangCuaHangAdapter(Context context, ArrayList<DonHangCuaHang> list) {
+    public DonHangCuaHangAdapter(Context context, ArrayList<DonHang> list) {
         this.context = context;
         this.list = list;
     }
@@ -39,38 +40,32 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
 
     @Override
     public void onBindViewHolder(@NonNull DHCHViewHolder holder, int position) {
-        DonHangCuaHang donHangCuaHang = list.get(position);
-        Glide.with(context).load(donHangCuaHang.getImg_sanpham()).into(holder.img_sp);
-        holder.trangthai_sp.setText(donHangCuaHang.getTrangthai_sanpham());
-        holder.ten_sp.setText(donHangCuaHang.getTen_sanpham());
-        holder.gia_sp.setText(String.valueOf(donHangCuaHang.getGia_sanpham())+" vnđ");
-        holder.sl_sp.setText("Số lượng: "+ String.valueOf(donHangCuaHang.getSl_sanpham()));
-        holder.ten_kh.setText(donHangCuaHang.getTen_khachhang());
-        holder.sdt_kh.setText(donHangCuaHang.getSdt_khachhang());
-        holder.diachi_kh.setText(donHangCuaHang.getDiachi_khachhang());
 
-        holder.xn_hang.setEnabled(false);
-        holder.huy.setEnabled(false);
-        holder.trahang.setEnabled(false);
-
-        holder.xn_shipper.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                holder.xn_hang.setEnabled(true);
-                holder.huy.setEnabled(true);
-                holder.xn_shipper.setEnabled(false);
-            }
-        });
-        holder.xn_hang.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                donHangCuaHang.setTrangthai_sanpham("Đang giao");
-                holder.trangthai_sp.setText(donHangCuaHang.getTrangthai_sanpham());
-                holder.trahang.setEnabled(true);
-                holder.huy.setEnabled(false);
-                holder.xn_hang.setEnabled(false);
-            }
-        });
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        DonHang donHangCuaHang = list.get(position);
+        if (donHangCuaHang.getTrangThaiDH() == 0){
+            holder.trangthai_sp.setText("Chờ xác nhận");
+            holder.trahang.setEnabled(false);
+        }else if (donHangCuaHang.getTrangThaiDH() == 1){
+            holder.trangthai_sp.setText("Đang giao hàng");
+            holder.trahang.setEnabled(true);
+            holder.xn_shipper.setEnabled(false);
+            holder.xn_hang.setEnabled(false);
+        }else if (donHangCuaHang.getTrangThaiDH() == 3){
+            holder.trangthai_sp.setText("Giao thành công");
+            holder.trahang.setEnabled(false);
+            holder.xn_shipper.setEnabled(false);
+            holder.xn_hang.setEnabled(false);
+            holder.huy.setEnabled(false);
+            holder.cv_dh.setBackgroundResource(R.drawable.set_bg_donhangthanhcong);
+        }
+        Glide.with(context).load(donHangCuaHang.getHinhSP()).into(holder.img_sp);
+        holder.ten_sp.setText(donHangCuaHang.getTenSP());
+        holder.gia_sp.setText(decimalFormat.format(donHangCuaHang.getGiaSP())+" vnđ");
+        holder.sl_sp.setText("Số lượng: " + String.valueOf(donHangCuaHang.getSoLuongSP()));
+        holder.ten_kh.setText(donHangCuaHang.getTenKhachHang());
+        holder.sdt_kh.setText(donHangCuaHang.getSdtKhachHang());
+        holder.diachi_kh.setText(donHangCuaHang.getDiaChiKhachHang());
     }
 
     @Override

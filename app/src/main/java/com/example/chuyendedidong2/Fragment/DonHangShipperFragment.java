@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.chuyendedidong2.Adapter.DonHangShipperAdapter;
-import com.example.chuyendedidong2.Model.DonHangCuaHang;
 import com.example.chuyendedidong2.Model.DonHangShipper;
 import com.example.chuyendedidong2.R;
 

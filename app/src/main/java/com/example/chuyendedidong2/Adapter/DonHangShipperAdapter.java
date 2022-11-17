@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.chuyendedidong2.Model.DonHangCuaHang;
 import com.example.chuyendedidong2.Model.DonHangShipper;
 import com.example.chuyendedidong2.R;
 

@@ -74,6 +74,4 @@ public class Activity_Gio_hang extends AppCompatActivity {
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         tv_tongTien.setText("Tổng tiền: " + decimalFormat.format(tong) + "vnđ");
     }
-
-
 }
