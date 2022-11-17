@@ -17,8 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.Activity_Gio_hang;
 import com.example.chuyendedidong2.Activity_ThongTin_DonHang;
+import com.example.chuyendedidong2.Model.CartModel;
 import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -27,21 +31,25 @@ import java.util.List;
 
 public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHangViewHolder> {
     private Context mContext;
-    private List<ProductModel> mListGioHang = new ArrayList<>();
-    private Activity_Gio_hang activityGioHang;
-    public int _img_SP = 0;
+    private List<CartModel> mListGioHang = new ArrayList<>();
+    private FirebaseDatabase database;
+    private FirebaseAuth auth;
     public String _tensp = "";
     public int _GiaSP = 0;
     public String _tenCH = "";
     public int _soLuong = 0;
 
 
+    public Adapter_GioHang(Context mContext, List<CartModel> mListGioHang) {
+        this.mContext = mContext;
+        this.mListGioHang = mListGioHang;
+    }
 
     public Adapter_GioHang(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setDaTa(List<ProductModel> list) {
+    public void setDaTa(List<CartModel> list) {
         this.mListGioHang = list;
         notifyDataSetChanged();
     }
@@ -55,17 +63,17 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
 
     @Override
     public void onBindViewHolder(@NonNull GioHangViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        ProductModel gioHang = mListGioHang.get(position);
-
-
+        CartModel gioHang = mListGioHang.get(position);
+        database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
         if (gioHang == null) {
             return;
         }
-        Glide.with(mContext).load(gioHang.getImg_url()).into(holder.img_SPgiohang);
-        holder.tv_tenSP.setText("tên sản phẩm: " + gioHang.getName());
-        holder.tv_giaSP.setText("giá sản phẩm: " + String.valueOf(gioHang.getPrice()) + "VND");
-        holder.tv_tenCH.setText("Tên cửa hàng: " + gioHang.getNameShop());
-        holder.tv_soLuong.setText(String.valueOf(gioHang.getSoLuong()));
+        Glide.with(mContext).load(gioHang.getProduct_imgurl()).into(holder.img_SPgiohang);
+        holder.tv_tenSP.setText("tên sản phẩm: " + gioHang.getProduct_name());
+        holder.tv_giaSP.setText("giá sản phẩm: " + String.valueOf(gioHang.getProduct_price()) + "VND");
+        holder.tv_tenCH.setText("Tên cửa hàng: " + gioHang.getShop_id());
+        holder.tv_soLuong.setText(String.valueOf(gioHang.getProduct_quality()));
         int SoLuong = Integer.parseInt(holder.tv_soLuong.getText().toString());
         if (SoLuong > 10) {
             holder.btn_tangSL.setVisibility(View.INVISIBLE);
@@ -85,12 +93,12 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
                 int slMoiNhat = Integer.parseInt(holder.tv_soLuong.getText().toString()) + 1;
 
 
-                int slHt = mListGioHang.get(position).getSoLuong();
-                int giaHT = mListGioHang.get(position).getPrice();
-                mListGioHang.get(position).setSoLuong(slMoiNhat);
+                int slHt = mListGioHang.get(position).getProduct_quality();
+                int giaHT = mListGioHang.get(position).getProduct_price();
+                mListGioHang.get(position).setProduct_quality(slMoiNhat);
                 int giaMoiNhat = (giaHT * slMoiNhat) / slHt;
                 DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-                mListGioHang.get(position).setPrice(giaMoiNhat);
+                mListGioHang.get(position).setProduct_price(giaMoiNhat);
                 holder.tv_soLuong.setText(decimalFormat.format(giaMoiNhat));
 
                 notifyDataSetChanged();
@@ -111,12 +119,12 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
                 int slMoiNhat = Integer.parseInt(holder.tv_soLuong.getText().toString()) - 1;
 
 
-                int slHt = mListGioHang.get(position).getSoLuong();
-                int giaHT = mListGioHang.get(position).getPrice();
-                mListGioHang.get(position).setSoLuong(slMoiNhat);
+                int slHt = mListGioHang.get(position).getProduct_quality();
+                int giaHT = mListGioHang.get(position).getProduct_price();
+                mListGioHang.get(position).setProduct_quality(slMoiNhat);
                 int giaMoiNhat = (giaHT * slMoiNhat) / slHt;
                 DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-                mListGioHang.get(position).setPrice(giaMoiNhat);
+                mListGioHang.get(position).setProduct_price(giaMoiNhat);
                 holder.tv_soLuong.setText(decimalFormat.format(giaMoiNhat));
 
                 notifyDataSetChanged();
@@ -136,7 +144,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
         holder.btn_xoaItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListGioHang.remove(position);
+                DatabaseReference root = database.getReference("");
                 notifyDataSetChanged();
             }
         });
@@ -149,13 +157,11 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
         _tensp = strtenSP;
         _soLuong = iSoLuong;
 
-        Intent intent = new Intent(mContext , Activity_ThongTin_DonHang.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("object_products" , gioHang);
-        intent.putExtras(bundle);
-        mContext.startActivity(intent);
-
-
+//        Intent intent = new Intent(mContext , Activity_ThongTin_DonHang.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("object_products" , gioHang);
+//        intent.putExtras(bundle);
+//        mContext.startActivity(intent);
     }
 
     @Override
@@ -183,7 +189,6 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
             btn_giamSL = itemView.findViewById(R.id.btn_giamSL);
             tv_soLuong = itemView.findViewById(R.id.tv_soLuong);
             btn_xoaItem = itemView.findViewById(R.id.btn_xoaItem);
-
         }
     }
 

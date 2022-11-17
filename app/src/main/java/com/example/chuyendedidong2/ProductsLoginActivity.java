@@ -1,5 +1,7 @@
 package com.example.chuyendedidong2;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,7 +18,14 @@ import android.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.Adapter.ProductsAdapter;
 import com.example.chuyendedidong2.Fragment.CartFragment;
+import com.example.chuyendedidong2.Model.CartModel;
 import com.example.chuyendedidong2.Model.ProductModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,26 +37,26 @@ public class ProductsLoginActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private RatingBar ratingBar;
     private TextView tvTenSP,tvGiaSP,tvTenCuaHang,tvMoTa;
-    private ArrayList<ProductModel> productModelArrayList;
-    private ProductsAdapter newProductsAdapter;
-    private LinearLayout linearLayout;
     private Button btnAddCart;
-    private ProductModel products;
+    private FirebaseDatabase database;
+    private FirebaseAuth auth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products_login);
-
         setControl();
-       // final ProductModel[] productModel = {getIntent().getParcelableExtra("chitiet")};
+        database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         //setSupportActionBar(toolbar);
         //getSupportActionBar().setTitle("Sản phẩm");
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("sanpham");
+        String id = bundle.getString("id");
+        String shop_id = bundle.getString("shop_id");
         String name = bundle.getString("name");
         String image = bundle.getString("image");
         int price = bundle.getInt("price");
@@ -55,15 +64,6 @@ public class ProductsLoginActivity extends AppCompatActivity {
         String des = bundle.getString("des");
         String nameShop = bundle.getString("nameShop");
         int soluong = bundle.getInt("sl");
-
-//        Intent intent = getIntent();
-//        String name = intent.getStringExtra("name");
-//        String image = intent.getStringExtra("image");
-//        String price = intent.getStringExtra("price");
-//        String ratingbar = intent.getStringExtra("rating");
-//        String des = intent.getStringExtra("des");
-//        String nameShop = intent.getStringExtra("nameShop");
-//        String soluong = intent.getStringExtra("sl");
 
         //
         Glide.with(getApplicationContext()).load(image).into(imageView);
@@ -75,15 +75,16 @@ public class ProductsLoginActivity extends AppCompatActivity {
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                products = new ProductModel();
-                //products.createProductCart().add(new ProductModel(soluong,name,des,nameShop,price,rating,image));
-                startActivity(new Intent(ProductsLoginActivity.this, HomePageLoginActivity.class));
-                Toast.makeText(ProductsLoginActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
-            }
+                DatabaseReference root = database.getReference("cart");
+                CartModel cart = new CartModel(auth.getUid(),id,shop_id,image,name,price,soluong);
+                root.child(auth.getUid()).child(id).setValue(cart, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        Toast.makeText(ProductsLoginActivity.this, "Thêm giỏ hàng thành công", Toast.LENGTH_SHORT).show();
+                    }
+                });
+              }
         });
-//        sanPham = new ProductModel(Integer.parseInt(soluong),name,des,nameShop,Integer.parseInt(price),Float.parseFloat(ratingbar),image);
-//        Toast.makeText(ProductsLoginActivity.this, name , Toast.LENGTH_SHORT).show();
-//        products.createProductCart().add(sanPham);
     }
     private void setControl() {
         toolbar = findViewById(R.id.toolbar);

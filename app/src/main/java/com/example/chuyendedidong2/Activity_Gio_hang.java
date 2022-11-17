@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 
 import com.example.chuyendedidong2.Adapter.Adapter_GioHang;
+import com.example.chuyendedidong2.Model.CartModel;
 import com.example.chuyendedidong2.Model.ProductModel;
 
 import java.text.DecimalFormat;
@@ -23,7 +24,7 @@ public class Activity_Gio_hang extends AppCompatActivity {
 
     private static final int MY_REQUES_CODE = 10;
     private static List<ProductModel> list = new ArrayList<>();
-    private ProductModel productModel = new ProductModel();
+    private CartModel productModel = new CartModel();
     private RecyclerView rcv_GioHang;
     private Adapter_GioHang adapter_gioHang;
     private TextView tv_tongTien;
@@ -58,7 +59,7 @@ public class Activity_Gio_hang extends AppCompatActivity {
         adapter_gioHang = new Adapter_GioHang(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcv_GioHang.setLayoutManager(linearLayoutManager);
-        adapter_gioHang.setDaTa(productModel.createNewProduct());
+        adapter_gioHang.setDaTa(productModel.createList());
         rcv_GioHang.setAdapter(adapter_gioHang);
         tongTien();
     }

@@ -52,6 +52,8 @@ public class ProductsLoginAdapter extends RecyclerView.Adapter<ProductsLoginAdap
             public void onClick(View view) {
                 Intent intent = new Intent(context, ProductsLoginActivity.class);
                 Bundle bundle = new Bundle();
+                bundle.putString("id",productModel.getProduct_id());
+                bundle.putString("shop_id",productModel.getIdShop());
                 bundle.putString("image",productModel.getImg_url());
                 bundle.putString("name",productModel.getName());
                 bundle.putInt("price", productModel.getPrice());

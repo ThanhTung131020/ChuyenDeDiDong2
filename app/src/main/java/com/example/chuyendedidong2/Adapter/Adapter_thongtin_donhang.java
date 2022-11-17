@@ -189,15 +189,7 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
             dialog.setCancelable(true);
         }
         dialog.show();
-
-
-
-
     }
-
-
-
-
 }
 
 
