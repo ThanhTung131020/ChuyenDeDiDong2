@@ -6,18 +6,29 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.chuyendedidong2.HomePageActivity;
 import com.example.chuyendedidong2.Model.DonHang;
+import com.example.chuyendedidong2.Model.Shipper;
 import com.example.chuyendedidong2.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -25,6 +36,11 @@ import java.util.ArrayList;
 public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAdapter.DHCHViewHolder> {
     Context context;
     ArrayList<DonHang> list;
+    ArrayList<String> listShipperName = new ArrayList<String>();
+    ArrayList<Shipper> shippers = new ArrayList<>();
+    ArrayAdapter arrayAdapter;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
 
     public DonHangCuaHangAdapter(Context context, ArrayList<DonHang> list) {
         this.context = context;
@@ -40,7 +56,6 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
 
     @Override
     public void onBindViewHolder(@NonNull DHCHViewHolder holder, int position) {
-
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         DonHang donHangCuaHang = list.get(position);
         if (donHangCuaHang.getTrangThaiDH() == 0){
@@ -66,6 +81,44 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
         holder.ten_kh.setText(donHangCuaHang.getTenKhachHang());
         holder.sdt_kh.setText(donHangCuaHang.getSdtKhachHang());
         holder.diachi_kh.setText(donHangCuaHang.getDiaChiKhachHang());
+        getDataBaseNameShipper();
+        arrayAdapter = new ArrayAdapter(context, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,listShipperName);
+        arrayAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
+        holder.spShipper.setAdapter(arrayAdapter);
+        holder.spShipper.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                DatabaseReference set_shipper = database.getReference("bill").child(donHangCuaHang.getIdDonHang()).child("tenNguoiGiaoHang");
+                set_shipper.setValue(listShipperName.get(i));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+    private void getDataBaseNameShipper() {
+        DatabaseReference root = database.getReference("shipper");
+        root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (listShipperName != null){
+                    listShipperName.clear();
+                }
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Shipper shipper = dataSnapshot.getValue(Shipper.class);
+                    listShipperName.add(shipper.getName());
+                }
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override

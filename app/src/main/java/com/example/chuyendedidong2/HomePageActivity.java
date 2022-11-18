@@ -137,7 +137,6 @@ public class HomePageActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-
                     if(i ==1 ){
                         Toast.makeText(HomePageActivity.this, "sắp xếp theo giá sản phẩm", Toast.LENGTH_SHORT).show();
                         newProductsAdapter.sortPrice();
