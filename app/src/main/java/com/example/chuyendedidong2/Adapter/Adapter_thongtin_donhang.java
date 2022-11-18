@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.MainActivity;
+import com.example.chuyendedidong2.Model.DonHang;
 import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.R;
 
@@ -30,16 +31,14 @@ import java.util.List;
 
 public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thongtin_donhang.ThongTinViewholder> {
     private Context mContext;
-    private List<ProductModel> mListGioHang = new ArrayList<>();
-    private Adapter_GioHang adapter_gioHang;
-    private MainActivity mainActivity;
+    private List<DonHang> mListGioHang = new ArrayList<>();
     private Button btn_ok , btn_cancel;
 
 
     public Adapter_thongtin_donhang(Context mContext) {
         this.mContext = mContext;
     }
-    public void setData(List<ProductModel> list){
+    public void setData(List<DonHang> list){
         this.mListGioHang = list;
         notifyDataSetChanged();
     }
@@ -54,27 +53,25 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
     }
     @Override
     public void onBindViewHolder(@NonNull ThongTinViewholder holder, @SuppressLint("RecyclerView") int position) {
-        ProductModel gioHang = mListGioHang.get(position);
-            holder.tv_tenSP.setText("tên sản phẩm: "+ gioHang.getName());
-            holder.tv_giaSP.setText("giá sản phẩm: "+String.valueOf( gioHang.getPrice()));
-            holder.tv_soLuong.setText("X"+String.valueOf( gioHang.getSoLuong()));
-            holder.tv_ttDH.setText("đang giao");
-            if(holder.tv_ttDH.getText() == "chờ xác nhận"){
+        DonHang donHang = mListGioHang.get(position);
+            holder.tv_tenSP.setText("Tên sản phẩm: "+ donHang.getTenSP());
+            holder.tv_giaSP.setText("Giá sản phẩm: "+String.valueOf(donHang.getGiaSP()));
+            holder.tv_soLuong.setText("X"+String.valueOf( donHang.getSoLuongSP()));
+            holder.tv_ttDH.setText("Đang giao hàng");
+            if(holder.tv_ttDH.getText() == "Chờ xác nhận"){
                 holder.btn_daNhanhang.setEnabled(true);
             }
-            else if(holder.tv_ttDH.getText() == "đã giao"){
+            else if(holder.tv_ttDH.getText() == "Giao thành công"){
             holder.btn_daNhanhang.setVisibility(View.VISIBLE);
             }
 
 
-            holder.tv_tenCH.setText("tên cửa hàng"+gioHang.getNameShop());
-            Glide.with(mContext).load(gioHang.getImg_url()).into(holder.img_SPGioHang);
+            holder.tv_tenCH.setText("tên cửa hàng"+donHang.getTenCuaHang());
+            Glide.with(mContext).load(donHang.getHinhSP()).into(holder.img_SPGioHang);
             holder.btn_huy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                    openhuy(Gravity.CENTER);
-
-
                 }
             });
 

@@ -99,11 +99,9 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
             public void onClick(View view) {
 
                 int slMoiNhat = Integer.parseInt(holder.tv_soLuong.getText().toString()) + 1;
-
-
-                int slHt = mListGioHang.get(position).getProduct_quality();
-                int giaHT = mListGioHang.get(position).getProduct_price();
-                mListGioHang.get(position).setProduct_quality(slMoiNhat);
+                int slHt = gioHang.getProduct_quality();
+                int giaHT = gioHang.getProduct_price();
+                gioHang.setProduct_quality(slMoiNhat);
                 int giaMoiNhat = (giaHT * slMoiNhat) / slHt;
                 DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
                 mListGioHang.get(position).setProduct_price(giaMoiNhat);
@@ -125,8 +123,6 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
             @Override
             public void onClick(View view) {
                 int slMoiNhat = Integer.parseInt(holder.tv_soLuong.getText().toString()) - 1;
-
-
                 int slHt = mListGioHang.get(position).getProduct_quality();
                 int giaHT = mListGioHang.get(position).getProduct_price();
                 mListGioHang.get(position).setProduct_quality(slMoiNhat);
@@ -172,6 +168,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
             @Override
             public void onClick(View view) {
                 DatabaseReference donhang = database.getReference("bill");
+                DatabaseReference cart = database.getReference("cart").child(auth.getUid());
                 DatabaseReference user = database.getReference("personal");
                 DatabaseReference shop = database.getReference("shop");
                 String idBill = donhang.push().getKey();
@@ -191,11 +188,16 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
                                 String tenshop = shop.getName();
                                 String sdtshop = shop.getSdt();
                                 String diachishop = shop.getDiachi();
-                                DonHang donHang = new DonHang(idBill,0,gioHang.getProduct_imgurl(),idShop,gioHang.getProduct_name(),gioHang.getProduct_price(),gioHang.getProduct_quality(),idkh,tenkh,diachikh,sdtkh,"shipper01","shippername",idShop,tenshop,diachishop,sdtshop);
+                                DonHang donHang = new DonHang(idBill,0,gioHang.getProduct_imgurl(),gioHang.getProduct_id(),gioHang.getProduct_name(),gioHang.getProduct_price(),gioHang.getProduct_quality(),idkh,tenkh,diachikh,sdtkh,"shipper01","shippername",idShop,tenshop,diachishop,sdtshop);
                                 donhang.child(idBill).setValue(donHang, new DatabaseReference.CompletionListener() {
                                     @Override
                                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                        Toast.makeText(mContext, "Đã mua, vui lòng check đơn hàng!", Toast.LENGTH_SHORT).show();
+                                        cart.child(gioHang.getProduct_id()).removeValue(new DatabaseReference.CompletionListener() {
+                                            @Override
+                                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                                Toast.makeText(mContext, "Đã mua, vui lòng check đơn hàng!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                                     }
                                 });
                             }

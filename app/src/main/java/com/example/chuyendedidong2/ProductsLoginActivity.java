@@ -76,7 +76,7 @@ public class ProductsLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DatabaseReference root = database.getReference("cart");
-                CartModel cart = new CartModel(auth.getUid(),id,shop_id,image,name,price,soluong);
+                CartModel cart = new CartModel(auth.getUid(),id,shop_id,image,name,price,1);
                 root.child(auth.getUid()).child(id).setValue(cart, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
