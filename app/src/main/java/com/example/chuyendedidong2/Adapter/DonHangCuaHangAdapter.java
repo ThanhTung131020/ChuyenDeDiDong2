@@ -88,8 +88,7 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
         holder.spShipper.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                DatabaseReference set_shipper = database.getReference("bill").child(donHangCuaHang.getIdDonHang()).child("tenNguoiGiaoHang");
-                set_shipper.setValue(listShipperName.get(i));
+
             }
 
             @Override
@@ -97,6 +96,7 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
 
             }
         });
+
     }
 
     private void getDataBaseNameShipper() {

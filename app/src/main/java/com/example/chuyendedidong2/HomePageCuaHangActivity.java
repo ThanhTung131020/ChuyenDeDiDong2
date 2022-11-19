@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.chuyendedidong2.Fragment.CartFragment;
+import com.example.chuyendedidong2.Fragment.DonHangDangGiaoShopFragment;
+import com.example.chuyendedidong2.Fragment.DonHangGiaoThanhCongShopFragment;
 import com.example.chuyendedidong2.Fragment.HomePageFragment;
 import com.example.chuyendedidong2.Fragment.ProfileFragment;
 import com.example.chuyendedidong2.Fragment.SanPhamCuaHangFragment;
@@ -49,10 +51,10 @@ public class HomePageCuaHangActivity extends AppCompatActivity {
                         replaceFrament(new TrangChuCuaHangFragment());
                         break;
                     case R.id.mnDonHangDangGiao:
-                        //replaceFrament(new CartFragment());
+                        replaceFrament(new DonHangDangGiaoShopFragment());
                         break;
                     case R.id.mnDonHangDaGiao:
-                        //replaceFrament(new CartFragment());
+                        replaceFrament(new DonHangGiaoThanhCongShopFragment());
                         break;
                 }
                 return true;
