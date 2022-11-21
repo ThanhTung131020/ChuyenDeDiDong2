@@ -71,7 +71,7 @@ public class TrangChuCuaHangFragment extends Fragment {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     String idShop = dataSnapshot.child("idCuaHang").getValue().toString();
                     long trang_thai = (long) dataSnapshot.child("trangThaiDH").getValue();
-                    if (idShop.equals(auth.getUid()) && trang_thai == 0){
+                    if (idShop.equals(auth.getUid()) && trang_thai == 0 || trang_thai == 1){
                         DonHang bill = dataSnapshot.getValue(DonHang.class);
                         list.add(bill);
                     }

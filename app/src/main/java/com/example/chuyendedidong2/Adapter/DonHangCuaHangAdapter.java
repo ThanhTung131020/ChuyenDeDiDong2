@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,7 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
     Context context;
     ArrayList<DonHang> list;
     ArrayList<String> listShipperName = new ArrayList<String>();
+    ArrayList<String> listShipperID = new ArrayList<String>();
     ArrayList<Shipper> shippers = new ArrayList<>();
     ArrayAdapter arrayAdapter;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -62,6 +64,10 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
             holder.trangthai_sp.setText("Chờ xác nhận");
             holder.trahang.setEnabled(false);
         }else if (donHangCuaHang.getTrangThaiDH() == 1){
+            holder.trangthai_sp.setText("Chờ shipper xác nhận");
+            holder.xn_shipper.setEnabled(false);
+        }
+        else if (donHangCuaHang.getTrangThaiDH() == 2){
             holder.trangthai_sp.setText("Đang giao hàng");
             holder.trahang.setEnabled(true);
             holder.xn_shipper.setEnabled(false);
@@ -73,6 +79,12 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
             holder.xn_hang.setEnabled(false);
             holder.huy.setEnabled(false);
             holder.cv_dh.setBackgroundResource(R.drawable.set_bg_donhangthanhcong);
+        }else if (donHangCuaHang.getTrangThaiDH() == 4){
+            holder.trangthai_sp.setText("Đơn hàng đã hủy");
+            holder.trahang.setEnabled(false);
+            holder.xn_shipper.setEnabled(false);
+            holder.xn_hang.setEnabled(false);
+            holder.huy.setEnabled(false);
         }
         Glide.with(context).load(donHangCuaHang.getHinhSP()).into(holder.img_sp);
         holder.ten_sp.setText(donHangCuaHang.getTenSP());
@@ -88,11 +100,36 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
         holder.spShipper.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                donHangCuaHang.setTenNguoiGiaoHang(listShipperName.get(i));
+                donHangCuaHang.setIdNguoiGiaoHang(listShipperID.get(i));
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        holder.xn_shipper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference root_shipper = database.getReference("bill").child(donHangCuaHang.getIdDonHang()).child("tenNguoiGiaoHang");
+                root_shipper.setValue(donHangCuaHang.getTenNguoiGiaoHang(), new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        DatabaseReference root_id = database.getReference("bill").child(donHangCuaHang.getIdDonHang()).child("idNguoiGiaoHang");
+                        root_id.setValue(donHangCuaHang.getIdNguoiGiaoHang(), new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                DatabaseReference root_tv = database.getReference("bill").child(donHangCuaHang.getIdDonHang()).child("trangThaiDH");
+                                root_tv.setValue(1);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        holder.huy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
             }
         });
@@ -110,6 +147,7 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Shipper shipper = dataSnapshot.getValue(Shipper.class);
                     listShipperName.add(shipper.getName());
+                    listShipperID.add(shipper.getId());
                 }
                 arrayAdapter.notifyDataSetChanged();
             }
