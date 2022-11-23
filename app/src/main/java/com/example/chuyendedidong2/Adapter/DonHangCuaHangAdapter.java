@@ -63,36 +63,40 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
         if (donHangCuaHang.getTrangThaiDH() == 0){
             holder.trangthai_sp.setText("Chờ xác nhận");
             holder.trahang.setEnabled(false);
+            holder.xn_hang.setEnabled(false);
         }else if (donHangCuaHang.getTrangThaiDH() == 1){
-            holder.trangthai_sp.setText("Chờ shipper xác nhận");
+            holder.trangthai_sp.setText("Chờ shipper nhận hàng");
             holder.xn_shipper.setEnabled(false);
+            holder.xn_hang.setEnabled(false);
+            holder.trahang.setEnabled(false);
         }
         else if (donHangCuaHang.getTrangThaiDH() == 2){
+            holder.trangthai_sp.setText("Shipper đã xác nhận");
+            holder.xn_shipper.setEnabled(false);
+            holder.trahang.setEnabled(false);
+
+        }
+        else if (donHangCuaHang.getTrangThaiDH() == 3 || donHangCuaHang.getTrangThaiDH() == 4){
             holder.trangthai_sp.setText("Đang giao hàng");
             holder.trahang.setEnabled(true);
             holder.xn_shipper.setEnabled(false);
             holder.xn_hang.setEnabled(false);
-        }else if (donHangCuaHang.getTrangThaiDH() == 3){
+            holder.huy.setEnabled(false);
+        }else if (donHangCuaHang.getTrangThaiDH() == 5){
             holder.trangthai_sp.setText("Giao thành công");
             holder.trahang.setEnabled(false);
             holder.xn_shipper.setEnabled(false);
             holder.xn_hang.setEnabled(false);
             holder.huy.setEnabled(false);
             holder.cv_dh.setBackgroundResource(R.drawable.set_bg_donhangthanhcong);
-        }else if (donHangCuaHang.getTrangThaiDH() == 4){
-            holder.trangthai_sp.setText("Đơn hàng đã hủy");
-            holder.trahang.setEnabled(false);
-            holder.xn_shipper.setEnabled(false);
-            holder.xn_hang.setEnabled(false);
-            holder.huy.setEnabled(false);
         }
         Glide.with(context).load(donHangCuaHang.getHinhSP()).into(holder.img_sp);
-        holder.ten_sp.setText(donHangCuaHang.getTenSP());
-        holder.gia_sp.setText(decimalFormat.format(donHangCuaHang.getGiaSP())+" vnđ");
+        holder.ten_sp.setText("Tên SP: "+donHangCuaHang.getTenSP());
+        holder.gia_sp.setText("Giá SP: "+decimalFormat.format(donHangCuaHang.getGiaSP())+" vnđ");
         holder.sl_sp.setText("Số lượng: " + String.valueOf(donHangCuaHang.getSoLuongSP()));
-        holder.ten_kh.setText(donHangCuaHang.getTenKhachHang());
-        holder.sdt_kh.setText(donHangCuaHang.getSdtKhachHang());
-        holder.diachi_kh.setText(donHangCuaHang.getDiaChiKhachHang());
+        holder.ten_kh.setText("Tên KH: "+donHangCuaHang.getTenKhachHang());
+        holder.sdt_kh.setText("SDT Khách hàng: "+donHangCuaHang.getSdtKhachHang());
+        holder.diachi_kh.setText("Địa chỉ KH: "+donHangCuaHang.getDiaChiKhachHang());
         getDataBaseNameShipper();
         arrayAdapter = new ArrayAdapter(context, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,listShipperName);
         arrayAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
@@ -127,10 +131,11 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
                 });
             }
         });
-        holder.huy.setOnClickListener(new View.OnClickListener() {
+        holder.xn_hang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                DatabaseReference root = database.getReference("bill").child(donHangCuaHang.getIdDonHang()).child("trangThaiDH");
+                root.setValue(3);
             }
         });
 

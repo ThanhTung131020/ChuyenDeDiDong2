@@ -12,12 +12,15 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -25,15 +28,20 @@ import com.example.chuyendedidong2.MainActivity;
 import com.example.chuyendedidong2.Model.DonHang;
 import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.R;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thongtin_donhang.ThongTinViewholder> {
     private Context mContext;
-    private List<DonHang> mListGioHang = new ArrayList<>();
+    private List<DonHang> mListGioHang;
     private Button btn_ok , btn_cancel;
-
+    private EditText edthuy;
+    private DonHang donHang;
+    FirebaseDatabase database;
 
     public Adapter_thongtin_donhang(Context mContext) {
         this.mContext = mContext;
@@ -53,25 +61,49 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
     }
     @Override
     public void onBindViewHolder(@NonNull ThongTinViewholder holder, @SuppressLint("RecyclerView") int position) {
-        DonHang donHang = mListGioHang.get(position);
+       donHang = mListGioHang.get(position);
+        database = FirebaseDatabase.getInstance();
             holder.tv_tenSP.setText("Tên sản phẩm: "+ donHang.getTenSP());
             holder.tv_giaSP.setText("Giá sản phẩm: "+String.valueOf(donHang.getGiaSP()));
             holder.tv_soLuong.setText("X"+String.valueOf( donHang.getSoLuongSP()));
             holder.tv_ttDH.setText("Đang giao hàng");
-            if(holder.tv_ttDH.getText() == "Chờ xác nhận"){
-                holder.btn_daNhanhang.setEnabled(true);
+            if(donHang.getTrangThaiDH() == 0){
+                holder.btn_daNhanhang.setEnabled(false);
+                holder.btn_daNhanhang.setBackgroundResource(R.color.offgiaothanhcong);
+                holder.tv_ttDH.setText("Chờ xác nhận");
             }
-            else if(holder.tv_ttDH.getText() == "Giao thành công"){
-            holder.btn_daNhanhang.setVisibility(View.VISIBLE);
+            else if(donHang.getTrangThaiDH() == 1 || donHang.getTrangThaiDH() == 2){
+                holder.tv_ttDH.setText("Đang giao");
+                holder.btn_daNhanhang.setEnabled(false);
+                holder.btn_huy.setEnabled(false);
+                holder.btn_huy.setBackgroundResource(R.color.offgiaothanhcong);
+                holder.btn_daNhanhang.setBackgroundResource(R.color.offgiaothanhcong);
+            }else if(donHang.getTrangThaiDH() == 3){
+                holder.tv_ttDH.setText("Xác nhận hàng");
+            }
+            else if(donHang.getTrangThaiDH() == 4 || donHang.getTrangThaiDH() == 5){
+                holder.tv_ttDH.setText("Đã nhận");
+                holder.btn_huy.setEnabled(false);
+                holder.btn_daNhanhang.setEnabled(false);
+                holder.btn_huy.setBackgroundResource(R.color.offgiaothanhcong);
+                holder.btn_daNhanhang.setBackgroundResource(R.color.offgiaothanhcong);
+            }
+            else if(donHang.getTrangThaiDH() == 6){
+                holder.tv_ttDH.setText("Đã hủy");
+                holder.btn_huy.setEnabled(false);
+                holder.btn_daNhanhang.setEnabled(false);
+                holder.btn_huy.setBackgroundResource(R.color.offgiaothanhcong);
+                holder.btn_daNhanhang.setBackgroundResource(R.color.offgiaothanhcong);
             }
 
 
-            holder.tv_tenCH.setText("tên cửa hàng"+donHang.getTenCuaHang());
+            holder.tv_tenCH.setText("Tên cửa hàng"+donHang.getTenCuaHang());
             Glide.with(mContext).load(donHang.getHinhSP()).into(holder.img_SPGioHang);
             holder.btn_huy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                   openhuy(Gravity.CENTER);
+                    openhuy(Gravity.CENTER);
+
                 }
             });
 
@@ -79,11 +111,10 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
                 @Override
                 public void onClick(View view) {
                     openRating(Gravity.CENTER);
-                    mListGioHang.remove(position);
-                    notifyDataSetChanged();
+                    DatabaseReference root = database.getReference("bill").child(donHang.getIdDonHang()).child("trangThaiDH");
+                    root.setValue(4);
                 }
             });
-
 
     }
 
@@ -138,15 +169,14 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
             dialog.setCancelable(true);
         }
         dialog.show();
+        edthuy = dialog.findViewById(R.id.edt_huyDon);
         btn_ok = dialog.findViewById(R.id.btn_dialig_huyDon_ok);
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                    mListGioHang.remove(0);
-                    notifyDataSetChanged();
-                    dialog.dismiss();
-
+                DatabaseReference root = database.getReference("bill").child(donHang.getIdDonHang()).child("trangThaiDH");
+                root.setValue(6);
+                dialog.dismiss();
             }
         });
         btn_cancel = dialog.findViewById(R.id.btn_dialig_huyDon_no);
@@ -157,10 +187,6 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
 
             }
         });
-
-
-
-
     }
     private void openRating(int gravity) {
 
@@ -177,8 +203,8 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
         windowatribute.gravity = gravity;
         window.setAttributes(windowatribute);
         RatingBar ratingBar = dialog.findViewById(R.id.rtb_rating);
-        ratingBar.setNumStars(5);
-       ratingBar.setRating(4);
+        ratingBar.setRating(5);
+        ratingBar.setNumStars(4);
         if(Gravity.BOTTOM == gravity){
             dialog.setCancelable(false);
         }

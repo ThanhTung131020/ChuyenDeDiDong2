@@ -56,7 +56,8 @@ public class Activity_ThongTin_DonHang extends AppCompatActivity {
                 }
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     String id = dataSnapshot.child("idKhachhang").getValue().toString();
-                    if (id.equals(auth.getUid())){
+                    long trang_thai = (long) dataSnapshot.child("trangThaiDH").getValue();
+                    if (id.equals(auth.getUid()) && trang_thai != 6){
                         DonHang donHang = dataSnapshot.getValue(DonHang.class);
                         list.add(donHang);
                     }

@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.chuyendedidong2.Adapter.DonHangCuaHangAdapter;
+import com.example.chuyendedidong2.Adapter.Adapter_thongtin_donhang;
 import com.example.chuyendedidong2.Model.DonHang;
 import com.example.chuyendedidong2.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,56 +25,52 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-public class DonHangGiaoThanhCongShopFragment extends Fragment {
-
-    ArrayList<DonHang> list = new ArrayList<>();
-    DonHangCuaHangAdapter donHangCuaHangAdapter;
-    RecyclerView rv_donhang;
+public class BillDaHuyFragment extends Fragment{
     FirebaseDatabase database;
     FirebaseAuth auth;
+    ArrayList<DonHang> list;
+    Adapter_thongtin_donhang adapter_thongtin_donhang;
+    RecyclerView rv_bill;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_don_hang_giao_thanh_cong_shop, container, false);
-        rv_donhang = view.findViewById(R.id.rv_bill_dagiao_shop);
+        View view = inflater.inflate(R.layout.fragment_bill_da_huy, container, false);
+        rv_bill = view.findViewById(R.id.rv_remove_bill_kh);
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
-        setEvent();
+        adapter_thongtin_donhang = new Adapter_thongtin_donhang(getContext());
+        list = new ArrayList<>();
+        getDataBaseBill();
+        rv_bill.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        adapter_thongtin_donhang.setData(list);
+        rv_bill.setAdapter(adapter_thongtin_donhang);
         return view;
     }
 
-    private void setEvent() {
-        getDonHangDataBase();
-        donHangCuaHangAdapter = new DonHangCuaHangAdapter(getContext(),list);
-        rv_donhang.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        rv_donhang.setAdapter(donHangCuaHangAdapter);
-    }
-
-    private void getDonHangDataBase() {
-        DatabaseReference donHang = database.getReference("bill");
-        donHang.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
+    private void getDataBaseBill() {
+        DatabaseReference root = database.getReference("bill");
+        root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (list != null){
+                if (list != null) {
                     list.clear();
                 }
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    String idShop = dataSnapshot.child("idCuaHang").getValue().toString();
+                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    String id = dataSnapshot.child("idKhachhang").getValue().toString();
                     long trang_thai = (long) dataSnapshot.child("trangThaiDH").getValue();
-                    if (idShop.equals(auth.getUid()) && trang_thai == 5){
-                        DonHang bill = dataSnapshot.getValue(DonHang.class);
-                        list.add(bill);
+                    if (id.equals(auth.getUid()) && trang_thai == 6){
+                        DonHang donHang = dataSnapshot.getValue(DonHang.class);
+                        list.add(donHang);
                     }
-                    donHangCuaHangAdapter.notifyDataSetChanged();
                 }
+                adapter_thongtin_donhang.notifyDataSetChanged();
             }
 
             @Override
