@@ -124,6 +124,7 @@ public class HomePageFragment extends Fragment {
 
             public void OnclickItemCategory(CategoryModel cate) {
                 if (cate.getCatID() == "cat001") {
+                    createNewProductPC("laptop" , "may tinh");
                     Toast.makeText(getContext(), "1", Toast.LENGTH_SHORT).show();
 
                 } else if (cate.getCatID() == "cat002") {
@@ -176,7 +177,7 @@ public class HomePageFragment extends Fragment {
     }
  public  ArrayList<ProductModel> createNewProduct() {
 
-        ArrayList<ProductModel> productModelList;
+
 
         productModelList = new ArrayList<>();
 
@@ -188,9 +189,9 @@ public class HomePageFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 productModelList.clear();
                 for (DataSnapshot snap : snapshot.getChildren()) {
-                    ProductModel productModel = snap.getValue(ProductModel.class);
+                    prd  = snap.getValue(ProductModel.class);
 
-                    productModelList.add(productModel);
+                    productModelList.add(prd);
                 }
                 newProductsAdapter.notifyDataSetChanged();
             }
@@ -233,7 +234,7 @@ public class HomePageFragment extends Fragment {
 
     }
 
-    public ArrayList<ProductModel> createNewProductPC(String key) {
+    public ArrayList<ProductModel> createNewProductPC(String key , String key1) {
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -244,7 +245,7 @@ public class HomePageFragment extends Fragment {
                 productModelList.clear();
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     prd = snap.getValue(ProductModel.class);
-                    if (prd.getName().toLowerCase().contains(key.toLowerCase()))
+                    if (prd.getName().toLowerCase().contains(key.toLowerCase())|| prd.getName().toLowerCase().contains(key1.toLowerCase()))
 
                         productModelList.add(prd);
                 }
