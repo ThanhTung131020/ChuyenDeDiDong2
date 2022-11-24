@@ -1,5 +1,6 @@
 package com.example.chuyendedidong2.Fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,7 +14,6 @@ import android.view.ViewGroup;
 
 import com.example.chuyendedidong2.Adapter.DonHangShipperAdapter;
 import com.example.chuyendedidong2.Model.DonHang;
-import com.example.chuyendedidong2.Model.DonHangShipper;
 import com.example.chuyendedidong2.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -24,52 +24,57 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class DonHangShipperFragment extends Fragment {
 
-    ArrayList<DonHang> donHangShippers;
-    DonHangShipperAdapter donHangShipperAdapter;
-    RecyclerView rv_dinhang_shipper;
+public class DonHangDaGiaoShipperFragment extends Fragment {
+
+    RecyclerView rv_dagiao;
+    ArrayList<DonHang> list;
+    DonHangShipperAdapter adapter;
     FirebaseDatabase database;
     FirebaseAuth auth;
+    public DonHangDaGiaoShipperFragment() {
+        // Required empty public constructor
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_don_hang_shipper, container, false);
-        rv_dinhang_shipper = view.findViewById(R.id.rv_donhang_shipper);
+        View view = inflater.inflate(R.layout.fragment_don_hang_da_giao_shipper, container, false);
+        rv_dagiao = view.findViewById(R.id.rv_bill_dagiao_shipper);
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
-        donHangShippers = new ArrayList<>();
-        getDataBaseDonHang();
-        donHangShipperAdapter = new DonHangShipperAdapter(getContext(),donHangShippers);
-        rv_dinhang_shipper.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        rv_dinhang_shipper.setAdapter(donHangShipperAdapter);
+        list = new ArrayList<>();
+        getDataBaseBill();
+        adapter = new DonHangShipperAdapter(getContext(),list);
+        rv_dagiao.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
+        rv_dagiao.setAdapter(adapter);
         return view;
     }
 
-    private void getDataBaseDonHang() {
+    private void getDataBaseBill() {
         DatabaseReference root = database.getReference("bill");
         root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (donHangShippers != null){
-                    donHangShippers.clear();
+                if (list != null){
+                    list.clear();
                 }
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     String id = dataSnapshot.child("idNguoiGiaoHang").getValue().toString();
                     long trang_thai = (long) dataSnapshot.child("trangThaiDH").getValue();
-                    if (id.equals(auth.getUid()) && trang_thai != 5){
+                    if (id.equals(auth.getUid()) && trang_thai == 5){
                         DonHang bill = dataSnapshot.getValue(DonHang.class);
-                        donHangShippers.add(bill);
+                        list.add(bill);
                     }
                 }
-                donHangShipperAdapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -78,5 +83,4 @@ public class DonHangShipperFragment extends Fragment {
             }
         });
     }
-
 }

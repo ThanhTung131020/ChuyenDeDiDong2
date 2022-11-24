@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -32,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseDatabase database;
     DiaLogLoanding diaLogLoanding;
+    CheckBox check_save;
+    String thongtinluu = "tk_mk login";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +57,10 @@ public class LoginActivity extends AppCompatActivity {
         rdbCuaHang = findViewById(R.id.rdbCuaHangLogin);
         rdbShipper = findViewById(R.id.rdbShipperLogin);
         rdo = findViewById(R.id.radioGroupLogin);
+        check_save = findViewById(R.id.check_save);
+
+
+
     }
     private void setEvent() {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
@@ -64,11 +72,20 @@ public class LoginActivity extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 diaLogLoanding.ShowDiaLog("Đang đăng nhập... ");
                 signIn(view);
+                //lưu thông tin đăng nhập
+                SharedPreferences sharedPreferences = getSharedPreferences(thongtinluu,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                // lưu theo dạng phân rã
+                editor.putString("UserName",email.getText().toString());
+                editor.putString("Password",password.getText().toString());
+                editor.putBoolean("Save",check_save.isChecked());
+                editor.commit();
             }
         });
-
     }
 
     public void signUp(View view){
@@ -107,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(intent);
                                 }else {
                                     diaLogLoanding.HideDialog();
+
                                     Toast.makeText(LoginActivity.this,"Đăng nhập thất bại",Toast.LENGTH_SHORT).show();
                                     return;
                                 }
@@ -166,6 +184,21 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // hiện thông tin đã được lưu
+        SharedPreferences sharedPreferences = getSharedPreferences(thongtinluu,MODE_PRIVATE);
+        String username = sharedPreferences.getString("UserName","");
+        String password1 = sharedPreferences.getString("Password","");
+        Boolean save = sharedPreferences.getBoolean("Save",false);
+        if(save==true){
+            email.setText(username);
+            password.setText(password1);
+        }
 
     }
 }

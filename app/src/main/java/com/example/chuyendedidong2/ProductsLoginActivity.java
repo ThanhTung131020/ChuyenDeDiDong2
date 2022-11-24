@@ -20,6 +20,7 @@ import com.example.chuyendedidong2.Adapter.ProductsAdapter;
 import com.example.chuyendedidong2.Fragment.CartFragment;
 import com.example.chuyendedidong2.Model.CartModel;
 import com.example.chuyendedidong2.Model.ProductModel;
+import com.example.chuyendedidong2.Model.Shop;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,11 +34,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class ProductsLoginActivity extends AppCompatActivity {
-    private ImageView imageView;
+    private ImageView imageView,pic1,pic2,pic3;
     private Toolbar toolbar;
     private RatingBar ratingBar;
     private TextView tvTenSP,tvGiaSP,tvTenCuaHang,tvMoTa;
     private Button btnAddCart;
+    private DialogOkActivity dialogOk;
     private FirebaseDatabase database;
     private FirebaseAuth auth;
 
@@ -47,6 +49,7 @@ public class ProductsLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products_login);
         setControl();
+        dialogOk = new DialogOkActivity(this);
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
 
@@ -59,6 +62,9 @@ public class ProductsLoginActivity extends AppCompatActivity {
         String shop_id = bundle.getString("shop_id");
         String name = bundle.getString("name");
         String image = bundle.getString("image");
+        String pic1 = bundle.getString("pic1");
+        String pic2 = bundle.getString("pic2");
+        String pic3 = bundle.getString("pic3");
         int price = bundle.getInt("price");
         float rating = bundle.getFloat("rating");
         String des = bundle.getString("des");
@@ -67,6 +73,9 @@ public class ProductsLoginActivity extends AppCompatActivity {
 
         //
         Glide.with(getApplicationContext()).load(image).into(imageView);
+        Glide.with(getApplicationContext()).load(pic1).into(this.pic1);
+        Glide.with(getApplicationContext()).load(pic2).into(this.pic2);
+        Glide.with(getApplicationContext()).load(pic3).into(this.pic3);
         tvTenSP.setText(name);
         tvGiaSP.setText(String.valueOf(price));
         tvMoTa.setText(des);
@@ -75,15 +84,29 @@ public class ProductsLoginActivity extends AppCompatActivity {
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseReference root = database.getReference("cart");
-                CartModel cart = new CartModel(auth.getUid(),id,shop_id,image,name,price,1);
-                root.child(auth.getUid()).child(id).setValue(cart, new DatabaseReference.CompletionListener() {
+                DatabaseReference name_shop = database.getReference("shop");
+                name_shop.child(shop_id).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                        Toast.makeText(ProductsLoginActivity.this, "Thêm giỏ hàng thành công", Toast.LENGTH_SHORT).show();
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Shop shop = snapshot.getValue(Shop.class);
+                        String nameShop = shop.getName();
+                        DatabaseReference root = database.getReference("cart");
+                        CartModel cart = new CartModel(auth.getUid(),id,shop_id,nameShop,image,name,price,1);
+                        root.child(auth.getUid()).child(id).setValue(cart, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                dialogOk.ShowDiaLog("Thêm giỏ hàng thành công!");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
                     }
                 });
-              }
+
+            }
         });
     }
     private void setControl() {
@@ -95,5 +118,8 @@ public class ProductsLoginActivity extends AppCompatActivity {
         tvGiaSP = findViewById(R.id.tvGia);
         tvMoTa = findViewById(R.id.tvMoTa);
         tvTenCuaHang = findViewById(R.id.tvTenCuaHang);
+        pic1 = findViewById(R.id.ivSanPham1);
+        pic2 = findViewById(R.id.ivSanPham2);
+        pic3 = findViewById(R.id.ivSanPham3);
     }
 }

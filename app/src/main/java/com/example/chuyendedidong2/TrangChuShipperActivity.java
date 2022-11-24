@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.chuyendedidong2.Fragment.DonHangDaGiaoShipperFragment;
 import com.example.chuyendedidong2.Fragment.DonHangShipperFragment;
 import com.example.chuyendedidong2.Fragment.ThongTinShipperFragment;
 import com.example.chuyendedidong2.Fragment.ThontincuahangFragment;
@@ -38,6 +39,9 @@ public class TrangChuShipperActivity extends AppCompatActivity {
                         break;
                     case R.id.mnDonHangShipper:
                         replaceFrament(new DonHangShipperFragment());
+                        break;
+                    case R.id.mnDonHangDaGiaoShipper:
+                        replaceFrament(new DonHangDaGiaoShipperFragment());
                         break;
                 }
                 return true;

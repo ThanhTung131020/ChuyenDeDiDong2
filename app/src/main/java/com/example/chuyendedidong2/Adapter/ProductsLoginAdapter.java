@@ -55,6 +55,9 @@ public class ProductsLoginAdapter extends RecyclerView.Adapter<ProductsLoginAdap
                 bundle.putString("id",productModel.getProduct_id());
                 bundle.putString("shop_id",productModel.getIdShop());
                 bundle.putString("image",productModel.getImg_url());
+                bundle.putString("pic1",productModel.getPic1());
+                bundle.putString("pic2",productModel.getPic2());
+                bundle.putString("pic3",productModel.getPic3());
                 bundle.putString("name",productModel.getName());
                 bundle.putInt("price", productModel.getPrice());
                 bundle.putFloat("rating", productModel.getNumStar());

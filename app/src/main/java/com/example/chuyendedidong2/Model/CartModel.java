@@ -4,27 +4,25 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class CartModel implements Serializable {
-    String cart_id,user_id, product_id, shop_id, product_imgurl, product_name;
+    String cart_id,user_id, product_id, shop_id,shop_name, product_imgurl, product_name;
     int product_price, product_quality;
 
     public CartModel() {
     }
 
-    public CartModel(String cart_id, String user_id, String product_id, String shop_id, String product_imgurl, String product_name, int product_price, int product_quality) {
-        this.cart_id = cart_id;
-        this.user_id = user_id;
-        this.product_id = product_id;
-        this.shop_id = shop_id;
-        this.product_imgurl = product_imgurl;
-        this.product_name = product_name;
-        this.product_price = product_price;
-        this.product_quality = product_quality;
+    public String getShop_name() {
+        return shop_name;
     }
 
-    public CartModel(String user_id, String product_id, String shop_id, String product_imgurl, String product_name, int product_price, int product_quality) {
+    public void setShop_name(String shop_name) {
+        this.shop_name = shop_name;
+    }
+
+    public CartModel(String user_id, String product_id, String shop_id, String shop_name, String product_imgurl, String product_name, int product_price, int product_quality) {
         this.user_id = user_id;
         this.product_id = product_id;
         this.shop_id = shop_id;
+        this.shop_name = shop_name;
         this.product_imgurl = product_imgurl;
         this.product_name = product_name;
         this.product_price = product_price;

@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.Activity_Gio_hang;
 import com.example.chuyendedidong2.Activity_ThongTin_DonHang;
+import com.example.chuyendedidong2.DialogOkActivity;
 import com.example.chuyendedidong2.Model.CartModel;
 import com.example.chuyendedidong2.Model.DonHang;
 import com.example.chuyendedidong2.Model.Personal;
@@ -50,7 +51,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
     public int _soLuong = 0;
     private FirebaseDatabase database;
     private FirebaseAuth auth;
-
+    DialogOkActivity dialogOk;
 
 
     public Adapter_GioHang(Context mContext) {
@@ -73,6 +74,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
     public void onBindViewHolder(@NonNull GioHangViewHolder holder, @SuppressLint("RecyclerView") int position) {
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
+        dialogOk = new DialogOkActivity(mContext);
         CartModel gioHang = mListGioHang.get(position);
         if (gioHang == null) {
             return;
@@ -80,7 +82,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
         Glide.with(mContext).load(gioHang.getProduct_imgurl()).into(holder.img_SPgiohang);
         holder.tv_tenSP.setText("tên sản phẩm: " + gioHang.getProduct_name());
         holder.tv_giaSP.setText("giá sản phẩm: " + String.valueOf(gioHang.getProduct_price()) + "VND");
-        holder.tv_tenCH.setText("Tên cửa hàng: " + gioHang.getShop_id());
+        holder.tv_tenCH.setText("Tên cửa hàng: " + gioHang.getShop_name());
         holder.tv_soLuong.setText(String.valueOf(gioHang.getProduct_quality()));
         int SoLuong = Integer.parseInt(holder.tv_soLuong.getText().toString());
         if (SoLuong > 10) {
@@ -151,7 +153,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
                 root.child(gioHang.getProduct_id()).removeValue(new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                        Toast.makeText(mContext, "Đã xóa", Toast.LENGTH_SHORT).show();
+                        dialogOk.ShowDiaLog("Đã xóa thành công!");
                     }
                 });
             }
@@ -195,7 +197,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
                                         cart.child(gioHang.getProduct_id()).removeValue(new DatabaseReference.CompletionListener() {
                                             @Override
                                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                                Toast.makeText(mContext, "Đã mua, vui lòng check đơn hàng!", Toast.LENGTH_SHORT).show();
+                                                dialogOk.ShowDiaLog("Đã mua! Vui lòng check đơn hàng");
                                             }
                                         });
                                     }

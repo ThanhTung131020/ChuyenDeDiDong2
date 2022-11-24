@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileFragment extends Fragment {
 
+//    HomePageLoginActivity homePageLoginActivity;
     FirebaseDatabase database;
     DiaLogLoanding diaLogLoanding;
     FirebaseAuth auth;
@@ -81,8 +82,8 @@ public class ProfileFragment extends Fragment {
 
     private void logout() {
         auth.signOut();
+        ((HomePageLoginActivity)getActivity()).logout();
         startActivity(new Intent(getContext(),LoginActivity.class));
-
     }
 
     private void SuaThongTinDataBase() {

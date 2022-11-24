@@ -65,8 +65,8 @@ public class HomePageLoginActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragmentKhachHang,fragment);
         fragmentTransaction.commit();
     }
-    public void timKiem(){
-
+    public void logout(){
+        finishAffinity();
     }
 
 

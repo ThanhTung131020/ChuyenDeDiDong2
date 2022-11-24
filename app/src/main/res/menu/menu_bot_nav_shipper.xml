@@ -6,4 +6,7 @@
     <item android:id="@+id/mnDonHangShipper"
         android:title="Đơn Hàng"
         android:icon="@drawable/ic_bill"/>
+    <item android:id="@+id/mnDonHangDaGiaoShipper"
+        android:title="Đã Giao"
+        android:icon="@drawable/ic_bill_da_giap"/>
 </menu>
