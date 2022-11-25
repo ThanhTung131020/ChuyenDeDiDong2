@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminQlyshipperActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:background="@color/purple_700"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/imgBt_back_to_home"
+            android:backgroundTint="@color/purple_700"
+            android:src="@drawable/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+        <TextView
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textAlignment="center"
+            android:text="Quản Lý Người Giao Hàng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#B6BCF8"/>
+
+</LinearLayout>
