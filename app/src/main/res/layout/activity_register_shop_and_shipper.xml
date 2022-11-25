@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorKhachHang"
-    tools:context=".RegistrationActivity">
+    android:background="@color/backgroud_cuahang"
+    tools:context=".RegisterShopAndShipperActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -59,43 +59,13 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/edit_text_gb"
         android:ems="10"
-        android:hint="Họ tên"
+        android:hint="Tên"
         android:inputType="textPersonName"
         android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtSDT"
-        app:layout_constraintWidth_percent=".8" />
-
-    <EditText
-        android:id="@+id/edtMatKhau"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edit_text_gb"
-        android:ems="10"
-        android:hint="Mật khẩu"
-        android:inputType="textPassword"
-        android:padding="13dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtEmail"
-        app:layout_constraintWidth_percent=".8" />
-
-    <EditText
-        android:id="@+id/edtCMatKhau"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edit_text_gb"
-        android:ems="10"
-        android:hint="Nhập lại mật khẩu"
-        android:inputType="textPassword"
-        android:padding="13dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtMatKhau"
         app:layout_constraintWidth_percent=".8" />
 
     <EditText
@@ -110,9 +80,33 @@
         android:padding="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtCMatKhau"
+        app:layout_constraintTop_toBottomOf="@+id/edtEmail"
         app:layout_constraintWidth_percent=".8" />
-
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtDiaChi">
+        <RadioButton
+            android:id="@+id/rdbShop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:checked="true"
+            android:text="Cửa hàng" />
+        <RadioButton
+            android:id="@+id/rdbShipper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Người giao hàng" />
+    </RadioGroup>
 
     <Button
         android:id="@+id/btnDangky"
@@ -127,19 +121,5 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtDiaChi" />
-
-    <TextView
-        android:background="@color/backgroud_shipper"
-        android:id="@+id/tvLinkShopandShipper"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Bạn muốn bán hàng, làm người giao hàng?"
-        android:textColor="#009688"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDangky" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 </androidx.constraintlayout.widget.ConstraintLayout>

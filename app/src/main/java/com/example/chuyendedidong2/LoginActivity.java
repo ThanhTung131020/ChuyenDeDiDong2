@@ -72,9 +72,11 @@ public class LoginActivity extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 diaLogLoanding.ShowDiaLog("Đang đăng nhập... ");
+                if (email.getText().toString().equals("admin") && password.getText().toString().equals("1234567")){
+                    startActivity(new Intent(LoginActivity.this,TrangChuAdminActivity.class));
+                    finish();
+                }
                 signIn(view);
                 //lưu thông tin đăng nhập
                 SharedPreferences sharedPreferences = getSharedPreferences(thongtinluu,MODE_PRIVATE);
@@ -179,7 +181,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else{
                     diaLogLoanding.HideDialog();
-                    Toast.makeText(LoginActivity.this,"Đăng nhập thất bại"+task.getException(),Toast.LENGTH_SHORT).show();
+                    if (email.equals("admin") && password.equals("1234567")){
+                        Toast.makeText(LoginActivity.this, "Đăng nhập admin thành công", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(LoginActivity.this,"Đăng nhập thất bại "+task.getException(),Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }

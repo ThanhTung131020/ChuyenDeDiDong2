@@ -19,7 +19,8 @@
     <color name="colorBotNavCuaHang">#4697D1</color>
     <color name="donHangGiaoThanhCong">#4BAC8F</color>
     <color name="offgiaothanhcong">#DFE8EE</color>
-
+    <color name="background_admin">#8AB2E8</color>
+    <color name="item_dangkyquanly">#003263</color>
 
 
 </resources>
