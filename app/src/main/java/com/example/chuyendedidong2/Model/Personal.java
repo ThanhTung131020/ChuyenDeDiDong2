@@ -6,6 +6,7 @@ import java.util.Map;
 public class Personal {
     String id, name, sdt, diachi, email;
 
+
     public Personal() {
     }
 
@@ -15,6 +16,7 @@ public class Personal {
         this.sdt = sdt;
         this.diachi = diachi;
         this.email = email;
+
     }
 
     public String getEmail() {
@@ -57,11 +59,14 @@ public class Personal {
         this.diachi = diachi;
     }
 
+
+
     public Map<String, Object> toMap(){
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("name", name);
         hashMap.put("sdt", sdt);
         hashMap.put("diachi",diachi);
+
         return hashMap;
     }
 

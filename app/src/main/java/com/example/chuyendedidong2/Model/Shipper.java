@@ -2,15 +2,18 @@ package com.example.chuyendedidong2.Model;
 
 public class Shipper {
     String id, name, sdt, diachi, email;
-    int hangDaGiao;
+    int hangDaGiao, hangDangGiao;
 
-    public Shipper(String id, String name, String sdt, String diachi, String email, int hangDaGiao) {
+
+
+    public Shipper(String id, String name, String sdt, String diachi, String email, int hangDaGiao, int hangDangGiao) {
         this.id = id;
         this.name = name;
         this.sdt = sdt;
         this.diachi = diachi;
         this.email = email;
         this.hangDaGiao = hangDaGiao;
+        this.hangDangGiao = hangDangGiao;
     }
 
     public Shipper() {
@@ -70,5 +73,13 @@ public class Shipper {
 
     public void setHangDaGiao(int hangDaGiao) {
         this.hangDaGiao = hangDaGiao;
+    }
+
+    public int getHangDangGiao() {
+        return hangDangGiao;
+    }
+
+    public void setHangDangGiao(int hangDangGiao) {
+        this.hangDangGiao = hangDangGiao;
     }
 }

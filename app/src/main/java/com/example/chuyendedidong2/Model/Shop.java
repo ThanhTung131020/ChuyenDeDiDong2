@@ -27,6 +27,13 @@ public class Shop {
         this.maSoThue = maSoThue;
     }
 
+    public Shop(String name, String sdt, String diachi, int spDaBan) {
+        this.name = name;
+        this.sdt = sdt;
+        this.diachi = diachi;
+        this.spDaBan = spDaBan;
+    }
+
     public String getId() {
         return id;
     }
