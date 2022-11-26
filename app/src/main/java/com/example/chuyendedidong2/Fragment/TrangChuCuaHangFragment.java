@@ -2,6 +2,7 @@ package com.example.chuyendedidong2.Fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,15 +12,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.chuyendedidong2.Adapter.DonHangCuaHangAdapter;
-import com.example.chuyendedidong2.Model.DonHangCuaHang;
+import com.example.chuyendedidong2.Model.DonHang;
 import com.example.chuyendedidong2.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 
 public class TrangChuCuaHangFragment extends Fragment {
 
-    DonHangCuaHang donHangCuaHang;
+    ArrayList<DonHang> list = new ArrayList<>();
     DonHangCuaHangAdapter donHangCuaHangAdapter;
     RecyclerView rv_donhang;
+    FirebaseDatabase database;
+    FirebaseAuth auth;
 
     public TrangChuCuaHangFragment() {
         // Required empty public constructor
@@ -35,15 +46,50 @@ public class TrangChuCuaHangFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_trang_chu_cua_hang, container, false);
+        database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
         rv_donhang = view.findViewById(R.id.rv_donhang_cuahang);
         setEvent();
         return view;
     }
 
     private void setEvent() {
-        donHangCuaHang = new DonHangCuaHang();
-        donHangCuaHangAdapter = new DonHangCuaHangAdapter(getContext(),donHangCuaHang.createList());
+        getDonHangDataBase();
+        donHangCuaHangAdapter = new DonHangCuaHangAdapter(getContext(),list);
         rv_donhang.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
         rv_donhang.setAdapter(donHangCuaHangAdapter);
     }
+
+    private void getDonHangDataBase() {
+        DatabaseReference donHang = database.getReference("bill");
+        donHang.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (list != null){
+                    list.clear();
+                }
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    String idShop = dataSnapshot.child("idCuaHang").getValue().toString();
+                    long trang_thai = (long) dataSnapshot.child("trangThaiDH").getValue();
+                    if (idShop.equals(auth.getUid()) && trang_thai == 0 || trang_thai == 1 || trang_thai == 2){
+                        DonHang bill = dataSnapshot.getValue(DonHang.class);
+                        list.add(bill);
+                    }
+                    donHangCuaHangAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+//    public ArrayList<DonHang> createList(){
+//        list.add(new DonHang("dh01",3,"123","sp01","",1000,1,"","","","","","","","","",""));
+//        list.add(new DonHang("dh01",1,"123","sp01","",1000,1,"","","","","","","","","",""));
+//        return list;
+//    }
+
 }

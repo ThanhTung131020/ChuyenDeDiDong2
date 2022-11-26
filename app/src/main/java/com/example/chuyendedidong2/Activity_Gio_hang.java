@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 
 import com.example.chuyendedidong2.Adapter.Adapter_GioHang;
+import com.example.chuyendedidong2.Model.CartModel;
 import com.example.chuyendedidong2.Model.ProductModel;
 
 import java.text.DecimalFormat;
@@ -23,7 +24,7 @@ public class Activity_Gio_hang extends AppCompatActivity {
 
     private static final int MY_REQUES_CODE = 10;
     private static List<ProductModel> list = new ArrayList<>();
-    private ProductModel productModel = new ProductModel();
+    private CartModel productModel = new CartModel();
     private RecyclerView rcv_GioHang;
     private Adapter_GioHang adapter_gioHang;
     private TextView tv_tongTien;
@@ -38,21 +39,18 @@ public class Activity_Gio_hang extends AppCompatActivity {
         //getSupportActionBar().setTitle("gio hang");
         anhxa();
         btn_DatHang.setOnClickListener(new View.OnClickListener() {
-            //them 1 don hang vao gio hang
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Activity_Gio_hang.this  , Activity_ThongTin_DonHang.class);
                 startActivity(intent);
             }
         });
-
-
     }
 
 
 
     private void anhxa() {
-      //  btn_DatHang = findViewById(R.id.btn_dathang);
+        btn_DatHang = findViewById(R.id.btn_dathang);
     }
 
     // set adapter giỏ hàng
@@ -61,12 +59,19 @@ public class Activity_Gio_hang extends AppCompatActivity {
         adapter_gioHang = new Adapter_GioHang(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rcv_GioHang.setLayoutManager(linearLayoutManager);
-        adapter_gioHang.setDaTa(productModel.createProductCart());
+        adapter_gioHang.setDaTa(productModel.createList());
         rcv_GioHang.setAdapter(adapter_gioHang);
-
+        tongTien();
     }
 
+    public void tongTien() {
+        tv_tongTien = findViewById(R.id.tv_tongTien);
+        int tong = 0;
 
-
-
+        for (int i = 0; i < list.size(); i++) {
+            tong += list.get(i).getPrice();
+        }
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        tv_tongTien.setText("Tổng tiền: " + decimalFormat.format(tong) + "vnđ");
+    }
 }

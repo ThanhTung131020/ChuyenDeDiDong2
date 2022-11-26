@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,12 +29,10 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegistrationActivity extends AppCompatActivity {
     EditText email, password, cpassword, sdt, diachi, hoten;
     Button btnDangKy;
-    RadioButton rdbCaNhan, rdbCuaHang, rdbShipper;
-    RadioGroup rdo;
+    TextView tvLink;
     Personal personal;
-    Shop shop;
-    Shipper shipper;
     DiaLogLoanding diaLogLoanding;
+    DialogOkActivity dialogOk;
     private FirebaseAuth auth;
     private FirebaseDatabase database;
 
@@ -47,6 +46,7 @@ public class RegistrationActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         diaLogLoanding = new DiaLogLoanding(this);
+        dialogOk = new DialogOkActivity(this);
 
         //anh xa view
         setControl();
@@ -63,10 +63,7 @@ public class RegistrationActivity extends AppCompatActivity {
         hoten = findViewById(R.id.edtHoTen);
         diachi = findViewById(R.id.edtDiaChi);
         btnDangKy = findViewById(R.id.btnDangky);
-        rdbCaNhan = findViewById(R.id.rdbCaNhan);
-        rdbCuaHang = findViewById(R.id.rdbCuaHang);
-        rdbShipper = findViewById(R.id.rdbShipper);
-        rdo = findViewById(R.id.radioGroup);
+        tvLink = findViewById(R.id.tvLinkShopandShipper);
     }
 
     private void setEvent() {
@@ -75,6 +72,12 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 diaLogLoanding.ShowDiaLog("Đang tạo tài khoản...");
                 signUp(view);
+            }
+        });
+        tvLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RegistrationActivity.this,RegisterShopAndShipperActivity.class));
             }
         });
     }
@@ -88,28 +91,36 @@ public class RegistrationActivity extends AppCompatActivity {
         String diachi = this.diachi.getText().toString();
 
         if (TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Nhập email!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.email.setError("Nhập email!");
             return;
         }else if(TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Nhập mật khẩu!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.password.setError("Nhập password!");
             return;
         }else if(TextUtils.isEmpty(cpassword)){
-            Toast.makeText(this,"Nhập mật khẩu!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.cpassword.setError("Nhập lại password!");
             return;
         }else if(password.length() < 6){
-            Toast.makeText(this,"Mật khẩu lớn hơn 6 ký tự!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.password.setError("Password không dưới 6 ký tự!");
             return;
         }else if(!password.equals(cpassword)){
-            Toast.makeText(this,"Nhập lại mật khẩu không giống nhau!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.cpassword.setError("Password không giống nhau!");
             return;
         }else if(TextUtils.isEmpty(sdt)){
-            Toast.makeText(this,"Nhập số điện thoại!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.sdt.setError("Nhập SĐT!");
             return;
         }else if(TextUtils.isEmpty(hoten)){
-            Toast.makeText(this,"Nhập họ tên!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.hoten.setError("Nhập Họ Tên!");
             return;
         }else if(TextUtils.isEmpty(diachi)){
-            Toast.makeText(this,"Nhập địa chỉ!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.diachi.setError("Nhập địa chỉ!");
             return;
         }
 
@@ -117,52 +128,17 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    if (rdbCaNhan.isChecked()){
-                        personal = new Personal(auth.getUid(),hoten,sdt,diachi,email);
-                        addPersonalOnDataBase(personal);
-                    }else if(rdbCuaHang.isChecked()){
-                        shop = new Shop(auth.getUid(),hoten,sdt,diachi,email);
-                        addShopOnDataBase(shop);
-                    }else if(rdbShipper.isChecked()){
-                        shipper = new Shipper(auth.getUid(),hoten,sdt,diachi,email);
-                        addShipperOnDataBase(shipper);
-                    }
+                    personal = new Personal(auth.getUid(),hoten,sdt,diachi,email);
+                    addPersonalOnDataBase(personal);
                 }else {
                     diaLogLoanding.HideDialog();
-                    Toast.makeText(RegistrationActivity.this,"Đăng ký thất bại"+task.getException(),Toast.LENGTH_SHORT).show();
+                    dialogOk.ShowDiaLog("Đăng ký thất bại");
                 }
             }
         });
 
     }
 
-    private void addShipperOnDataBase(Shipper shipper) {
-        DatabaseReference root = database.getReference("shipper");
-        String pathID = auth.getUid();
-        root.child(pathID).setValue(shipper, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                diaLogLoanding.HideDialog();
-                Toast.makeText(RegistrationActivity.this,"Đăng ký thành công",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
-                finish();
-            }
-        });
-    }
-
-    private void addShopOnDataBase(Shop shop) {
-        DatabaseReference root = database.getReference("shop");
-        String pathID = auth.getUid();
-        root.child(pathID).setValue(shop, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                diaLogLoanding.HideDialog();
-                Toast.makeText(RegistrationActivity.this,"Đăng ký thành công",Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(RegistrationActivity.this,LoginActivity.class));
-                finish();
-            }
-        });
-    }
     public  void addPersonalOnDataBase(Personal personal){
         DatabaseReference root = database.getReference("personal");
         String pathID = auth.getUid();

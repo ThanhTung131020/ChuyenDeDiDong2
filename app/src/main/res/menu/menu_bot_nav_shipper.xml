@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/mnThongTinShipper"
+        android:title="Thông tin"
+        android:icon="@drawable/ic_baseline_person_24"/>
+    <item android:id="@+id/mnDonHangShipper"
+        android:title="Đơn Hàng"
+        android:icon="@drawable/ic_bill"/>
+    <item android:id="@+id/mnDonHangDaGiaoShipper"
+        android:title="Đã Giao"
+        android:icon="@drawable/ic_bill_da_giap"/>
+</menu>

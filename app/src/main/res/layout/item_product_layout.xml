@@ -32,10 +32,10 @@
                />
        </LinearLayout>
         <LinearLayout
-            android:gravity="center"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:gravity="center">
             <RatingBar
                 android:layout_margin="5dp"
                 android:id="@+id/ratingBarNP"
@@ -65,16 +65,17 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp">
+
             <TextView
-                android:gravity="center"
                 android:id="@+id/tvNPPrice"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/backgroud_shipper"
+                android:gravity="center"
                 android:paddingBottom="5dp"
                 android:text="3.000.000vnd"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -32,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseDatabase database;
     DiaLogLoanding diaLogLoanding;
+    CheckBox check_save;
+    String thongtinluu = "tk_mk login";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +57,10 @@ public class LoginActivity extends AppCompatActivity {
         rdbCuaHang = findViewById(R.id.rdbCuaHangLogin);
         rdbShipper = findViewById(R.id.rdbShipperLogin);
         rdo = findViewById(R.id.radioGroupLogin);
+        check_save = findViewById(R.id.check_save);
+
+
+
     }
     private void setEvent() {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
@@ -64,28 +72,42 @@ public class LoginActivity extends AppCompatActivity {
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                diaLogLoanding.ShowDiaLog("Đang đăng nhập");
+                diaLogLoanding.ShowDiaLog("Đang đăng nhập... ");
+                if (email.getText().toString().equals("admin") && password.getText().toString().equals("1234567")){
+                    startActivity(new Intent(LoginActivity.this,TrangChuAdminActivity.class));
+                    finish();
+                }
                 signIn(view);
+                //lưu thông tin đăng nhập
+                SharedPreferences sharedPreferences = getSharedPreferences(thongtinluu,MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                // lưu theo dạng phân rã
+                editor.putString("UserName",email.getText().toString());
+                editor.putString("Password",password.getText().toString());
+                editor.putBoolean("Save",check_save.isChecked());
+                editor.commit();
             }
         });
-
     }
 
     public void signUp(View view){
         startActivity(new Intent(LoginActivity.this,RegistrationActivity.class));
     }
     public void signIn(View view){
-
         String email = this.email.getText().toString();
         String password = this.password.getText().toString();
+
         if (TextUtils.isEmpty(email)){
-            Toast.makeText(this,"Nhập email!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.email.setError("Nhập email!");
             return;
         }else if(TextUtils.isEmpty(password)){
-            Toast.makeText(this,"Nhập mật khẩu!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.password.setError("Nhập mật khẩu!");
             return;
         }else if(password.length() < 6){
-            Toast.makeText(this,"Mật khẩu lớn hơn 6 ký tự!",Toast.LENGTH_SHORT).show();
+            diaLogLoanding.HideDialog();
+            this.password.setError("Mật khẩu lớn hơn 6 ký tự!");
             return;
         }
         auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
@@ -98,10 +120,13 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (snapshot.hasChild(auth.getUid())){
+                                    diaLogLoanding.HideDialog();
                                     Intent intent = new Intent(LoginActivity.this,HomePageLoginActivity.class);
                                     Toast.makeText(LoginActivity.this,"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
                                     startActivity(intent);
                                 }else {
+                                    diaLogLoanding.HideDialog();
+
                                     Toast.makeText(LoginActivity.this,"Đăng nhập thất bại",Toast.LENGTH_SHORT).show();
                                     return;
                                 }
@@ -117,9 +142,11 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (snapshot.hasChild(auth.getUid())){
+                                    diaLogLoanding.HideDialog();
                                     Toast.makeText(LoginActivity.this,"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(LoginActivity.this,HomePageCuaHangActivity.class));
                                 }else {
+                                    diaLogLoanding.HideDialog();
                                     Toast.makeText(LoginActivity.this,"Đăng nhập thất bại",Toast.LENGTH_SHORT).show();
                                     return;
                                 }
@@ -130,12 +157,54 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
                     }
-                }else{
-                    Toast.makeText(LoginActivity.this,"Đăng nhập thất bại"+task.getException(),Toast.LENGTH_SHORT).show();
+                    else if (rdbShipper.isChecked()) {
+                        DatabaseReference rootCaNhan = database.getReference("shipper");
+                        rootCaNhan.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.hasChild(auth.getUid())) {
+                                    diaLogLoanding.HideDialog();
+                                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(LoginActivity.this, TrangChuShipperActivity.class));
+                                } else {
+                                    diaLogLoanding.HideDialog();
+                                    Toast.makeText(LoginActivity.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                }
+                else{
+                    diaLogLoanding.HideDialog();
+                    if (email.equals("admin") && password.equals("1234567")){
+                        Toast.makeText(LoginActivity.this, "Đăng nhập admin thành công", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(LoginActivity.this,"Đăng nhập thất bại "+task.getException(),Toast.LENGTH_SHORT).show();
+                    }
                 }
 
             }
         });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // hiện thông tin đã được lưu
+        SharedPreferences sharedPreferences = getSharedPreferences(thongtinluu,MODE_PRIVATE);
+        String username = sharedPreferences.getString("UserName","");
+        String password1 = sharedPreferences.getString("Password","");
+        Boolean save = sharedPreferences.getBoolean("Save",false);
+        if(save==true){
+            email.setText(username);
+            password.setText(password1);
+        }
 
     }
 }

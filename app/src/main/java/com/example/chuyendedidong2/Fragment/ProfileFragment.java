@@ -4,13 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.chuyendedidong2.DiaLogLoanding;
+import com.example.chuyendedidong2.HomePageLoginActivity;
 import com.example.chuyendedidong2.LoginActivity;
 import com.example.chuyendedidong2.Model.Personal;
 import com.example.chuyendedidong2.R;
@@ -23,9 +29,12 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileFragment extends Fragment {
 
+//    HomePageLoginActivity homePageLoginActivity;
     FirebaseDatabase database;
+    DiaLogLoanding diaLogLoanding;
     FirebaseAuth auth;
     EditText ten, diachi, sdt, email, matkhau;
+    Button btnSua, btnDangXuat;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -43,15 +52,69 @@ public class ProfileFragment extends Fragment {
         sdt = view.findViewById(R.id.edtSDT_PF);
         email = view.findViewById(R.id.edtEmail_PF);
         matkhau = view.findViewById(R.id.edtMatKhau_PF);
+        btnSua = view.findViewById(R.id.btnSua_user);
+        btnDangXuat = view.findViewById(R.id.btnDangXuat_user);
 
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
+        diaLogLoanding = new DiaLogLoanding(getContext());
         getDatabase();
         setEvent();
         return view;
     }
 
     private void setEvent() {
+        btnSua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                diaLogLoanding.ShowDiaLog("Đang cập nhật...");
+                SuaThongTinDataBase();
+            }
+        });
+        btnDangXuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                diaLogLoanding.ShowDiaLog("Đăng xuất...");
+                logout();
+            }
+        });
+    }
+
+    private void logout() {
+        auth.signOut();
+        ((HomePageLoginActivity)getActivity()).logout();
+        startActivity(new Intent(getContext(),LoginActivity.class));
+    }
+
+    private void SuaThongTinDataBase() {
+        Personal personal = new Personal();
+        String tenKH = ten.getText().toString().trim();
+        String sdtKH = sdt.getText().toString().trim();
+        String diachiKH = diachi.getText().toString().trim();
+        if (TextUtils.isEmpty(tenKH)){
+            diaLogLoanding.HideDialog();
+            ten.setError("Nhập tên!");
+            return;
+        }else if (TextUtils.isEmpty(sdtKH)){
+            diaLogLoanding.HideDialog();
+            sdt.setError("Nhập SDT!");
+            return;
+        }else if (TextUtils.isEmpty(diachiKH)){
+            diaLogLoanding.HideDialog();
+            diachi.setError("Nhập địa chỉ!");
+            return;
+        }
+        personal.setName(tenKH);
+        personal.setSdt(sdtKH);
+        personal.setDiachi(diachiKH);
+        DatabaseReference root = database.getReference("personal");
+        root.child(auth.getUid()).updateChildren(personal.toMap(), new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                diaLogLoanding.HideDialog();
+                Toast.makeText(getContext(), "Thành công", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void getDatabase() {
@@ -70,7 +133,6 @@ public class ProfileFragment extends Fragment {
                     matkhau.setEnabled(false);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

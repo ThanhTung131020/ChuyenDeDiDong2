@@ -49,13 +49,17 @@ public class ProductsLoginAdapter extends RecyclerView.Adapter<ProductsLoginAdap
         holder.newName.setText(productModel.getName());
         holder.newRating.setRating(productModel.getNumStar());
         holder.newPrice.setText(String.valueOf(productModel.getPrice()));
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ProductsLoginActivity.class);
                 Bundle bundle = new Bundle();
+                bundle.putString("id",productModel.getProduct_id());
+                bundle.putString("shop_id",productModel.getIdShop());
                 bundle.putString("image",productModel.getImg_url());
+                bundle.putString("pic1",productModel.getPic1());
+                bundle.putString("pic2",productModel.getPic2());
+                bundle.putString("pic3",productModel.getPic3());
                 bundle.putString("name",productModel.getName());
                 bundle.putInt("price", productModel.getPrice());
                 bundle.putFloat("rating", productModel.getNumStar());
@@ -63,13 +67,6 @@ public class ProductsLoginAdapter extends RecyclerView.Adapter<ProductsLoginAdap
                 bundle.putString("nameShop",productModel.getNameShop());
                 bundle.putInt("sl", productModel.getSoLuong());
                 intent.putExtra("sanpham",bundle);
-//                intent.putExtra("image", productModel.getImg_url());
-//                intent.putExtra("name", productModel.getName());
-//                intent.putExtra("price",String.valueOf(productModel.getPrice()));
-//                intent.putExtra("rating",String.valueOf(productModel.getNumStar()));
-//                intent.putExtra("des", productModel.getDesciption());
-//                intent.putExtra("nameShop", productModel.getNameShop());
-//                intent.putExtra("sl", productModel.getSoLuong());
                 context.startActivity(intent);
             }
         });

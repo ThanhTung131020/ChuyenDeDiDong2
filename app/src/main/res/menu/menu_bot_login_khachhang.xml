@@ -17,4 +17,8 @@
         android:title="Đơn hàng"
         app:showAsAction="always"
         android:icon="@drawable/shipping"/>
+    <item android:id="@+id/mnRemove_Bill"
+        android:title="Đơn hàng đã hủy"
+        app:showAsAction="always"
+        android:icon="@drawable/remove_bill"/>
 </menu>
