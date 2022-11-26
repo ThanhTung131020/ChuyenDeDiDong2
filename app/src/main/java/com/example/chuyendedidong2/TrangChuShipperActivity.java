@@ -58,4 +58,7 @@ public class TrangChuShipperActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragmentShipper,fragment);
         fragmentTransaction.commit();
     }
+    public void logout(){
+        finishAffinity();
+    }
 }

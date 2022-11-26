@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     DiaLogLoanding diaLogLoanding;
     CheckBox check_save;
     String thongtinluu = "tk_mk login";
+    TextView tvQuenMK;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,9 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         rdbShipper = findViewById(R.id.rdbShipperLogin);
         rdo = findViewById(R.id.radioGroupLogin);
         check_save = findViewById(R.id.check_save);
-
-
-
+        tvQuenMK = findViewById(R.id.tvQuenMatKhau);
     }
     private void setEvent() {
         btnDangKy.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +105,12 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("Password",password.getText().toString());
                 editor.putBoolean("Save",check_save.isChecked());
                 editor.commit();
+            }
+        });
+        tvQuenMK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this,QuenMatKhauActivity.class));
             }
         });
     }

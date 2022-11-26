@@ -88,6 +88,7 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
             holder.xn_shipper.setEnabled(false);
             holder.xn_hang.setEnabled(false);
             holder.huy.setEnabled(false);
+            holder.spShipper.setEnabled(false);
             holder.cv_dh.setBackgroundResource(R.drawable.set_bg_donhangthanhcong);
         }
         Glide.with(context).load(donHangCuaHang.getHinhSP()).into(holder.img_sp);

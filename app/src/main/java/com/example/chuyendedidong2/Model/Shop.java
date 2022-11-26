@@ -1,5 +1,8 @@
 package com.example.chuyendedidong2.Model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Shop {
     String id, name, sdt, diachi, email;
     int spDaBan, spDangCo;
@@ -89,4 +92,12 @@ public class Shop {
     public void setMaSoThue(String maSoThue) {
         this.maSoThue = maSoThue;
     }
+
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("name", name);
+        hashMap.put("diachi",diachi);
+        return hashMap;
+    }
+
 }

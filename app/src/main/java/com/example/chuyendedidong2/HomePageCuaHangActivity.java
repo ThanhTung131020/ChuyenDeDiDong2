@@ -67,4 +67,7 @@ public class HomePageCuaHangActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragmentCuaHang,fragment);
         fragmentTransaction.commit();
     }
+    public void LogOut(){
+        finishAffinity();
+    }
 }

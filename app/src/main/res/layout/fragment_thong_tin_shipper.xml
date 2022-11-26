@@ -48,7 +48,7 @@
                     android:textSize="17sp" />
 
                 <EditText
-                    android:id="@+id/edtTen_PF"
+                    android:id="@+id/edtTen_Shipper"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
@@ -71,7 +71,7 @@
                     android:textSize="17sp" />
 
                 <EditText
-                    android:id="@+id/edtSDT_PF"
+                    android:id="@+id/edtDiaChi_Shipper"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
@@ -94,7 +94,7 @@
                     android:textSize="17sp" />
 
                 <EditText
-                    android:id="@+id/edtDiaChi_PF"
+                    android:id="@+id/edtSDT_Shipper"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
@@ -117,7 +117,7 @@
                     android:textSize="17sp" />
 
                 <EditText
-                    android:id="@+id/edtEmail_PF"
+                    android:id="@+id/edtDonHang_Shipper"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
@@ -140,10 +140,11 @@
                     android:textSize="17sp" />
 
                 <EditText
-                    android:id="@+id/edtMatKhau_PF"
+                    android:id="@+id/edtUID_Shipper"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
+                    android:enabled="false"
                     android:text="SP334" />
             </LinearLayout>
 
@@ -157,7 +158,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/btnDangXuat_store"
+                    android:id="@+id/btnDangXuat_shipper"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -165,7 +166,7 @@
                     android:text="Đăng xuất" />
 
                 <Button
-                    android:id="@+id/btnSua_store"
+                    android:id="@+id/btnSua_shipper"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"

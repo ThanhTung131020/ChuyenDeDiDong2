@@ -128,7 +128,6 @@ public class HomePageActivity extends AppCompatActivity {
 
                     newProductsAdapter.sortPrice();
 
-
                 } else if (i == 2) {
                     Toast.makeText(HomePageActivity.this, "sắp xếp theo tên sản phẩm", Toast.LENGTH_SHORT).show();
                     newProductsAdapter.sort();

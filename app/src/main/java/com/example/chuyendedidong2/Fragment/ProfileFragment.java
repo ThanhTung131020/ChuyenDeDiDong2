@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.chuyendedidong2.DiaLogLoanding;
+import com.example.chuyendedidong2.DialogOkActivity;
 import com.example.chuyendedidong2.HomePageLoginActivity;
 import com.example.chuyendedidong2.LoginActivity;
 import com.example.chuyendedidong2.Model.Personal;
@@ -32,6 +33,7 @@ public class ProfileFragment extends Fragment {
 //    HomePageLoginActivity homePageLoginActivity;
     FirebaseDatabase database;
     DiaLogLoanding diaLogLoanding;
+    DialogOkActivity dialogOkActivity;
     FirebaseAuth auth;
     EditText ten, diachi, sdt, email, matkhau;
     Button btnSua, btnDangXuat;
@@ -54,10 +56,10 @@ public class ProfileFragment extends Fragment {
         matkhau = view.findViewById(R.id.edtMatKhau_PF);
         btnSua = view.findViewById(R.id.btnSua_user);
         btnDangXuat = view.findViewById(R.id.btnDangXuat_user);
-
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         diaLogLoanding = new DiaLogLoanding(getContext());
+        dialogOkActivity = new DialogOkActivity(getContext());
         getDatabase();
         setEvent();
         return view;
@@ -112,7 +114,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                 diaLogLoanding.HideDialog();
-                Toast.makeText(getContext(), "Thành công", Toast.LENGTH_SHORT).show();
+                dialogOkActivity.ShowDiaLog("Sửa thành công!");
             }
         });
     }

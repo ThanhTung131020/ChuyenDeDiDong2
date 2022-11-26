@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chuyendedidong2.ActivityQuanLySanPham;
@@ -40,6 +41,8 @@ public class SanPhamCuaHangFragment extends Fragment {
     Button btnThem, btnXoa, btnSPDangBan;
     FirebaseDatabase database;
     FirebaseAuth auth;
+    TextView tvTongSP;
+    int tongSanPham;
     public SanPhamCuaHangFragment() {
         // Required empty public constructor
     }
@@ -57,6 +60,7 @@ public class SanPhamCuaHangFragment extends Fragment {
         rv_sp_ch = view.findViewById(R.id.rv_sanpham_cuahang);
         btnThem = view.findViewById(R.id.btnThemSanPhamCuaHang);
         btnSPDangBan = view.findViewById(R.id.btnSanPhamDoiDuyet);
+        tvTongSP = view.findViewById(R.id.tvTongSanPham);
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         setEvent();
@@ -86,6 +90,8 @@ public class SanPhamCuaHangFragment extends Fragment {
         });
     }
 
+
+
     private void getProductFromDatabase() {
         DatabaseReference root = database.getReference("product");
         root.addChildEventListener(new ChildEventListener() {
@@ -99,6 +105,7 @@ public class SanPhamCuaHangFragment extends Fragment {
                             sanPhamCuaHangAdapter.notifyDataSetChanged();
                         }
                     }
+                    tvTongSP.setText("Tổng sản phẩm: " + (listProduct.size()));
             }
 
             @Override
@@ -130,27 +137,5 @@ public class SanPhamCuaHangFragment extends Fragment {
 
             }
         });
-//        root.addValueEventListener(new ValueEventListener() {
-//            @SuppressLint("NotifyDataSetChanged")
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (listProduct != null){
-//                    listProduct.clear();
-//                }
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-//                    String id = dataSnapshot.child("idShop").getValue().toString();
-//                    if (id.equals(auth.getUid())){
-//                        ProductModel product = dataSnapshot.getValue(ProductModel.class);
-//                        listProduct.add(product);
-//                    }
-//                }
-//                sanPhamCuaHangAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
     }
 }
