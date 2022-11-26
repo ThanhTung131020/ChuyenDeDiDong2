@@ -5,19 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingRight="50dp"
-    android:paddingLeft="50dp"
     android:background="@color/colorKhachHang"
     tools:context=".ProductActivity">
-
-    <ImageView
-        android:layout_marginLeft="-50dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_baseline_arrow_back_24"
-        >
-
-    </ImageView>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorKhachHang">
     <ImageView
         android:id="@+id/ivProduct"
         android:layout_gravity="center"
@@ -29,6 +26,7 @@
     </ImageView>
 
     <RatingBar
+
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,6 +38,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingRight="50dp"
+        android:paddingLeft="50dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,12 +89,13 @@
             android:layout_weight="1"
             android:orientation="horizontal">
             <TextView
+
                 android:layout_marginRight="50dp"
                 android:layout_marginBottom="10dp"
                 android:id="@+id/tvMoTa"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Cháº¥t liá»‡u khung nhÃ´m vÃ  máº·t lÆ°ng kÃ­nh cÆ°á»ng lá»±c, KÃ­ch thÆ°á»›c, khá»‘i lÆ°á»£ng 150g"
+
                 android:textColor="@color/black">
             </TextView>
         </LinearLayout>
@@ -157,6 +158,6 @@
         android:text="Thêm giỏ hàng"
         >
     </Button>
-
-
+</LinearLayout>
+</ScrollView>
 </LinearLayout>

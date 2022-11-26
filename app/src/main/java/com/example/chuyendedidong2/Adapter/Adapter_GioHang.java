@@ -3,11 +3,10 @@ package com.example.chuyendedidong2.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,19 +14,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.Activity_Gio_hang;
-import com.example.chuyendedidong2.Data.GioHang;
+import com.example.chuyendedidong2.Activity_ThongTin_DonHang;
+import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.R;
 
-import org.w3c.dom.Text;
-
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHangViewHolder> {
     private Context mContext;
-    private List<GioHang> mListGioHang = new ArrayList<>();
+    private List<ProductModel> mListGioHang = new ArrayList<>();
     private Activity_Gio_hang activityGioHang;
     public int _img_SP = 0;
     public String _tensp = "";
@@ -37,11 +37,12 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
 
 
 
+
     public Adapter_GioHang(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setDaTa(List<GioHang> list) {
+    public void setDaTa(List<ProductModel> list) {
         this.mListGioHang = list;
         notifyDataSetChanged();
     }
@@ -55,15 +56,16 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
 
     @Override
     public void onBindViewHolder(@NonNull GioHangViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        GioHang gioHang = mListGioHang.get(position);
+        ProductModel gioHang = mListGioHang.get(position);
+
 
         if (gioHang == null) {
             return;
         }
-        holder.img_SPgiohang.setImageResource(R.drawable.img);
-        holder.tv_tenSP.setText("tên sản phẩm: " + gioHang.getTenSP());
-        holder.tv_giaSP.setText("giá sản phẩm: " + String.valueOf(gioHang.getGia()) + "VND");
-        holder.tv_tenCH.setText("Tên cửa hàng: " + gioHang.getTenCH());
+        Glide.with(mContext).load(gioHang.getImg_url()).into(holder.img_SPgiohang);
+        holder.tv_tenSP.setText("tên sản phẩm: " + gioHang.getName());
+        holder.tv_giaSP.setText("giá sản phẩm: " + String.valueOf(gioHang.getPrice()) + "VND");
+        holder.tv_tenCH.setText("Tên cửa hàng: " + gioHang.getNameShop());
         holder.tv_soLuong.setText(String.valueOf(gioHang.getSoLuong()));
         int SoLuong = Integer.parseInt(holder.tv_soLuong.getText().toString());
         if (SoLuong > 10) {
@@ -76,6 +78,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
             holder.btn_tangSL.setVisibility(View.VISIBLE);
             holder.btn_giamSL.setVisibility(View.VISIBLE);
         }
+
         holder.btn_tangSL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,11 +87,11 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
 
 
                 int slHt = mListGioHang.get(position).getSoLuong();
-                int giaHT = mListGioHang.get(position).getGia();
+                int giaHT = mListGioHang.get(position).getPrice();
                 mListGioHang.get(position).setSoLuong(slMoiNhat);
                 int giaMoiNhat = (giaHT * slMoiNhat) / slHt;
                 DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-                mListGioHang.get(position).setGia(giaMoiNhat);
+                mListGioHang.get(position).setPrice(giaMoiNhat);
                 holder.tv_soLuong.setText(decimalFormat.format(giaMoiNhat));
 
                 notifyDataSetChanged();
@@ -110,11 +113,11 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
 
 
                 int slHt = mListGioHang.get(position).getSoLuong();
-                int giaHT = mListGioHang.get(position).getGia();
+                int giaHT = mListGioHang.get(position).getPrice();
                 mListGioHang.get(position).setSoLuong(slMoiNhat);
                 int giaMoiNhat = (giaHT * slMoiNhat) / slHt;
                 DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-                mListGioHang.get(position).setGia(giaMoiNhat);
+                mListGioHang.get(position).setPrice(giaMoiNhat);
                 holder.tv_soLuong.setText(decimalFormat.format(giaMoiNhat));
 
                 notifyDataSetChanged();
@@ -130,6 +133,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
 
             }
         });
+
         holder.btn_xoaItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,7 +150,11 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
         _tensp = strtenSP;
         _soLuong = iSoLuong;
 
-
+        Intent intent = new Intent(mContext , Activity_ThongTin_DonHang.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_products" , (Serializable) gioHang);
+        intent.putExtras(bundle);
+        mContext.startActivity(intent);
 
 
     }
