@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.chuyendedidong2.AdminQlydoanhnghiepActivity;
+import com.example.chuyendedidong2.Model.Shipper;
 import com.example.chuyendedidong2.Model.Shop;
 import com.example.chuyendedidong2.R;
 import java.util.ArrayList;
