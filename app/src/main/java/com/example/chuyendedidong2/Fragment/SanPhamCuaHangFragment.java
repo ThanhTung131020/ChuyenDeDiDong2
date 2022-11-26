@@ -82,6 +82,7 @@ public class SanPhamCuaHangFragment extends Fragment {
                 startActivity(new Intent(getContext(), ActivityQuanLySanPham.class));
             }
         });
+
         btnSPDangBan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

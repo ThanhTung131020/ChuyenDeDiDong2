@@ -6,7 +6,7 @@
     android:layout_marginLeft="6dp"
     android:layout_marginRight="6dp"
     android:layout_marginBottom="3dp"
-
+    android:id="@+id/card_item"
 
     app:cardCornerRadius="5dp">
 

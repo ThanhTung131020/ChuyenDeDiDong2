@@ -61,7 +61,7 @@ public class ProductActivity extends AppCompatActivity {
         tvMoTa.setText(des);
         tvTenCuaHang.setText(nameShop);
         ratingBar.setRating(Float.parseFloat(ratingbar));
-
+        ratingBar.setEnabled(false);
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

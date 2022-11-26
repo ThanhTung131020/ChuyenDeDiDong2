@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class TrangChuAdminActivity extends AppCompatActivity {
 
-    private Button dangkycuahang, cuahang, duyetsanpham, dangkyshipper;
+    private Button dangkycuahang, cuahang, duyetsanpham, dangkyshipper , dangxuat;
     private DialogOkActivity dialogOk;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +21,7 @@ public class TrangChuAdminActivity extends AppCompatActivity {
         duyetsanpham = findViewById(R.id.btnDuyetSP);
         dangkyshipper = findViewById(R.id.btnDKSHipper);
         dialogOk = new DialogOkActivity(this);
+        dangxuat = findViewById(R.id.btnDangXuat_Admin);
         setEvent();
     }
 
@@ -47,6 +48,12 @@ public class TrangChuAdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(TrangChuAdminActivity.this, DangKyShipperActivity.class));
+            }
+        });
+        dangxuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }
