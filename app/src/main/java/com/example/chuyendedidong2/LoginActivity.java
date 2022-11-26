@@ -7,10 +7,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -44,6 +47,22 @@ public class LoginActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         diaLogLoanding = new DiaLogLoanding(this);
+        // show hide password using eye icon
+        ImageView imageViewshowhidepwd = findViewById(R.id.img_show_hide_pwd);
+        imageViewshowhidepwd.setImageResource(R.mipmap.hide);
+        imageViewshowhidepwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(password.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    //
+                    imageViewshowhidepwd.setImageResource(R.mipmap.hide);
+                }else {
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    imageViewshowhidepwd.setImageResource(R.mipmap.show);
+                }
+            }
+        });
         setControl();
         setEvent();
     }
