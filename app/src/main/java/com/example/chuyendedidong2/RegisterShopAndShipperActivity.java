@@ -90,13 +90,20 @@ public class RegisterShopAndShipperActivity extends AppCompatActivity {
                 }
             });
         }else if(rdoShipper.isChecked()){
-
+            DatabaseReference root = database.getReference("shipper_register");
+            String pathID = "SHIPPER"+root.push().getKey();
+            shipper = new Shipper(pathID,hoten, sdt, diachi, email);
+            root.child(pathID).setValue(shipper, new DatabaseReference.CompletionListener() {
+                @Override
+                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                    diaLogLoanding.HideDialog();
+                    dialogOk.ShowDiaLog("ĐĂNG KÝ THÀNH CÔNG, VUI LÒNG ĐỢI EMAIL CỦA CHÚNG TÔI");
+                    clearText();
+                }
+            });
         }
     }
 
-    private void registerShopDataBase(Shop shop) {
-
-    }
     public void clearText(){
         email.setText(null);
         sdt.setText(null);
@@ -113,5 +120,4 @@ public class RegisterShopAndShipperActivity extends AppCompatActivity {
         rdoShop = findViewById(R.id.rdbShop);
         rdoShipper = findViewById(R.id.rdbShipper);
     }
-
 }
