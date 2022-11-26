@@ -7,28 +7,32 @@
     tools:context=".DialogOkActivity">
 
     <LinearLayout
-        android:layout_width="250dp"
-        android:background="@color/colorKhachHang"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_margin="10dp"
-        android:padding="30dp"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#6AB7F4"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="30dp">
+
         <TextView
             android:id="@+id/tvDiaLogOK"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:text="Đang tải..."
             android:textColor="@color/black"
-            android:gravity="center"
-            android:textSize="18sp"
-            />
+            android:textSize="18sp" />
+
         <Button
-            android:backgroundTint="@color/yellow"
             android:id="@+id/btnDialogOK"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="OK"/>
+            android:backgroundTint="@color/yellow"
+            android:text="OK" />
     </LinearLayout>
 </RelativeLayout>

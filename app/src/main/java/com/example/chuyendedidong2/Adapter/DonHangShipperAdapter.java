@@ -47,6 +47,8 @@ public class DonHangShipperAdapter extends RecyclerView.Adapter<DonHangShipperAd
         }else if (donHangShipper.getTrangThaiDH() == 2){
             holder.trangthai.setText("Đã nhận hàng");
             holder.giaothanhcong.setEnabled(false);
+            holder.nhanhang.setEnabled(false);
+            holder.nhanhang.setBackgroundResource(R.color.offgiaothanhcong);
             holder.giaothanhcong.setBackgroundResource(R.color.offgiaothanhcong);
         }else if (donHangShipper.getTrangThaiDH() == 3){
             holder.trangthai.setText("Đang giao");
@@ -62,6 +64,15 @@ public class DonHangShipperAdapter extends RecyclerView.Adapter<DonHangShipperAd
             holder.huy.setBackgroundResource(R.color.offgiaothanhcong);
         }else if (donHangShipper.getTrangThaiDH() == 5){
             holder.trangthai.setText("Đã giao");
+            holder.giaothanhcong.setEnabled(false);
+            holder.nhanhang.setEnabled(false);
+            holder.huy.setEnabled(false);
+            holder.nhanhang.setBackgroundResource(R.color.offgiaothanhcong);
+            holder.huy.setBackgroundResource(R.color.offgiaothanhcong);
+            holder.giaothanhcong.setBackgroundResource(R.color.offgiaothanhcong);
+        }
+        else if(donHangShipper.getTrangThaiDH() ==6){
+            holder.trangthai.setText("đã hủy");
             holder.giaothanhcong.setEnabled(false);
             holder.nhanhang.setEnabled(false);
             holder.huy.setEnabled(false);

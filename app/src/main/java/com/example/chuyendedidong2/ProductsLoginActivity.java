@@ -81,6 +81,7 @@ public class ProductsLoginActivity extends AppCompatActivity {
         tvMoTa.setText(des);
         tvTenCuaHang.setText(nameShop);
         ratingBar.setRating(rating);
+        ratingBar.setEnabled(false);
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,8 +119,8 @@ public class ProductsLoginActivity extends AppCompatActivity {
         tvGiaSP = findViewById(R.id.tvGia);
         tvMoTa = findViewById(R.id.tvMoTa);
         tvTenCuaHang = findViewById(R.id.tvTenCuaHang);
-        pic1 = findViewById(R.id.ivSanPham1);
-        pic2 = findViewById(R.id.ivSanPham2);
-        pic3 = findViewById(R.id.ivSanPham3);
+        pic1 = findViewById(R.id.ivPic1);
+        pic2 = findViewById(R.id.ivPic2);
+        pic3 = findViewById(R.id.ivPic3);
     }
 }

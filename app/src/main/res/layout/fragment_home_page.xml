@@ -59,6 +59,9 @@
 
     </LinearLayout>
     <TextView
+        android:textColor="#F8ED8D"
+        android:textSize="10sp"
+        android:gravity="center"
         android:text="danh mục điện thoại"
         android:id="@+id/tv_sanPham"
         android:layout_width="match_parent"

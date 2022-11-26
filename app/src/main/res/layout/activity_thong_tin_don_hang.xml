@@ -26,7 +26,7 @@
             android:textSize="17sp"
             android:paddingTop="10dp"
             android:textAlignment="center"
-            android:text="đơn hàng đang chờ xác nhận!"
+            android:text="đơn hàng của bạn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>

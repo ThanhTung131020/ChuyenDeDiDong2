@@ -1,6 +1,7 @@
 package com.example.chuyendedidong2.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,29 +62,27 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
     public void onBindViewHolder(@NonNull DHCHViewHolder holder, int position) {
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         DonHang donHangCuaHang = list.get(position);
-        if (donHangCuaHang.getTrangThaiDH() == 0){
+        if (donHangCuaHang.getTrangThaiDH() == 0) {
             holder.trangthai_sp.setText("Chờ xác nhận");
             holder.trahang.setEnabled(false);
             holder.xn_hang.setEnabled(false);
-        }else if (donHangCuaHang.getTrangThaiDH() == 1){
+        } else if (donHangCuaHang.getTrangThaiDH() == 1) {
             holder.trangthai_sp.setText("Chờ shipper nhận hàng");
             holder.xn_shipper.setEnabled(false);
             holder.xn_hang.setEnabled(false);
             holder.trahang.setEnabled(false);
-        }
-        else if (donHangCuaHang.getTrangThaiDH() == 2){
+        } else if (donHangCuaHang.getTrangThaiDH() == 2) {
             holder.trangthai_sp.setText("Shipper đã xác nhận");
             holder.xn_shipper.setEnabled(false);
             holder.trahang.setEnabled(false);
 
-        }
-        else if (donHangCuaHang.getTrangThaiDH() == 3 || donHangCuaHang.getTrangThaiDH() == 4){
+        } else if (donHangCuaHang.getTrangThaiDH() == 3 || donHangCuaHang.getTrangThaiDH() == 4) {
             holder.trangthai_sp.setText("Đang giao hàng");
             holder.trahang.setEnabled(true);
             holder.xn_shipper.setEnabled(false);
             holder.xn_hang.setEnabled(false);
             holder.huy.setEnabled(false);
-        }else if (donHangCuaHang.getTrangThaiDH() == 5){
+        } else if (donHangCuaHang.getTrangThaiDH() == 5) {
             holder.trangthai_sp.setText("Giao thành công");
             holder.trahang.setEnabled(false);
             holder.xn_shipper.setEnabled(false);
@@ -91,14 +91,14 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
             holder.cv_dh.setBackgroundResource(R.drawable.set_bg_donhangthanhcong);
         }
         Glide.with(context).load(donHangCuaHang.getHinhSP()).into(holder.img_sp);
-        holder.ten_sp.setText("Tên SP: "+donHangCuaHang.getTenSP());
-        holder.gia_sp.setText("Giá SP: "+decimalFormat.format(donHangCuaHang.getGiaSP())+" vnđ");
+        holder.ten_sp.setText("Tên SP: " + donHangCuaHang.getTenSP());
+        holder.gia_sp.setText("Giá SP: " + decimalFormat.format(donHangCuaHang.getGiaSP()) + " vnđ");
         holder.sl_sp.setText("Số lượng: " + String.valueOf(donHangCuaHang.getSoLuongSP()));
-        holder.ten_kh.setText("Tên KH: "+donHangCuaHang.getTenKhachHang());
-        holder.sdt_kh.setText("SDT Khách hàng: "+donHangCuaHang.getSdtKhachHang());
-        holder.diachi_kh.setText("Địa chỉ KH: "+donHangCuaHang.getDiaChiKhachHang());
+        holder.ten_kh.setText("Tên KH: " + donHangCuaHang.getTenKhachHang());
+        holder.sdt_kh.setText("SDT Khách hàng: " + donHangCuaHang.getSdtKhachHang());
+        holder.diachi_kh.setText("Địa chỉ KH: " + donHangCuaHang.getDiaChiKhachHang());
         getDataBaseNameShipper();
-        arrayAdapter = new ArrayAdapter(context, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,listShipperName);
+        arrayAdapter = new ArrayAdapter(context, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, listShipperName);
         arrayAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
         holder.spShipper.setAdapter(arrayAdapter);
         holder.spShipper.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -107,9 +107,56 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
                 donHangCuaHang.setTenNguoiGiaoHang(listShipperName.get(i));
                 donHangCuaHang.setIdNguoiGiaoHang(listShipperID.get(i));
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+
+        holder.btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder al = new AlertDialog.Builder(context);
+                al.setTitle("thông báo");
+                al.setMessage("bạn có muốn xóa đơn hàng");
+                al.setPositiveButton("có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        DatabaseReference root_shipper = database.getReference("bill").child(donHangCuaHang.getIdDonHang());
+                        root_shipper.removeValue();
+                    }
+                });
+                al.setNegativeButton("không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                al.show();
+
+            }
+        });
+        holder.trahang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder al = new AlertDialog.Builder(context);
+                al.setTitle("thông báo");
+                al.setMessage("đơn hàng có vấn đề, shipper đã mang hàng đến trả , bạn có muốn xóa đơn hàng?");
+                al.setPositiveButton("có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        DatabaseReference root_shipper = database.getReference("bill").child(donHangCuaHang.getIdDonHang());
+                        root_shipper.removeValue();
+                    }
+                });
+                al.setNegativeButton("không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                al.show();
             }
         });
         holder.xn_shipper.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +178,7 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
                 });
             }
         });
+
         holder.xn_hang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,6 +186,7 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
                 root.setValue(3);
             }
         });
+
 
     }
 
@@ -178,7 +227,7 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
         TextView ten_sp, trangthai_sp, gia_sp, sl_sp;
         TextView ten_kh, sdt_kh, diachi_kh;
         Spinner spShipper;
-        Button xn_shipper, trahang, huy, xn_hang;
+        Button xn_shipper, trahang, huy, xn_hang, btnHuy;
         public DHCHViewHolder(@NonNull View itemView) {
             super(itemView);
             cv_dh = itemView.findViewById(R.id.cv_dhch);
@@ -195,6 +244,9 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
             trahang = itemView.findViewById(R.id.btnTraHangDHCH);
             huy = itemView.findViewById(R.id.btnHuyDHCH);
             xn_hang = itemView.findViewById(R.id.btnXacNhanDHCH);
+            btnHuy = itemView.findViewById(R.id.btnHuyDHCH);
         }
+
     }
+
 }

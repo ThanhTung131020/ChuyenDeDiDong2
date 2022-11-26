@@ -58,6 +58,14 @@
             />
 
     </LinearLayout>
+     <TextView
+         android:textColor="#F8ED8D"
+         android:id="@+id/tv_danhmucSP"
+         android:textSize="10sp"
+         android:layout_gravity="center"
+         android:text="danh mục sản phẩm"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"/>
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_weight="8"

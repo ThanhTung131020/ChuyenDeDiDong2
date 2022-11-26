@@ -72,6 +72,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
 
     @Override
     public void onBindViewHolder(@NonNull GioHangViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         dialogOk = new DialogOkActivity(mContext);
@@ -81,7 +82,8 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
         }
         Glide.with(mContext).load(gioHang.getProduct_imgurl()).into(holder.img_SPgiohang);
         holder.tv_tenSP.setText("tên sản phẩm: " + gioHang.getProduct_name());
-        holder.tv_giaSP.setText("giá sản phẩm: " + String.valueOf(gioHang.getProduct_price()) + "VND");
+
+        holder.tv_giaSP.setText("giá sản phẩm: " + decimalFormat.format( gioHang.getProduct_price()) + "VND");
         holder.tv_tenCH.setText("Tên cửa hàng: " + gioHang.getShop_name());
         holder.tv_soLuong.setText(String.valueOf(gioHang.getProduct_quality()));
         int SoLuong = Integer.parseInt(holder.tv_soLuong.getText().toString());
@@ -105,7 +107,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
                 int giaHT = gioHang.getProduct_price();
                 gioHang.setProduct_quality(slMoiNhat);
                 int giaMoiNhat = (giaHT * slMoiNhat) / slHt;
-                DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+
                 mListGioHang.get(position).setProduct_price(giaMoiNhat);
                 holder.tv_soLuong.setText(decimalFormat.format(giaMoiNhat));
 
@@ -161,7 +163,6 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
         String strTenCH = holder.tv_tenCH.getText().toString();
         String strtenSP = holder.tv_tenSP.getText().toString();
         int iSoLuong = Integer.parseInt(holder.tv_soLuong.getText().toString());
-        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
 
         _tenCH = strTenCH;
         _tensp = strtenSP;

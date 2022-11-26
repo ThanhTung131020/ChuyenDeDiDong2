@@ -61,17 +61,17 @@ public class Activity_Gio_hang extends AppCompatActivity {
         rcv_GioHang.setLayoutManager(linearLayoutManager);
         adapter_gioHang.setDaTa(productModel.createList());
         rcv_GioHang.setAdapter(adapter_gioHang);
-        tongTien();
+//        tongTien();
     }
 
-    public void tongTien() {
-        tv_tongTien = findViewById(R.id.tv_tongTien);
-        int tong = 0;
-
-        for (int i = 0; i < list.size(); i++) {
-            tong += list.get(i).getPrice();
-        }
-        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        tv_tongTien.setText("Tổng tiền: " + decimalFormat.format(tong) + "vnđ");
-    }
+//    public void tongTien() {
+//        tv_tongTien = findViewById(R.id.tv_tongTien);
+//        int tong = 0;
+//
+//        for (int i = 0; i < list.size(); i++) {
+//            tong += list.get(i).getPrice();
+//        }
+//        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+//        tv_tongTien.setText("Tổng tiền: " + decimalFormat.format(tong) + "vnđ");
+//    }
 }
