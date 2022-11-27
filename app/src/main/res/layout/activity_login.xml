@@ -93,6 +93,7 @@
         android:id="@+id/img_show_hide_pwd"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/edtMatKhau"
         app:layout_constraintEnd_toEndOf="@+id/edtMatKhau"
         app:layout_constraintTop_toTopOf="@+id/edtMatKhau"
