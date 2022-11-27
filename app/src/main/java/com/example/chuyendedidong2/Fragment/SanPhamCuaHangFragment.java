@@ -21,6 +21,7 @@ import com.example.chuyendedidong2.ActivityQuanLySanPham;
 import com.example.chuyendedidong2.Adapter.SanPhamCuaHangAdapter;
 import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.R;
+import com.example.chuyendedidong2.SanPhamDoiDuyetActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -36,7 +37,7 @@ public class SanPhamCuaHangFragment extends Fragment {
     ProductModel productModel;
     SanPhamCuaHangAdapter sanPhamCuaHangAdapter;
     RecyclerView rv_sp_ch;
-    Button btnThem, btnXoa;
+    Button btnThem, btnXoa, btnSPDangBan;
     FirebaseDatabase database;
     FirebaseAuth auth;
     public SanPhamCuaHangFragment() {
@@ -55,6 +56,7 @@ public class SanPhamCuaHangFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_san_pham_cua_hang, container, false);
         rv_sp_ch = view.findViewById(R.id.rv_sanpham_cuahang);
         btnThem = view.findViewById(R.id.btnThemSanPhamCuaHang);
+        btnSPDangBan = view.findViewById(R.id.btnSanPhamDoiDuyet);
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         setEvent();
@@ -74,6 +76,12 @@ public class SanPhamCuaHangFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), ActivityQuanLySanPham.class));
+            }
+        });
+        btnSPDangBan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), SanPhamDoiDuyetActivity.class));
             }
         });
     }

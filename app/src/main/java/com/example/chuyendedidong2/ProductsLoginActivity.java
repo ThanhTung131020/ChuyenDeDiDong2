@@ -1,5 +1,7 @@
 package com.example.chuyendedidong2;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,7 +18,15 @@ import android.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.Adapter.ProductsAdapter;
 import com.example.chuyendedidong2.Fragment.CartFragment;
+import com.example.chuyendedidong2.Model.CartModel;
 import com.example.chuyendedidong2.Model.ProductModel;
+import com.example.chuyendedidong2.Model.Shop;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,49 +34,48 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class ProductsLoginActivity extends AppCompatActivity {
-    private ImageView imageView;
+    private ImageView imageView,pic1,pic2,pic3;
     private Toolbar toolbar;
     private RatingBar ratingBar;
     private TextView tvTenSP,tvGiaSP,tvTenCuaHang,tvMoTa;
-    private ArrayList<ProductModel> productModelArrayList;
-    private ProductsAdapter newProductsAdapter;
-    private LinearLayout linearLayout;
     private Button btnAddCart;
-    private ProductModel products;
+    private DialogOkActivity dialogOk;
+    private FirebaseDatabase database;
+    private FirebaseAuth auth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products_login);
-
         setControl();
-       // final ProductModel[] productModel = {getIntent().getParcelableExtra("chitiet")};
+        dialogOk = new DialogOkActivity(this);
+        database = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         //setSupportActionBar(toolbar);
         //getSupportActionBar().setTitle("Sản phẩm");
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("sanpham");
+        String id = bundle.getString("id");
+        String shop_id = bundle.getString("shop_id");
         String name = bundle.getString("name");
         String image = bundle.getString("image");
+        String pic1 = bundle.getString("pic1");
+        String pic2 = bundle.getString("pic2");
+        String pic3 = bundle.getString("pic3");
         int price = bundle.getInt("price");
         float rating = bundle.getFloat("rating");
         String des = bundle.getString("des");
         String nameShop = bundle.getString("nameShop");
         int soluong = bundle.getInt("sl");
 
-//        Intent intent = getIntent();
-//        String name = intent.getStringExtra("name");
-//        String image = intent.getStringExtra("image");
-//        String price = intent.getStringExtra("price");
-//        String ratingbar = intent.getStringExtra("rating");
-//        String des = intent.getStringExtra("des");
-//        String nameShop = intent.getStringExtra("nameShop");
-//        String soluong = intent.getStringExtra("sl");
-
         //
         Glide.with(getApplicationContext()).load(image).into(imageView);
+        Glide.with(getApplicationContext()).load(pic1).into(this.pic1);
+        Glide.with(getApplicationContext()).load(pic2).into(this.pic2);
+        Glide.with(getApplicationContext()).load(pic3).into(this.pic3);
         tvTenSP.setText(name);
         tvGiaSP.setText(String.valueOf(price));
         tvMoTa.setText(des);
@@ -75,15 +84,30 @@ public class ProductsLoginActivity extends AppCompatActivity {
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                products = new ProductModel();
-                //products.createProductCart().add(new ProductModel(soluong,name,des,nameShop,price,rating,image));
-                startActivity(new Intent(ProductsLoginActivity.this, HomePageLoginActivity.class));
-                Toast.makeText(ProductsLoginActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                DatabaseReference name_shop = database.getReference("shop");
+                name_shop.child(shop_id).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Shop shop = snapshot.getValue(Shop.class);
+                        String nameShop = shop.getName();
+                        DatabaseReference root = database.getReference("cart");
+                        CartModel cart = new CartModel(auth.getUid(),id,shop_id,nameShop,image,name,price,1);
+                        root.child(auth.getUid()).child(id).setValue(cart, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                dialogOk.ShowDiaLog("Thêm giỏ hàng thành công!");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
         });
-//        sanPham = new ProductModel(Integer.parseInt(soluong),name,des,nameShop,Integer.parseInt(price),Float.parseFloat(ratingbar),image);
-//        Toast.makeText(ProductsLoginActivity.this, name , Toast.LENGTH_SHORT).show();
-//        products.createProductCart().add(sanPham);
     }
     private void setControl() {
         toolbar = findViewById(R.id.toolbar);
@@ -94,5 +118,8 @@ public class ProductsLoginActivity extends AppCompatActivity {
         tvGiaSP = findViewById(R.id.tvGia);
         tvMoTa = findViewById(R.id.tvMoTa);
         tvTenCuaHang = findViewById(R.id.tvTenCuaHang);
+        pic1 = findViewById(R.id.ivSanPham1);
+        pic2 = findViewById(R.id.ivSanPham2);
+        pic3 = findViewById(R.id.ivSanPham3);
     }
 }

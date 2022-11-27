@@ -57,8 +57,6 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHo
         holder.newRating.setRating( productModel.getNumStar());
         holder.newPrice.setText(String.valueOf(productModel.getPrice()));
 
-
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

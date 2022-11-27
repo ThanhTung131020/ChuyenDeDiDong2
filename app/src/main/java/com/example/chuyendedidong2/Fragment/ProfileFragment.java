@@ -29,11 +29,12 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileFragment extends Fragment {
 
+//    HomePageLoginActivity homePageLoginActivity;
     FirebaseDatabase database;
     DiaLogLoanding diaLogLoanding;
     FirebaseAuth auth;
     EditText ten, diachi, sdt, email, matkhau;
-    Button btnSua;
+    Button btnSua, btnDangXuat;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -52,6 +53,7 @@ public class ProfileFragment extends Fragment {
         email = view.findViewById(R.id.edtEmail_PF);
         matkhau = view.findViewById(R.id.edtMatKhau_PF);
         btnSua = view.findViewById(R.id.btnSua_user);
+        btnDangXuat = view.findViewById(R.id.btnDangXuat_user);
 
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -69,6 +71,19 @@ public class ProfileFragment extends Fragment {
                 SuaThongTinDataBase();
             }
         });
+        btnDangXuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                diaLogLoanding.ShowDiaLog("Đăng xuất...");
+                logout();
+            }
+        });
+    }
+
+    private void logout() {
+        auth.signOut();
+        ((HomePageLoginActivity)getActivity()).logout();
+        startActivity(new Intent(getContext(),LoginActivity.class));
     }
 
     private void SuaThongTinDataBase() {

@@ -75,7 +75,7 @@
                     android:textSize="17sp" />
 
                 <EditText
-                    android:id="@+id/edtSDT_PF"
+                    android:id="@+id/edtDiaChi_PF"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
@@ -98,7 +98,7 @@
                     android:textSize="17sp" />
 
                 <EditText
-                    android:id="@+id/edtDiaChi_PF"
+                    android:id="@+id/edtSPDABAN_PF"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
@@ -121,7 +121,7 @@
                     android:textSize="17sp" />
 
                 <EditText
-                    android:id="@+id/edtEmail_PF"
+                    android:id="@+id/edtSPDANGCO_PF"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
@@ -144,7 +144,7 @@
                     android:textSize="15sp" />
 
                 <EditText
-                    android:id="@+id/edtMatKhau_PF"
+                    android:id="@+id/edtMASOTHUE_PF"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"

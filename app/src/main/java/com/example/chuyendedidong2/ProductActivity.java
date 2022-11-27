@@ -28,11 +28,13 @@ public class ProductActivity extends AppCompatActivity {
     private ProductsAdapter newProductsAdapter;
     private LinearLayout linearLayout;
     private Button btnAddCart;
+    private DialogOkActivity dialogOk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+        dialogOk = new DialogOkActivity(this);
         setControl();
 
         //setSupportActionBar(toolbar);
@@ -63,8 +65,8 @@ public class ProductActivity extends AppCompatActivity {
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ProductActivity.this, "Bạn phải đăng nhập!", Toast.LENGTH_SHORT).show();
-            }
+                dialogOk.ShowDiaLog("Bạn phải đăng nhập!");
+             }
         });
     }
 

@@ -1,31 +1,50 @@
 package com.example.chuyendedidong2.Adapter;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.chuyendedidong2.Model.DonHangCuaHang;
+import com.example.chuyendedidong2.HomePageActivity;
+import com.example.chuyendedidong2.Model.DonHang;
+import com.example.chuyendedidong2.Model.Shipper;
 import com.example.chuyendedidong2.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAdapter.DHCHViewHolder> {
     Context context;
-    ArrayList<DonHangCuaHang> list;
+    ArrayList<DonHang> list;
+    ArrayList<String> listShipperName = new ArrayList<String>();
+    ArrayList<String> listShipperID = new ArrayList<String>();
+    ArrayList<Shipper> shippers = new ArrayList<>();
+    ArrayAdapter arrayAdapter;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
 
-    public DonHangCuaHangAdapter(Context context, ArrayList<DonHangCuaHang> list) {
+    public DonHangCuaHangAdapter(Context context, ArrayList<DonHang> list) {
         this.context = context;
         this.list = list;
     }
@@ -39,36 +58,108 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
 
     @Override
     public void onBindViewHolder(@NonNull DHCHViewHolder holder, int position) {
-        DonHangCuaHang donHangCuaHang = list.get(position);
-        Glide.with(context).load(donHangCuaHang.getImg_sanpham()).into(holder.img_sp);
-        holder.trangthai_sp.setText(donHangCuaHang.getTrangthai_sanpham());
-        holder.ten_sp.setText(donHangCuaHang.getTen_sanpham());
-        holder.gia_sp.setText(String.valueOf(donHangCuaHang.getGia_sanpham())+" vnđ");
-        holder.sl_sp.setText("Số lượng: "+ String.valueOf(donHangCuaHang.getSl_sanpham()));
-        holder.ten_kh.setText(donHangCuaHang.getTen_khachhang());
-        holder.sdt_kh.setText(donHangCuaHang.getSdt_khachhang());
-        holder.diachi_kh.setText(donHangCuaHang.getDiachi_khachhang());
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        DonHang donHangCuaHang = list.get(position);
+        if (donHangCuaHang.getTrangThaiDH() == 0){
+            holder.trangthai_sp.setText("Chờ xác nhận");
+            holder.trahang.setEnabled(false);
+            holder.xn_hang.setEnabled(false);
+        }else if (donHangCuaHang.getTrangThaiDH() == 1){
+            holder.trangthai_sp.setText("Chờ shipper nhận hàng");
+            holder.xn_shipper.setEnabled(false);
+            holder.xn_hang.setEnabled(false);
+            holder.trahang.setEnabled(false);
+        }
+        else if (donHangCuaHang.getTrangThaiDH() == 2){
+            holder.trangthai_sp.setText("Shipper đã xác nhận");
+            holder.xn_shipper.setEnabled(false);
+            holder.trahang.setEnabled(false);
 
-        holder.xn_hang.setEnabled(false);
-        holder.huy.setEnabled(false);
-        holder.trahang.setEnabled(false);
+        }
+        else if (donHangCuaHang.getTrangThaiDH() == 3 || donHangCuaHang.getTrangThaiDH() == 4){
+            holder.trangthai_sp.setText("Đang giao hàng");
+            holder.trahang.setEnabled(true);
+            holder.xn_shipper.setEnabled(false);
+            holder.xn_hang.setEnabled(false);
+            holder.huy.setEnabled(false);
+        }else if (donHangCuaHang.getTrangThaiDH() == 5){
+            holder.trangthai_sp.setText("Giao thành công");
+            holder.trahang.setEnabled(false);
+            holder.xn_shipper.setEnabled(false);
+            holder.xn_hang.setEnabled(false);
+            holder.huy.setEnabled(false);
+            holder.cv_dh.setBackgroundResource(R.drawable.set_bg_donhangthanhcong);
+        }
+        Glide.with(context).load(donHangCuaHang.getHinhSP()).into(holder.img_sp);
+        holder.ten_sp.setText("Tên SP: "+donHangCuaHang.getTenSP());
+        holder.gia_sp.setText("Giá SP: "+decimalFormat.format(donHangCuaHang.getGiaSP())+" vnđ");
+        holder.sl_sp.setText("Số lượng: " + String.valueOf(donHangCuaHang.getSoLuongSP()));
+        holder.ten_kh.setText("Tên KH: "+donHangCuaHang.getTenKhachHang());
+        holder.sdt_kh.setText("SDT Khách hàng: "+donHangCuaHang.getSdtKhachHang());
+        holder.diachi_kh.setText("Địa chỉ KH: "+donHangCuaHang.getDiaChiKhachHang());
+        getDataBaseNameShipper();
+        arrayAdapter = new ArrayAdapter(context, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,listShipperName);
+        arrayAdapter.setDropDownViewResource(androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
+        holder.spShipper.setAdapter(arrayAdapter);
+        holder.spShipper.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                donHangCuaHang.setTenNguoiGiaoHang(listShipperName.get(i));
+                donHangCuaHang.setIdNguoiGiaoHang(listShipperID.get(i));
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
         holder.xn_shipper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                holder.xn_hang.setEnabled(true);
-                holder.huy.setEnabled(true);
-                holder.xn_shipper.setEnabled(false);
+                DatabaseReference root_shipper = database.getReference("bill").child(donHangCuaHang.getIdDonHang()).child("tenNguoiGiaoHang");
+                root_shipper.setValue(donHangCuaHang.getTenNguoiGiaoHang(), new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        DatabaseReference root_id = database.getReference("bill").child(donHangCuaHang.getIdDonHang()).child("idNguoiGiaoHang");
+                        root_id.setValue(donHangCuaHang.getIdNguoiGiaoHang(), new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                DatabaseReference root_tv = database.getReference("bill").child(donHangCuaHang.getIdDonHang()).child("trangThaiDH");
+                                root_tv.setValue(1);
+                            }
+                        });
+                    }
+                });
             }
         });
         holder.xn_hang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                donHangCuaHang.setTrangthai_sanpham("Đang giao");
-                holder.trangthai_sp.setText(donHangCuaHang.getTrangthai_sanpham());
-                holder.trahang.setEnabled(true);
-                holder.huy.setEnabled(false);
-                holder.xn_hang.setEnabled(false);
+                DatabaseReference root = database.getReference("bill").child(donHangCuaHang.getIdDonHang()).child("trangThaiDH");
+                root.setValue(3);
+            }
+        });
+
+    }
+
+    private void getDataBaseNameShipper() {
+        DatabaseReference root = database.getReference("shipper");
+        root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (listShipperName != null){
+                    listShipperName.clear();
+                }
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Shipper shipper = dataSnapshot.getValue(Shipper.class);
+                    listShipperName.add(shipper.getName());
+                    listShipperID.add(shipper.getId());
+                }
+                arrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

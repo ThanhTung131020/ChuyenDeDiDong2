@@ -12,7 +12,6 @@ public class Shop {
         this.diachi = diachi;
         this.email = email;
     }
-
     public Shop() {
     }
 

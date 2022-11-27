@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.chuyendedidong2.Fragment.BillDaHuyFragment;
 import com.example.chuyendedidong2.Fragment.CartFragment;
 import com.example.chuyendedidong2.Fragment.HomePageFragment;
 import com.example.chuyendedidong2.Fragment.ProfileFragment;
@@ -50,6 +51,9 @@ public class HomePageLoginActivity extends AppCompatActivity {
                     case R.id.mnCart:
                         replaceFrament(new CartFragment());
                         break;
+                    case R.id.mnRemove_Bill:
+                        replaceFrament(new BillDaHuyFragment());
+                        break;
                 }
                 return true;
             }
@@ -61,8 +65,8 @@ public class HomePageLoginActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragmentKhachHang,fragment);
         fragmentTransaction.commit();
     }
-    public void timKiem(){
-
+    public void logout(){
+        finishAffinity();
     }
 
 
