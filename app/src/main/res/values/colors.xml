@@ -21,6 +21,7 @@
     <color name="offgiaothanhcong">#DFE8EE</color>
     <color name="background_admin">#8AB2E8</color>
     <color name="item_dangkyquanly">#003263</color>
-
-
+    <color name="item_sp_admin">#F49D1A</color>
+    <color name="bill_shop_admin">#7FE9DE</color>
+    <color name="bill_huy">#D74B4B</color>
 </resources>

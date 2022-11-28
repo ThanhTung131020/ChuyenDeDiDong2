@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 public class SanPhamCuaHangAdapter extends RecyclerView.Adapter<SanPhamCuaHangAdapter.SPCHViewHolder> {
     Context context;
     ArrayList<ProductModel> list;
-
+    FirebaseDatabase database;
     public SanPhamCuaHangAdapter(Context context, ArrayList<ProductModel> list) {
         this.context = context;
         this.list = list;
@@ -41,6 +42,7 @@ public class SanPhamCuaHangAdapter extends RecyclerView.Adapter<SanPhamCuaHangAd
 
     @Override
     public void onBindViewHolder(@NonNull SPCHViewHolder holder, int position) {
+        database = FirebaseDatabase.getInstance();
         ProductModel product = list.get(position);
         Glide.with(context).load(product.getImg_url()).into(holder.ivSP);
         holder.tvNameSP.setText(product.getName());
@@ -57,12 +59,25 @@ public class SanPhamCuaHangAdapter extends RecyclerView.Adapter<SanPhamCuaHangAd
                 bundle.putFloat("srating", product.getNumStar());
                 bundle.putString("sdes",product.getDesciption());
                 bundle.putString("snameShop",product.getNameShop());
-                //bundle.putInt("ssl", product.getSoLuong());
+                bundle.putString("spic1", product.getPic1());
+                bundle.putString("spic2", product.getPic2());
+                bundle.putString("spic3", product.getPic3());
                 intent.putExtra("suasanpham",bundle);
                 context.startActivity(intent);
             }
         });
-
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    product.setCheck_box(true);
+                  }else {
+                    product.setCheck_box(false);
+                }
+            }
+        });
+        DatabaseReference root = database.getReference("product").child(product.getProduct_id());
+        root.child("check_box").setValue(product.getCheck_box());
     }
 
     @Override

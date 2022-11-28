@@ -2,6 +2,7 @@ package com.example.chuyendedidong2.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chuyendedidong2.ChiTietShopAdminActivity;
+import com.example.chuyendedidong2.DonHangShopAdminActivity;
 import com.example.chuyendedidong2.Model.Shop;
 import com.example.chuyendedidong2.ProductActivity;
+import com.example.chuyendedidong2.ProductsLoginActivity;
 import com.example.chuyendedidong2.QLyShopAdminActivity;
 import com.example.chuyendedidong2.R;
 import com.example.chuyendedidong2.SanPhamShopAdminActivity;
@@ -40,15 +44,30 @@ public class QuanLyShopAdminAdapter extends RecyclerView.Adapter<QuanLyShopAdmin
     @Override
     public void onBindViewHolder(@NonNull QLSADViewHolder holder, int position) {
         Shop shop = list.get(position);
-        holder.id.setText(shop.getId());
-        holder.ten.setText(shop.getName());
-        holder.sdt.setText(shop.getSdt());
-        holder.diachi.setText(shop.getDiachi());
+        holder.id.setText("Id cửa hàng: "+ shop.getId());
+        holder.ten.setText("Tên cửa hàng: " + shop.getName());
+        holder.sdt.setText("SDT cửa hàng: "+shop.getSdt());
+        holder.diachi.setText("Địa chỉ cửa hàng: "+ shop.getDiachi());
         holder.qlysp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, SanPhamShopAdminActivity.class);
-                intent.putExtra("id", shop.getId());
+                Intent intent = new Intent(context, ChiTietShopAdminActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id",shop.getId());
+                bundle.putString("name",shop.getName());
+                bundle.putString("sdt",shop.getSdt());
+                bundle.putString("diachi",shop.getDiachi());
+                intent.putExtra("thongtin_shop",bundle);
+                context.startActivity(intent);
+            }
+        });
+        holder.khoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DonHangShopAdminActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id",shop.getId());
+                intent.putExtra("thongtin_shop",bundle);
                 context.startActivity(intent);
             }
         });

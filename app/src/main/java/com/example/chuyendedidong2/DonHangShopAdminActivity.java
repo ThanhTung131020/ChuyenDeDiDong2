@@ -5,62 +5,53 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.chuyendedidong2.Adapter.SanPhamDoiDuyetAdapter;
+import com.example.chuyendedidong2.Adapter.DonHangShopAdminAdapter;
+import com.example.chuyendedidong2.Model.DonHang;
 import com.example.chuyendedidong2.Model.ProductModel;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.ktx.Firebase;
 
 import java.util.ArrayList;
 
-public class SanPhamDoiDuyetActivity extends AppCompatActivity {
+public class DonHangShopAdminActivity extends AppCompatActivity {
 
-    ArrayList<ProductModel> list;
-    SanPhamDoiDuyetAdapter adapter;
+    ArrayList<DonHang> list;
+    DonHangShopAdminAdapter adapter;
     RecyclerView rv;
     FirebaseDatabase database;
-    FirebaseAuth auth;
-    DiaLogLoanding diaLogLoanding;
-    DialogOkActivity dialogOk;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_san_pham_doi_duyet);
-        rv = findViewById(R.id.rv_shop_sanpham_doiduyet);
+        setContentView(R.layout.activity_don_hang_shop_admin);
+        rv = findViewById(R.id.rv_bill_shop_admin);
         database = FirebaseDatabase.getInstance();
-        auth = FirebaseAuth.getInstance();
-        diaLogLoanding = new DiaLogLoanding(this);
-        dialogOk = new DialogOkActivity(this);
-        setEvent();
-        adapter = new SanPhamDoiDuyetAdapter(this,list);
+        list = new ArrayList<>();
+        getDataBase();
+        adapter = new DonHangShopAdminAdapter(this,list);
         rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         rv.setAdapter(adapter);
     }
 
-    private void setEvent() {
-        list = new ArrayList<>();
-        getDataBase();
-    }
-
     private void getDataBase() {
-        DatabaseReference root = database.getReference("product_register");
+        Intent intent = getIntent();
+        Bundle bundle = intent.getBundleExtra("thongtin_shop");
+        String id_shop = bundle.getString("id");
+        DatabaseReference root = database.getReference("bill");
         root.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 list.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    String id_shop = dataSnapshot.child("idShop").getValue().toString();
-                    if (id_shop.equals(auth.getUid())){
-                        ProductModel product = dataSnapshot.getValue(ProductModel.class);
-                        list.add(product);
+                    String id = dataSnapshot.child("idCuaHang").getValue().toString();
+                    if (id.equals(id_shop)){
+                        DonHang bill = dataSnapshot.getValue(DonHang.class);
+                        list.add(bill);
                     }
                 }
                 adapter.notifyDataSetChanged();

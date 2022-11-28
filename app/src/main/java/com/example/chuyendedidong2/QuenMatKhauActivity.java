@@ -41,6 +41,7 @@ public class QuenMatKhauActivity extends AppCompatActivity {
     private void quenmk() {
         String email = quenmk.getText().toString().trim();
         if (TextUtils.isEmpty(email)){
+            diaLogLoanding.HideDialog();
             quenmk.setError("Nhập email!");
             return;
         }

@@ -1,6 +1,8 @@
 package com.example.chuyendedidong2.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -16,6 +19,11 @@ import com.example.chuyendedidong2.DiaLogLoanding;
 import com.example.chuyendedidong2.DialogOkActivity;
 import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.R;
+import com.example.chuyendedidong2.SuaSanPhamActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -25,6 +33,7 @@ public class SanPhamDoiDuyetAdapter extends RecyclerView.Adapter<SanPhamDoiDuyet
     ArrayList<ProductModel> list;
     DiaLogLoanding diaLogLoanding;
     DialogOkActivity dialogOk;
+    FirebaseDatabase database;
 
     public SanPhamDoiDuyetAdapter(Context context, ArrayList<ProductModel> list) {
         this.context = context;
@@ -40,12 +49,39 @@ public class SanPhamDoiDuyetAdapter extends RecyclerView.Adapter<SanPhamDoiDuyet
 
     @Override
     public void onBindViewHolder(@NonNull SPDDViewHolder holder, int position) {
+        database = FirebaseDatabase.getInstance();
         diaLogLoanding = new DiaLogLoanding(context);
         dialogOk = new DialogOkActivity(context);
         ProductModel product = list.get(position);
         Glide.with(context).load(product.getImg_url()).into(holder.hinh);
         holder.ten.setText(product.getName());
         holder.gia.setText(String.valueOf(product.getPrice()));
+        holder.xoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                alert.setTitle("Thông báo xóa sản phẩm!");
+                alert.setIcon(R.mipmap.ic_launcher);
+                alert.setMessage("Bạn có muốn xóa sản phẩm đã chọn?");
+                alert.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        diaLogLoanding.ShowDiaLog("Đang xóa...");
+                        DatabaseReference root = database.getReference("product_register").child(product.getProduct_id());
+                        root.removeValue(new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                diaLogLoanding.HideDialog();
+                                dialogOk.ShowDiaLog("Xóa thành công!");
+                            }
+                        });
+                        diaLogLoanding.HideDialog();
+                    }
+                });
+                alert.setNegativeButton("không",null);
+                alert.show();
+            }
+        });
     }
 
     @Override

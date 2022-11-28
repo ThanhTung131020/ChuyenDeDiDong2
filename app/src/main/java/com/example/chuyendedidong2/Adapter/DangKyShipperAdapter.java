@@ -1,6 +1,8 @@
 package com.example.chuyendedidong2.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.helper.widget.Layer;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.chuyendedidong2.ChiTietDangKyShipperActivity;
+import com.example.chuyendedidong2.ChiTietDangKyShopActivity;
 import com.example.chuyendedidong2.Model.Shipper;
 import com.example.chuyendedidong2.R;
 
@@ -37,6 +41,20 @@ public class DangKyShipperAdapter extends RecyclerView.Adapter<DangKyShipperAdap
     public void onBindViewHolder(@NonNull DKSPViewHolder holder, int position) {
         Shipper shipper = list.get(position);
         holder.tv.setText(shipper.getId());
+        holder.tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ChiTietDangKyShipperActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("id",shipper.getId());
+                bundle.putString("email",shipper.getEmail());
+                bundle.putString("sdt",shipper.getSdt());
+                bundle.putString("diachi",shipper.getDiachi());
+                bundle.putString("ten",shipper.getName());
+                intent.putExtra("dangky_shipper",bundle);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

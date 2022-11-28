@@ -5,63 +5,54 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
-import com.example.chuyendedidong2.Adapter.SanPhamDoiDuyetAdapter;
-import com.example.chuyendedidong2.Model.ProductModel;
+import com.example.chuyendedidong2.Adapter.QuanLyKHAdapter;
+import com.example.chuyendedidong2.Adapter.QuanLyShipperAdapter;
+import com.example.chuyendedidong2.Model.Personal;
+import com.example.chuyendedidong2.Model.Shipper;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.ktx.Firebase;
 
 import java.util.ArrayList;
 
-public class SanPhamDoiDuyetActivity extends AppCompatActivity {
+public class QuanLyShipperAdminActivity extends AppCompatActivity {
 
-    ArrayList<ProductModel> list;
-    SanPhamDoiDuyetAdapter adapter;
-    RecyclerView rv;
+    ArrayList<Shipper> list;
+    QuanLyShipperAdapter adapter;
+    RecyclerView rv_qly;
     FirebaseDatabase database;
     FirebaseAuth auth;
-    DiaLogLoanding diaLogLoanding;
-    DialogOkActivity dialogOk;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_san_pham_doi_duyet);
-        rv = findViewById(R.id.rv_shop_sanpham_doiduyet);
+        setContentView(R.layout.activity_quan_ly_shipper_admin);
+        rv_qly = findViewById(R.id.rv_qly_shipper_admin);
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
-        diaLogLoanding = new DiaLogLoanding(this);
-        dialogOk = new DialogOkActivity(this);
         setEvent();
-        adapter = new SanPhamDoiDuyetAdapter(this,list);
-        rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        rv.setAdapter(adapter);
     }
 
     private void setEvent() {
         list = new ArrayList<>();
         getDataBase();
+        adapter = new QuanLyShipperAdapter(this,list);
+        rv_qly.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        rv_qly.setAdapter(adapter);
     }
 
     private void getDataBase() {
-        DatabaseReference root = database.getReference("product_register");
+        DatabaseReference root = database.getReference("shipper");
         root.addValueEventListener(new ValueEventListener() {
-            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                list.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    String id_shop = dataSnapshot.child("idShop").getValue().toString();
-                    if (id_shop.equals(auth.getUid())){
-                        ProductModel product = dataSnapshot.getValue(ProductModel.class);
-                        list.add(product);
-                    }
+                    Shipper shop = dataSnapshot.getValue(Shipper.class);
+                    list.add(shop);
                 }
                 adapter.notifyDataSetChanged();
             }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_margin="10dp"
     android:layout_height="wrap_content"
-    android:background="@color/backgroud_cuahang"
+    android:background="@color/backGround"
     android:orientation="vertical">
 
     <LinearLayout
@@ -17,7 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="ID Cửa hàng:"
+            android:text="ID Khách Hàng:"
             android:textColor="#000000"
             android:textSize="15sp"
             android:textStyle="normal" />
@@ -45,7 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Tên cửa hàng:"
+            android:text="Tên khách hàng:"
             android:textColor="#000000"
             android:textSize="15sp"
             android:textStyle="normal" />
@@ -132,7 +132,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Đã bán(đơn):"
+            android:text="Tổng đơn hàng:"
             android:textColor="#000000"
             android:textSize="15sp"
             android:textStyle="normal" />
@@ -155,18 +155,6 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnKhoa_DN"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:backgroundTint="#D9D9D9"
-            android:padding="10dp"
-            android:text="Đơn hàng"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnSP_DN"
@@ -177,7 +165,7 @@
             android:ellipsize="none"
             android:padding="10dp"
             android:scrollbarSize="4dp"
-            android:text="Xem chi tiết"
+            android:text="Đơn Hàng"
             android:textColor="#000000"
             android:textSize="16sp"
             android:textStyle="bold" />

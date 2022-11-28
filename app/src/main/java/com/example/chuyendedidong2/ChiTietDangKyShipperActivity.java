@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chuyendedidong2.Model.Shipper;
 import com.example.chuyendedidong2.Model.Shop;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,7 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class ChiTietDangKyShopActivity extends AppCompatActivity {
+public class ChiTietDangKyShipperActivity extends AppCompatActivity {
+
     TrangChuAdminActivity trangChuAdmin;
     TextView email, sdt, diachi, ten;
     EditText pass;
@@ -34,7 +36,7 @@ public class ChiTietDangKyShopActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chi_tiet_dang_ky_shop);
+        setContentView(R.layout.activity_chi_tiet_dang_ky_shipper);
         setControl();
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -45,17 +47,17 @@ public class ChiTietDangKyShopActivity extends AppCompatActivity {
 
     private void setEvent() {
         Intent intent = getIntent();
-        Bundle bundle = intent.getBundleExtra("dangky_shop");
+        Bundle bundle = intent.getBundleExtra("dangky_shipper");
         String id_shop = bundle.getString("id");
         String email_shop = bundle.getString("email");
         String sdt_shop = bundle.getString("sdt");
         String diachi_shop = bundle.getString("diachi");
         String ten_shop = bundle.getString("ten");
 
-        email.setText("Email shipper: " + email_shop);
-        sdt.setText("SDT shipper: " + sdt_shop);
-        diachi.setText("Địa chỉ shipper: " + diachi_shop);
-        ten.setText("Tên shipper: " + ten_shop);
+        email.setText("Email cửa hàng: " + email_shop);
+        sdt.setText("SDT cửa hàng: " + sdt_shop);
+        diachi.setText("Địa chỉ cửa hàng: " + diachi_shop);
+        ten.setText("Tên cửa hàng: " + ten_shop);
 
         dangky.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,15 +77,15 @@ public class ChiTietDangKyShopActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Shop shop = new Shop(auth.getUid(), ten_shop, sdt_shop, diachi_shop, email_shop);
-                            DatabaseReference root = database.getReference("shop");
-                            root.child(auth.getUid()).setValue(shop, new DatabaseReference.CompletionListener() {
+                            Shipper shipper = new Shipper(auth.getUid(), ten_shop, sdt_shop, diachi_shop, email_shop);
+                            DatabaseReference root = database.getReference("shipper");
+                            root.child(auth.getUid()).setValue(shipper, new DatabaseReference.CompletionListener() {
                                 @Override
                                 public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                    DatabaseReference old = database.getReference("shop_register").child(id_shop);
+                                    DatabaseReference old = database.getReference("shipper_register").child(id_shop);
                                     old.removeValue();
-                                    Toast.makeText(ChiTietDangKyShopActivity.this, "Duyệt thành công", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(ChiTietDangKyShopActivity.this, TrangChuAdminActivity.class));
+                                    Toast.makeText(ChiTietDangKyShipperActivity.this, "Duyệt thành công", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(ChiTietDangKyShipperActivity.this, TrangChuAdminActivity.class));
                                     finishAffinity();
                                 }
                             });
@@ -99,13 +101,13 @@ public class ChiTietDangKyShopActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 diaLogLoanding.ShowDiaLog("Đang hủy...");
-                DatabaseReference root = database.getReference("shop_register").child(id_shop);
+                DatabaseReference root = database.getReference("shipper_register").child(id_shop);
                 root.removeValue(new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
                         diaLogLoanding.HideDialog();
-                        Toast.makeText(ChiTietDangKyShopActivity.this, "Huỷ thành công", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ChiTietDangKyShopActivity.this, TrangChuAdminActivity.class));
+                        Toast.makeText(ChiTietDangKyShipperActivity.this, "Huỷ thành công", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(ChiTietDangKyShipperActivity.this, TrangChuAdminActivity.class));
                         finishAffinity();
                     }
                 });

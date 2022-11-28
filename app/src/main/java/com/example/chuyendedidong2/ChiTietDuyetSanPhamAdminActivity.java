@@ -72,7 +72,7 @@ public class ChiTietDuyetSanPhamAdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 diaLogLoanding.ShowDiaLog("Đag duyệt...");
-                ProductModel product = new ProductModel(id,image,0,name,price,des,shop_id,nameShop,pic1,pic2,pic3);
+                ProductModel product = new ProductModel(id,image,0,name,price,des,shop_id,nameShop,pic1,pic2,pic3,false);
                 DatabaseReference root = database.getReference("product");
                 root.child(id).setValue(product, new DatabaseReference.CompletionListener() {
                     @Override

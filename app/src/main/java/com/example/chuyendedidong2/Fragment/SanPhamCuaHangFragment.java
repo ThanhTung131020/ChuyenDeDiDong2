@@ -1,6 +1,8 @@
 package com.example.chuyendedidong2.Fragment;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -20,6 +22,8 @@ import android.widget.Toast;
 
 import com.example.chuyendedidong2.ActivityQuanLySanPham;
 import com.example.chuyendedidong2.Adapter.SanPhamCuaHangAdapter;
+import com.example.chuyendedidong2.DiaLogLoanding;
+import com.example.chuyendedidong2.DialogOkActivity;
 import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.R;
 import com.example.chuyendedidong2.SanPhamDoiDuyetActivity;
@@ -35,6 +39,7 @@ import java.util.ArrayList;
 
 public class SanPhamCuaHangFragment extends Fragment {
     ArrayList<ProductModel> listProduct;
+    ArrayList<ProductModel> productModels = new ArrayList<>();
     ProductModel productModel;
     SanPhamCuaHangAdapter sanPhamCuaHangAdapter;
     RecyclerView rv_sp_ch;
@@ -42,7 +47,8 @@ public class SanPhamCuaHangFragment extends Fragment {
     FirebaseDatabase database;
     FirebaseAuth auth;
     TextView tvTongSP;
-    int tongSanPham;
+    DialogOkActivity dialogOk;
+    DiaLogLoanding diaLogLoanding;
     public SanPhamCuaHangFragment() {
         // Required empty public constructor
     }
@@ -61,8 +67,11 @@ public class SanPhamCuaHangFragment extends Fragment {
         btnThem = view.findViewById(R.id.btnThemSanPhamCuaHang);
         btnSPDangBan = view.findViewById(R.id.btnSanPhamDoiDuyet);
         tvTongSP = view.findViewById(R.id.tvTongSanPham);
+        btnXoa = view.findViewById(R.id.btnXoaSP);
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
+        diaLogLoanding = new DiaLogLoanding(getContext());
+        dialogOk = new DialogOkActivity(getContext());
         setEvent();
         return view;
     }
@@ -88,8 +97,18 @@ public class SanPhamCuaHangFragment extends Fragment {
                 startActivity(new Intent(getContext(), SanPhamDoiDuyetActivity.class));
             }
         });
+        btnXoa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                XoaSanPham();
+            }
+        });
     }
 
+
+    private void XoaSanPham() {
+        dialogOk.ShowDiaLog("Chức năng đang được cập nhât, muốn xóa vui lòng bấm vào sản phẩm!");
+    }
 
 
     private void getProductFromDatabase() {
@@ -117,6 +136,7 @@ public class SanPhamCuaHangFragment extends Fragment {
                 for (int i = 0; i < listProduct.size(); i++){
                     if (product.getProduct_id() == listProduct.get(i).getProduct_id()){
                         listProduct.set(i, product);
+                        break;
                     }
                 }
                 sanPhamCuaHangAdapter.notifyDataSetChanged();
@@ -124,7 +144,17 @@ public class SanPhamCuaHangFragment extends Fragment {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
+                ProductModel product = snapshot.getValue(ProductModel.class);
+                if (product == null || listProduct == null || listProduct.isEmpty()){
+                    return;
+                }
+                for (int i = 0; i < listProduct.size(); i++){
+                    if (product.getProduct_id() == listProduct.get(i).getProduct_id()){
+                        listProduct.remove(listProduct.get(i));
+                        break;
+                    }
+                }
+                sanPhamCuaHangAdapter.notifyDataSetChanged();
             }
 
             @Override
