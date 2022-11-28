@@ -51,9 +51,7 @@ public class Activity_ThongTin_DonHang extends AppCompatActivity {
         bill.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (list != null){
-                    list.clear();
-                }
+                list.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     String id = dataSnapshot.child("idKhachhang").getValue().toString();
                     long trang_thai = (long) dataSnapshot.child("trangThaiDH").getValue();

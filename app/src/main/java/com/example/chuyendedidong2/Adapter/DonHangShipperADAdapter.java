@@ -59,7 +59,7 @@ public class DonHangShipperADAdapter extends RecyclerView.Adapter<DonHangShipper
         holder.tenkh.setText(bill.getTenKhachHang());
         holder.sdtkh.setText(bill.getSdtKhachHang());
         holder.tench.setText(bill.getTenCuaHang());
-        holder.tench.setText(bill.getSdtCuaHang());
+        holder.sdtch.setText(bill.getSdtCuaHang());
     }
 
     @Override

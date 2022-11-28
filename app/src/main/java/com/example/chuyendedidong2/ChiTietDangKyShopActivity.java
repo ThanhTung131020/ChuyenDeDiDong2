@@ -52,10 +52,10 @@ public class ChiTietDangKyShopActivity extends AppCompatActivity {
         String diachi_shop = bundle.getString("diachi");
         String ten_shop = bundle.getString("ten");
 
-        email.setText("Email shipper: " + email_shop);
-        sdt.setText("SDT shipper: " + sdt_shop);
-        diachi.setText("Địa chỉ shipper: " + diachi_shop);
-        ten.setText("Tên shipper: " + ten_shop);
+        email.setText("Email shop: " + email_shop);
+        sdt.setText("SDT shop: " + sdt_shop);
+        diachi.setText("Địa chỉ shop: " + diachi_shop);
+        ten.setText("Tên shop: " + ten_shop);
 
         dangky.setOnClickListener(new View.OnClickListener() {
             @Override

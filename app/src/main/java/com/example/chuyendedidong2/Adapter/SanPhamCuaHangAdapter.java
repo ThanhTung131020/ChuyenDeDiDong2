@@ -54,6 +54,7 @@ public class SanPhamCuaHangAdapter extends RecyclerView.Adapter<SanPhamCuaHangAd
                 Bundle bundle = new Bundle();
                 bundle.putString("simage",product.getImg_url());
                 bundle.putString("sid",product.getProduct_id());
+                bundle.putString("sid_shop",product.getIdShop());
                 bundle.putString("sname",product.getName());
                 bundle.putInt("sprice", product.getPrice());
                 bundle.putFloat("srating", product.getNumStar());

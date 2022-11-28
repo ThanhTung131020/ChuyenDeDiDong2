@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.provider.ContactsContract;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,10 +29,13 @@ import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.MainActivity;
 import com.example.chuyendedidong2.Model.DonHang;
 import com.example.chuyendedidong2.Model.ProductModel;
+import com.example.chuyendedidong2.Model.Star;
 import com.example.chuyendedidong2.R;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +66,7 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
     }
     @Override
     public void onBindViewHolder(@NonNull ThongTinViewholder holder, @SuppressLint("RecyclerView") int position) {
-       donHang = mListGioHang.get(position);
+        donHang = mListGioHang.get(position);
         database = FirebaseDatabase.getInstance();
             holder.tv_tenSP.setText("Tên sản phẩm: "+ donHang.getTenSP());
             holder.tv_giaSP.setText("Giá sản phẩm: "+String.valueOf(donHang.getGiaSP()));
@@ -138,6 +142,7 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
 
 
 
+
         public ThongTinViewholder(@NonNull View itemView) {
             super(itemView);
             imgbtn_remove = itemView.findViewById(R.id.imgBt_back_to_home);
@@ -209,15 +214,51 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
         window.setAttributes(windowatribute);
         RatingBar ratingBar = dialog.findViewById(R.id.rtb_rating);
         ratingBar.setRating(5);
-        ratingBar.setNumStars(4);
+        Button ok = dialog.findViewById(R.id.btn_rating_ok);
         if(Gravity.BOTTOM == gravity){
             dialog.setCancelable(false);
         }
         else {
             dialog.setCancelable(true);
         }
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getRating(ratingBar.getRating());
+               dialog.dismiss();
+            }
+        });
         dialog.show();
     }
+
+    private void getRating(float rating) {
+        ArrayList<Star> listStars = new ArrayList<>();
+        Star star = new Star(rating);
+        DatabaseReference root = database.getReference("stars");
+        root.child(donHang.getIdKhachhang()).setValue(star);
+        root.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Star starn = dataSnapshot.getValue(Star.class);
+                    listStars.add(starn);
+                    for (int i = 0; i < listStars.size(); i++){
+                        float tbc = listStars.get(i).getNumStar();
+                        float size = listStars.size();
+                        float tb = tbc / size;
+                        DatabaseReference sanpham = database.getReference("product").child(donHang.getIdSanPham());
+                        sanpham.child("numStar").setValue(tb);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
 }
 
 

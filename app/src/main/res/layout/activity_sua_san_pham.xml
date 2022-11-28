@@ -68,7 +68,6 @@
                     android:background="@drawable/edit_text_gb"
                     android:hint="giá"
                     android:minHeight="48dp" />
-
                 <EditText
                     android:id="@+id/edtSuaChiTietSP"
                     android:layout_width="273dp"
@@ -178,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Xóa"
-                    android:layout_marginRight="20dp">
+                    >
                 </Button>
             </LinearLayout>
         </LinearLayout>

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class ChiTietShopAdminActivity extends AppCompatActivity {
 
-    TextView id,ten, sdt, diachi;
+    TextView id,ten, sdt, diachi, email;
     RecyclerView rv_shop;
     ArrayList<ProductModel> list;
     SanPhamShopAdminAdapter adapter;
@@ -41,10 +41,12 @@ public class ChiTietShopAdminActivity extends AppCompatActivity {
         String name_shop = bundle.getString("name");
         String sdt_shop = bundle.getString("sdt");
         String diachi_shop = bundle.getString("diachi");
+        String email_shop = bundle.getString("email");
         id.setText("ID Cửa Hàng: "+id_shop);
         ten.setText("Tên Cửa Hàng: "+name_shop);
         sdt.setText("SDT Cửa Hàng: "+sdt_shop);
         diachi.setText("Địa Chỉ Cửa Hàng: "+diachi_shop);
+        email.setText("Email Cửa Hàng: "+email_shop);
         list = new ArrayList<>();
         DatabaseReference root = database.getReference("product");
         root.addValueEventListener(new ValueEventListener() {
@@ -76,6 +78,7 @@ public class ChiTietShopAdminActivity extends AppCompatActivity {
         ten = findViewById(R.id.tv_ten_cuahang_admin);
         sdt = findViewById(R.id.tv_sdt_cuahang_admin);
         diachi = findViewById(R.id.tv_diachi_cuahang_admin);
+        email = findViewById(R.id.tv_email_cuahang_admin);
         rv_shop = findViewById(R.id.rv_sanpham_cuahang_admin);
     }
 }

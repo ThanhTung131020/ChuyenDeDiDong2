@@ -58,6 +58,7 @@ public class SuaSanPhamActivity extends AppCompatActivity {
         Bundle bundle = intent.getBundleExtra("suasanpham");
         String name = bundle.getString("sname");
         String id = bundle.getString("sid");
+        String id_shop = bundle.getString("sid_shop");
         String image = bundle.getString("simage");
         int price = bundle.getInt("sprice");
         String des = bundle.getString("sdes");
@@ -89,15 +90,14 @@ public class SuaSanPhamActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 diaLogLoanding.ShowDiaLog("Đang cập nhật...");
-                DatabaseReference root = database.getReference("product");
-                product.setName(ten.getText().toString().trim());
-                product.setPrice(Integer.parseInt(gia.getText().toString().trim()));
-                product.setDesciption(chitiet.getText().toString().trim());
-                root.child(id).updateChildren(product.toMap(),new DatabaseReference.CompletionListener() {
+                DatabaseReference root = database.getReference("product_register");
+                ProductModel product = new ProductModel(id,image,0,ten.getText().toString(),Integer.parseInt(gia.getText().toString()),chitiet.getText().toString(),id_shop,nameShop,pic1,pic2,pic3,false);
+                root.child(id).setValue(product, new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                        diaLogLoanding.HideDialog();
-                        Toast.makeText(SuaSanPhamActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SuaSanPhamActivity.this, "Sửa thành công, chờ admin duyệt lại sản phẩm cho bạn!", Toast.LENGTH_SHORT).show();
+                        DatabaseReference root = database.getReference("product").child(id);
+                        root.removeValue();
                         startActivity(new Intent(SuaSanPhamActivity.this,HomePageCuaHangActivity.class));
                         finishAffinity();
                     }

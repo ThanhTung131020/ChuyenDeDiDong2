@@ -44,10 +44,10 @@ public class QuanLyShopAdminAdapter extends RecyclerView.Adapter<QuanLyShopAdmin
     @Override
     public void onBindViewHolder(@NonNull QLSADViewHolder holder, int position) {
         Shop shop = list.get(position);
-        holder.id.setText("Id cửa hàng: "+ shop.getId());
-        holder.ten.setText("Tên cửa hàng: " + shop.getName());
-        holder.sdt.setText("SDT cửa hàng: "+shop.getSdt());
-        holder.diachi.setText("Địa chỉ cửa hàng: "+ shop.getDiachi());
+        holder.id.setText(shop.getId());
+        holder.ten.setText(shop.getName());
+        holder.sdt.setText(shop.getSdt());
+        holder.diachi.setText(shop.getDiachi());
         holder.qlysp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,6 +57,7 @@ public class QuanLyShopAdminAdapter extends RecyclerView.Adapter<QuanLyShopAdmin
                 bundle.putString("name",shop.getName());
                 bundle.putString("sdt",shop.getSdt());
                 bundle.putString("diachi",shop.getDiachi());
+                bundle.putString("email",shop.getEmail());
                 intent.putExtra("thongtin_shop",bundle);
                 context.startActivity(intent);
             }
