@@ -90,6 +90,30 @@ public class DonHangCuaHangAdapter extends RecyclerView.Adapter<DonHangCuaHangAd
             holder.huy.setEnabled(false);
             holder.spShipper.setEnabled(false);
             holder.cv_dh.setBackgroundResource(R.drawable.set_bg_donhangthanhcong);
+            holder.cv_dh.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    AlertDialog.Builder al = new AlertDialog.Builder(context);
+                    al.setTitle("thông báo");
+                    al.setMessage("bạn có muốn xóa đơn hàng này không??");
+                    al.setPositiveButton("có", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            DatabaseReference root_shipper = database.getReference("bill").child(donHangCuaHang.getIdDonHang());
+                            root_shipper.removeValue();
+
+                        }
+                    });
+                    al.setNegativeButton("không", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    al.show();
+                    return false;
+                }
+            });
         }
         Glide.with(context).load(donHangCuaHang.getHinhSP()).into(holder.img_sp);
         holder.ten_sp.setText("Tên SP: " + donHangCuaHang.getTenSP());

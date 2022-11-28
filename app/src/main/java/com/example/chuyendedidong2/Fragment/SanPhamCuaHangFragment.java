@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +51,7 @@ public class SanPhamCuaHangFragment extends Fragment {
     TextView tvTongSP;
     DialogOkActivity dialogOk;
     DiaLogLoanding diaLogLoanding;
+
     public SanPhamCuaHangFragment() {
         // Required empty public constructor
     }
@@ -81,8 +84,8 @@ public class SanPhamCuaHangFragment extends Fragment {
         listProduct = new ArrayList<>();
         getProductFromDatabase();
         productModel = new ProductModel();
-        rv_sp_ch.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-        sanPhamCuaHangAdapter = new SanPhamCuaHangAdapter(getContext(),listProduct);
+        rv_sp_ch.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        sanPhamCuaHangAdapter = new SanPhamCuaHangAdapter(getContext(), listProduct);
         rv_sp_ch.setAdapter(sanPhamCuaHangAdapter);
         //them san pham
         btnThem.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +104,7 @@ public class SanPhamCuaHangFragment extends Fragment {
         btnXoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 XoaSanPham();
             }
         });
@@ -118,24 +122,24 @@ public class SanPhamCuaHangFragment extends Fragment {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String id = snapshot.child("idShop").getValue().toString();
-                    if (id.equals(auth.getUid())){
-                        ProductModel product = snapshot.getValue(ProductModel.class);
-                        if (product != null){
-                            listProduct.add(product);
-                            sanPhamCuaHangAdapter.notifyDataSetChanged();
-                        }
+                if (id.equals(auth.getUid())) {
+                    ProductModel product = snapshot.getValue(ProductModel.class);
+                    if (product != null) {
+                        listProduct.add(product);
+                        sanPhamCuaHangAdapter.notifyDataSetChanged();
                     }
-                    tvTongSP.setText("Tổng sản phẩm: " + (listProduct.size()));
+                }
+                tvTongSP.setText("Tổng sản phẩm: " + (listProduct.size()));
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 ProductModel product = snapshot.getValue(ProductModel.class);
-                if (product == null || listProduct == null || listProduct.isEmpty()){
+                if (product == null || listProduct == null || listProduct.isEmpty()) {
                     return;
                 }
-                for (int i = 0; i < listProduct.size(); i++){
-                    if (product.getProduct_id() == listProduct.get(i).getProduct_id()){
+                for (int i = 0; i < listProduct.size(); i++) {
+                    if (product.getProduct_id() == listProduct.get(i).getProduct_id()) {
                         listProduct.set(i, product);
                         break;
                     }
@@ -146,11 +150,11 @@ public class SanPhamCuaHangFragment extends Fragment {
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 ProductModel product = snapshot.getValue(ProductModel.class);
-                if (product == null || listProduct == null || listProduct.isEmpty()){
+                if (product == null || listProduct == null || listProduct.isEmpty()) {
                     return;
                 }
-                for (int i = 0; i < listProduct.size(); i++){
-                    if (product.getProduct_id() == listProduct.get(i).getProduct_id()){
+                for (int i = 0; i < listProduct.size(); i++) {
+                    if (product.getProduct_id() == listProduct.get(i).getProduct_id()) {
                         listProduct.remove(listProduct.get(i));
                         break;
                     }
@@ -169,4 +173,7 @@ public class SanPhamCuaHangFragment extends Fragment {
             }
         });
     }
+
+
+
 }

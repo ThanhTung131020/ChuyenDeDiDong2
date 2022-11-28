@@ -49,7 +49,10 @@
                 android:layout_marginHorizontal="50dp"
                 android:orientation="vertical"
                 >
-
+                <Spinner
+                    android:id="@+id/spn_chondanhmuc"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"/>
                 <EditText
                     android:id="@+id/edtThemTenSP"
                     android:layout_width="match_parent"

@@ -3,6 +3,7 @@ package com.example.chuyendedidong2.Adapter;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.provider.ContactsContract;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -95,6 +97,31 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
                 holder.item.setBackgroundResource(R.color.btn_blue);
                 holder.btn_huy.setBackgroundResource(R.color.offgiaothanhcong);
                 holder.btn_daNhanhang.setBackgroundResource(R.color.offgiaothanhcong);
+                holder.item.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        AlertDialog.Builder al = new AlertDialog.Builder(mContext);
+                        al.setTitle("thông báo");
+                        al.setMessage("bạn có muốn xóa đơn hàng này không??");
+                        al.setPositiveButton("có", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DatabaseReference root_shipper = database.getReference("bill").child(donHang.getIdDonHang());
+                                root_shipper.removeValue();
+
+                            }
+                        });
+                        al.setNegativeButton("không", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                        al.show();
+
+                        return false;
+                    }
+                });
             }
             else if(donHang.getTrangThaiDH() == 6){
                 holder.item.setBackgroundResource(R.color.donhahuy);
@@ -103,6 +130,31 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
                 holder.btn_daNhanhang.setEnabled(false);
                 holder.btn_huy.setBackgroundResource(R.color.offgiaothanhcong);
                 holder.btn_daNhanhang.setBackgroundResource(R.color.offgiaothanhcong);
+                holder.item.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        AlertDialog.Builder al = new AlertDialog.Builder(mContext);
+                        al.setTitle("thông báo");
+                        al.setMessage("bạn có muốn xóa đơn hàng đã hủy");
+                        al.setPositiveButton("có", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                DatabaseReference root_shipper = database.getReference("bill").child(donHang.getIdDonHang());
+                                root_shipper.removeValue();
+
+                            }
+                        });
+                        al.setNegativeButton("không", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                        al.show();
+
+                        return false;
+                    }
+                });
             }
 
 
@@ -111,17 +163,35 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
             holder.btn_huy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    openhuy(Gravity.CENTER);
+                    AlertDialog.Builder al = new AlertDialog.Builder(mContext);
+                    al.setTitle("thông báo");
+                    al.setMessage("bạn có chắc chắn muốn hủy đơn hàng");
+                    al.setPositiveButton("có", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            DatabaseReference root = database.getReference("bill").child(donHang.getIdDonHang()).child("trangThaiDH");
+                            root.setValue(6);
+
+                        }
+                    });
+                    al.setNegativeButton("không", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    al.show();
 
                 }
+
+
             });
 
             holder.btn_daNhanhang.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     openRating(Gravity.CENTER);
-                    DatabaseReference root = database.getReference("bill").child(donHang.getIdDonHang()).child("trangThaiDH");
-                    root.setValue(4);
+
                 }
             });
 
@@ -157,46 +227,46 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
 
         }
     }
-        private void openhuy(int gravity) {
-        final Dialog dialog = new Dialog(mContext);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.layout_dialog_huydon);
-        Window window = dialog.getWindow();
-        if (window == null) {
-                return;
-        }
-
-        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        WindowManager.LayoutParams windowatribute = window.getAttributes();
-        windowatribute.gravity = gravity;
-        window.setAttributes(windowatribute);
-        if(Gravity.BOTTOM == gravity){
-            dialog.setCancelable(false);
-        }
-        else {
-            dialog.setCancelable(true);
-        }
-        dialog.show();
-        edthuy = dialog.findViewById(R.id.edt_huyDon);
-        btn_ok = dialog.findViewById(R.id.btn_dialig_huyDon_ok);
-        btn_ok.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatabaseReference root = database.getReference("bill").child(donHang.getIdDonHang()).child("trangThaiDH");
-                root.setValue(6);
-                dialog.dismiss();
-            }
-        });
-        btn_cancel = dialog.findViewById(R.id.btn_dialig_huyDon_no);
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-
-            }
-        });
-    }
+//        private void openhuy(int gravity) {
+//        final Dialog dialog = new Dialog(mContext);
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        dialog.setContentView(R.layout.layout_dialog_huydon);
+//        Window window = dialog.getWindow();
+//        if (window == null) {
+//                return;
+//        }
+//
+//        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+//        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        WindowManager.LayoutParams windowatribute = window.getAttributes();
+//        windowatribute.gravity = gravity;
+//        window.setAttributes(windowatribute);
+//        if(Gravity.BOTTOM == gravity){
+//            dialog.setCancelable(false);
+//        }
+//        else {
+//            dialog.setCancelable(true);
+//        }
+//        dialog.show();
+//        edthuy = dialog.findViewById(R.id.edt_huyDon);
+//        btn_ok = dialog.findViewById(R.id.btn_dialig_huyDon_ok);
+//        btn_ok.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                DatabaseReference root = database.getReference("bill").child(donHang.getIdDonHang()).child("trangThaiDH");
+//                root.setValue(6);
+//                dialog.dismiss();
+//            }
+//        });
+//        btn_cancel = dialog.findViewById(R.id.btn_dialig_huyDon_no);
+//        btn_cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                dialog.dismiss();
+//
+//            }
+//        });
+//    }
     private void openRating(int gravity) {
 
         final Dialog dialog = new Dialog(mContext);
@@ -224,7 +294,16 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
             @Override
             public void onClick(View view) {
                 getRating(ratingBar.getRating());
+                DatabaseReference root = database.getReference("bill").child(donHang.getIdDonHang()).child("trangThaiDH");
+                root.setValue(4);
                dialog.dismiss();
+            }
+        });
+        Button no = dialog.findViewById(R.id.btn_rating_no);
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    dialog.dismiss();
             }
         });
         dialog.show();

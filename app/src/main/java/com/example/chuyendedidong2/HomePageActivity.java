@@ -153,7 +153,7 @@ public class HomePageActivity extends AppCompatActivity {
         categoryAdapter = new CategoryAdapter(this, categoryModelList, categoryModel -> {
             if (categoryModel.getCatID() == "cat001") {
 
-                createNewProductPC("may tinh");
+                createNewProductPC("may tinh" ,"laptop");
                 tvDanhmucSP.setText("danh mục máy tính");
             } else if (categoryModel.getCatID() == "cat002") {
                 createNewProductphone("dien thoai");
@@ -269,7 +269,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     }
 
-    public ArrayList<ProductModel> createNewProductPC(String key) {
+    public ArrayList<ProductModel> createNewProductPC(String key ,String key2) {
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -280,7 +280,7 @@ public class HomePageActivity extends AppCompatActivity {
                 productModelList.clear();
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     prd = snap.getValue(ProductModel.class);
-                    if (prd.getName().toLowerCase().contains(key.toLowerCase()))
+                    if (prd.getName().toLowerCase().contains(key.toLowerCase()) || prd.getName().toLowerCase().contains(key2.toLowerCase()))
 
                         productModelList.add(prd);
                 }
