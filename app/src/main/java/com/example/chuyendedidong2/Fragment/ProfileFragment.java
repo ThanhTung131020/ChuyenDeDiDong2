@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chuyendedidong2.DiaLogLoanding;
@@ -21,7 +22,11 @@ import com.example.chuyendedidong2.HomePageLoginActivity;
 import com.example.chuyendedidong2.LoginActivity;
 import com.example.chuyendedidong2.Model.Personal;
 import com.example.chuyendedidong2.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,8 +40,10 @@ public class ProfileFragment extends Fragment {
     DiaLogLoanding diaLogLoanding;
     DialogOkActivity dialogOkActivity;
     FirebaseAuth auth;
+    FirebaseUser user;
     EditText ten, diachi, sdt, email, matkhau;
-    Button btnSua, btnDangXuat;
+    Button btnSua, btnDangXuat, btnXacThuc;
+    TextView tv_xacthuc;
     public ProfileFragment() {
         // Required empty public constructor
     }
@@ -56,10 +63,39 @@ public class ProfileFragment extends Fragment {
         matkhau = view.findViewById(R.id.edtMatKhau_PF);
         btnSua = view.findViewById(R.id.btnSua_user);
         btnDangXuat = view.findViewById(R.id.btnDangXuat_user);
+        tv_xacthuc = view.findViewById(R.id.tv_xacthuc_user);
+        btnXacThuc = view.findViewById(R.id.btn_xacthuc_user);
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
         diaLogLoanding = new DiaLogLoanding(getContext());
         dialogOkActivity = new DialogOkActivity(getContext());
+        if (!user.isEmailVerified()){
+            tv_xacthuc.setVisibility(View.VISIBLE);
+            btnXacThuc.setVisibility(View.VISIBLE);
+
+            btnXacThuc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    diaLogLoanding.ShowDiaLog("Vui lòng đợi...");
+                    user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            diaLogLoanding.HideDialog();
+                            dialogOkActivity.ShowDiaLog("Vui lòng check email!");
+                            return;
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            diaLogLoanding.HideDialog();
+                            dialogOkActivity.ShowDiaLog("Lỗi: "+ e.getMessage());
+                            return;
+                        }
+                    });
+                }
+            });
+        }
         getDatabase();
         setEvent();
         return view;

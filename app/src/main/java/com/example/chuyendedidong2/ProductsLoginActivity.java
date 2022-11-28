@@ -22,6 +22,7 @@ import com.example.chuyendedidong2.Model.CartModel;
 import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.Model.Shop;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,6 +44,7 @@ public class ProductsLoginActivity extends AppCompatActivity {
     private DiaLogLoanding diaLogLoanding;
     private FirebaseDatabase database;
     private FirebaseAuth auth;
+    private FirebaseUser user;
 
 
     @Override
@@ -54,6 +56,7 @@ public class ProductsLoginActivity extends AppCompatActivity {
         diaLogLoanding = new DiaLogLoanding(this);
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
 
         //setSupportActionBar(toolbar);
         //getSupportActionBar().setTitle("Sản phẩm");
@@ -88,28 +91,34 @@ public class ProductsLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 diaLogLoanding.ShowDiaLog("Đang mua...");
-                DatabaseReference name_shop = database.getReference("shop");
-                name_shop.child(shop_id).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Shop shop = snapshot.getValue(Shop.class);
-                        String nameShop = shop.getName();
-                        DatabaseReference root = database.getReference("cart");
-                        CartModel cart = new CartModel(auth.getUid(),id,shop_id,nameShop,image,name,price,1);
-                        root.child(auth.getUid()).child(id).setValue(cart, new DatabaseReference.CompletionListener() {
-                            @Override
-                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                diaLogLoanding.HideDialog();
-                                dialogOk.ShowDiaLog("Thêm giỏ hàng thành công!");
-                            }
-                        });
-                    }
+                if (user.isEmailVerified()){
+                    DatabaseReference name_shop = database.getReference("shop");
+                    name_shop.child(shop_id).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Shop shop = snapshot.getValue(Shop.class);
+                            String nameShop = shop.getName();
+                            DatabaseReference root = database.getReference("cart");
+                            CartModel cart = new CartModel(auth.getUid(),id,shop_id,nameShop,image,name,price,1);
+                            root.child(auth.getUid()).child(id).setValue(cart, new DatabaseReference.CompletionListener() {
+                                @Override
+                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                    diaLogLoanding.HideDialog();
+                                    dialogOk.ShowDiaLog("Thêm giỏ hàng thành công!");
+                                }
+                            });
+                        }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
+                        }
+                    });
+                }else {
+                    diaLogLoanding.HideDialog();
+                    dialogOk.ShowDiaLog("Bạn phải xác thực email!");
+                    return;
+                }
 
             }
         });
