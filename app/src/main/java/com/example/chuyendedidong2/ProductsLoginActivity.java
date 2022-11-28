@@ -40,6 +40,7 @@ public class ProductsLoginActivity extends AppCompatActivity {
     private TextView tvTenSP,tvGiaSP,tvTenCuaHang,tvMoTa;
     private Button btnAddCart;
     private DialogOkActivity dialogOk;
+    private DiaLogLoanding diaLogLoanding;
     private FirebaseDatabase database;
     private FirebaseAuth auth;
 
@@ -50,6 +51,7 @@ public class ProductsLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_products_login);
         setControl();
         dialogOk = new DialogOkActivity(this);
+        diaLogLoanding = new DiaLogLoanding(this);
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
 
@@ -85,6 +87,7 @@ public class ProductsLoginActivity extends AppCompatActivity {
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                diaLogLoanding.ShowDiaLog("Đang mua...");
                 DatabaseReference name_shop = database.getReference("shop");
                 name_shop.child(shop_id).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -96,6 +99,7 @@ public class ProductsLoginActivity extends AppCompatActivity {
                         root.child(auth.getUid()).child(id).setValue(cart, new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                diaLogLoanding.HideDialog();
                                 dialogOk.ShowDiaLog("Thêm giỏ hàng thành công!");
                             }
                         });

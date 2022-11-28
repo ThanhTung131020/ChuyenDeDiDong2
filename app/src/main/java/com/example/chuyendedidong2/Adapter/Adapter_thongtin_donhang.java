@@ -26,6 +26,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.chuyendedidong2.DialogOkActivity;
 import com.example.chuyendedidong2.MainActivity;
 import com.example.chuyendedidong2.Model.DonHang;
 import com.example.chuyendedidong2.Model.ProductModel;
@@ -47,6 +48,7 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
     private EditText edthuy;
     private DonHang donHang;
     FirebaseDatabase database;
+    DialogOkActivity dialogOkActivity;
 
     public Adapter_thongtin_donhang(Context mContext) {
         this.mContext = mContext;
@@ -140,9 +142,6 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
         private ImageButton imgbtn_remove;
         private CardView item;
 
-
-
-
         public ThongTinViewholder(@NonNull View itemView) {
             super(itemView);
             imgbtn_remove = itemView.findViewById(R.id.imgBt_back_to_home);
@@ -235,20 +234,25 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
         ArrayList<Star> listStars = new ArrayList<>();
         Star star = new Star(rating);
         DatabaseReference root = database.getReference("stars");
-        root.child(donHang.getIdKhachhang()).setValue(star);
-        root.addValueEventListener(new ValueEventListener() {
+        root.child(donHang.getIdSanPham()).child(donHang.getIdKhachhang()).setValue(star);
+        root.child(donHang.getIdSanPham()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Star starn = dataSnapshot.getValue(Star.class);
                     listStars.add(starn);
+                    float tbc = 0;
                     for (int i = 0; i < listStars.size(); i++){
-                        float tbc = listStars.get(i).getNumStar();
-                        float size = listStars.size();
-                        float tb = tbc / size;
-                        DatabaseReference sanpham = database.getReference("product").child(donHang.getIdSanPham());
-                        sanpham.child("numStar").setValue(tb);
+                        tbc += listStars.get(i).getNumStar();
                     }
+                    float tb = tbc/listStars.size();
+                    DatabaseReference sanpham = database.getReference("product").child(donHang.getIdSanPham());
+                    sanpham.child("numStar").setValue(tb, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                            Toast.makeText(mContext, "Đã đánh giá!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
 

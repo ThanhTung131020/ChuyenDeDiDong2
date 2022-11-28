@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.Activity_Gio_hang;
 import com.example.chuyendedidong2.Activity_ThongTin_DonHang;
+import com.example.chuyendedidong2.DiaLogLoanding;
 import com.example.chuyendedidong2.DialogOkActivity;
 import com.example.chuyendedidong2.Model.CartModel;
 import com.example.chuyendedidong2.Model.DonHang;
@@ -52,6 +53,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
     private FirebaseDatabase database;
     private FirebaseAuth auth;
     DialogOkActivity dialogOk;
+    DiaLogLoanding diaLogLoanding;
 
 
     public Adapter_GioHang(Context mContext) {
@@ -76,6 +78,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         dialogOk = new DialogOkActivity(mContext);
+        diaLogLoanding = new DiaLogLoanding(mContext);
         CartModel gioHang = mListGioHang.get(position);
         if (gioHang == null) {
             return;
@@ -170,6 +173,7 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
         holder.mua_ngay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                diaLogLoanding.ShowDiaLog("Đang mua...");
                 DatabaseReference donhang = database.getReference("bill");
                 DatabaseReference cart = database.getReference("cart").child(auth.getUid());
                 DatabaseReference user = database.getReference("personal");
@@ -198,11 +202,13 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
                                         cart.child(gioHang.getProduct_id()).removeValue(new DatabaseReference.CompletionListener() {
                                             @Override
                                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                                diaLogLoanding.HideDialog();
                                                 dialogOk.ShowDiaLog("Đã mua! Vui lòng check đơn hàng");
                                             }
                                         });
                                     }
                                 });
+                                diaLogLoanding.HideDialog();
                             }
 
                             @Override
