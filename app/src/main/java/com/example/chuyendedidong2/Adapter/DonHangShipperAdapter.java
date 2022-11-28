@@ -83,7 +83,7 @@ public class DonHangShipperAdapter extends RecyclerView.Adapter<DonHangShipperAd
         holder.tench.setText("Tên CH: "+donHangShipper.getTenCuaHang());
         holder.tensp.setText("Tên SP: "+donHangShipper.getTenSP());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        holder.gia.setText("Giá SP"+ decimalFormat.format(donHangShipper.getGiaSP())+" vnđ");
+        holder.gia.setText("Giá SP: "+ decimalFormat.format(donHangShipper.getGiaSP())+" vnđ");
         holder.dckh.setText(String.valueOf("Địa chỉ KH: "+donHangShipper.getDiaChiKhachHang()));
         holder.sdtkh.setText("SDT khách hàng: "+donHangShipper.getSdtKhachHang());
         holder.dcch.setText(String.valueOf("Địa chỉ CH: "+donHangShipper.getDiaChiCuaHang()));

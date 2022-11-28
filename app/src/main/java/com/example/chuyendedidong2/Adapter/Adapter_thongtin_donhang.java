@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -85,10 +86,12 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
                 holder.tv_ttDH.setText("Đã nhận");
                 holder.btn_huy.setEnabled(false);
                 holder.btn_daNhanhang.setEnabled(false);
+                holder.item.setBackgroundResource(R.color.btn_blue);
                 holder.btn_huy.setBackgroundResource(R.color.offgiaothanhcong);
                 holder.btn_daNhanhang.setBackgroundResource(R.color.offgiaothanhcong);
             }
             else if(donHang.getTrangThaiDH() == 6){
+                holder.item.setBackgroundResource(R.color.donhahuy);
                 holder.tv_ttDH.setText("Đã hủy");
                 holder.btn_huy.setEnabled(false);
                 holder.btn_daNhanhang.setEnabled(false);
@@ -131,6 +134,7 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
         private TextView tv_giaSP, tv_tenSP, tv_tenCH , tv_soLuong , tv_ttDH;
         private Button btn_huy , btn_daNhanhang;
         private ImageButton imgbtn_remove;
+        private CardView item;
 
 
 
@@ -145,6 +149,7 @@ public class Adapter_thongtin_donhang extends RecyclerView.Adapter<Adapter_thong
             tv_soLuong = itemView.findViewById(R.id.tv_soLuong);
             btn_daNhanhang = itemView.findViewById(R.id.btn_DaNhanHang);
             tv_ttDH = itemView.findViewById(R.id.tv_trangThaiDH);
+            item = itemView.findViewById(R.id.card_item);
 
         }
     }

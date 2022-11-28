@@ -33,7 +33,7 @@
 
         <RadioButton
             android:id="@+id/rdbCaNhanLogin"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:checked="true"
@@ -42,7 +42,7 @@
 
         <RadioButton
             android:id="@+id/rdbCuaHangLogin"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
@@ -50,7 +50,7 @@
 
         <RadioButton
             android:id="@+id/rdbShipperLogin"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
@@ -58,48 +58,48 @@
 
     </RadioGroup>
 
+
     <EditText
-        android:text="tung@gmail.com"
         android:id="@+id/edtEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/edit_text_gb"
         android:ems="0"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:padding="13dp"
+        android:text="tung@gmail.com"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroupLogin"
         app:layout_constraintWidth_percent=".8" />
 
     <EditText
-        android:text="123123"
         android:id="@+id/edtMatKhau"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_gb"
         android:ems="1"
         android:hint="Mật khẩu"
         android:inputType="textPassword"
         android:padding="13dp"
+        android:text="123123"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtEmail"
         app:layout_constraintWidth_percent=".8" />
 
-
     <ImageView
         android:id="@+id/img_show_hide_pwd"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="12dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/edtMatKhau"
         app:layout_constraintEnd_toEndOf="@+id/edtMatKhau"
         app:layout_constraintTop_toTopOf="@+id/edtMatKhau"
-        app:layout_constraintVertical_bias="0.466" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <CheckBox
         android:id="@+id/check_save"
@@ -121,7 +121,9 @@
         android:id="@+id/btnDangNhap"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_khachhang"
+        android:layout_marginTop="36dp"
+        android:backgroundTint="@color/yellow"
+
         android:ems="3"
         android:hapticFeedbackEnabled="true"
         android:text="ĐĂNG NHẬP"
@@ -135,10 +137,11 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/button_khachhang"
+        android:backgroundTint="#14727E"
         android:ems="4"
         android:text="ĐĂNG KÝ"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnDangNhap" />
 
@@ -146,7 +149,7 @@
         android:id="@+id/tvQuenMatKhau"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:text="Quên mật khẩu?"
         android:textColor="@color/black"
         android:textSize="15sp"

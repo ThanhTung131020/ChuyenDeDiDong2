@@ -139,29 +139,32 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
                 <Button
+                    android:textSize="10sp"
                     android:backgroundTint="#CAD650"
                     android:id="@+id/btnTraHangDHCH"
                     android:layout_width="0dp"
                     android:gravity="center"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
                     android:text="Trả Hàng"/>
                 <Button
+                    android:textSize="10sp"
                     android:backgroundTint="#DC2D20"
                     android:id="@+id/btnHuyDHCH"
                     android:layout_width="0dp"
                     android:gravity="center"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
                     android:text="Hủy"/>
                 <Button
+                    android:textSize="10sp"
                     android:backgroundTint="#3FE345"
                     android:id="@+id/btnXacNhanDHCH"
                     android:layout_width="0dp"
                     android:gravity="center"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_margin="5dp"
                     android:text="Xác nhận"/>

@@ -200,26 +200,38 @@
                     android:layout_weight="1"
                     android:src="@drawable/ic_launcher_background"/>
             </LinearLayout>
-            <Button
-                android:id="@+id/btnDuyetSP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:background="@color/colorButtonKhachHang"
-                android:layout_gravity="center"
-                android:text="DUYỆT"
-                >
-            </Button>
-            <Button
-                android:id="@+id/btnXoaSP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:background="@color/colorButtonKhachHang"
-                android:layout_gravity="center"
-                android:text="XÓA"
-                >
-            </Button>
+            <LinearLayout
+
+                android:weightSum="5"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Button
+
+                   android:layout_weight="3"
+                    android:id="@+id/btnDuyetSP"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:backgroundTint="#84D625"
+                    android:layout_gravity="center"
+                    android:text="DUYỆT"
+                    >
+                </Button>
+                <Button
+                    android:layout_weight="2"
+                    android:backgroundTint="#F30707"
+                    android:id="@+id/btnXoaSP"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_gravity="center"
+                    android:text="XÓA"
+                    >
+                </Button>
+
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
