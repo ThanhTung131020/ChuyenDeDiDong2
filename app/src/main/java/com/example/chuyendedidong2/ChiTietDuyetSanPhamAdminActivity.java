@@ -21,6 +21,8 @@ import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.Adapter.ProductsAdapter;
 import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.Model.Shop;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +40,7 @@ public class ChiTietDuyetSanPhamAdminActivity extends AppCompatActivity {
     private DiaLogLoanding diaLogLoanding;
     FirebaseDatabase database;
     FirebaseAuth auth;
+    ProductModel product;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +77,7 @@ public class ChiTietDuyetSanPhamAdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 diaLogLoanding.ShowDiaLog("Đag duyệt...");
-                ProductModel product = new ProductModel(id,image,0,name,price,des,shop_id,nameShop,pic1,pic2,pic3,false);
+                 product = new ProductModel(id,image,0,name,price,des,shop_id,nameShop,pic1,pic2,pic3,false);
                 DatabaseReference root = database.getReference("product");
                 root.child(id).setValue(product, new DatabaseReference.CompletionListener() {
                     @Override
@@ -89,12 +92,37 @@ public class ChiTietDuyetSanPhamAdminActivity extends AppCompatActivity {
                 });
             }
         });
+        DatabaseReference sp = database.getReference("product_register");
+        sp.child(id).removeValue();
         btnXoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                androidx.appcompat.app.AlertDialog.Builder al = new AlertDialog.Builder(ChiTietDuyetSanPhamAdminActivity.this);
+                al.setTitle("thông báo");
+                al.setMessage("bạn có muốn xóa sản phẩm này không??");
+                al.setPositiveButton("có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        DatabaseReference sp = database.getReference("product_register");
+                        sp.child(id).removeValue();
+                        startActivity(new Intent(ChiTietDuyetSanPhamAdminActivity.this,TrangChuAdminActivity.class));
+                        finishAffinity();
+
+                    }
+                });
+                al.setNegativeButton("không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                al.show();
+
             }
         });
+
+
     }
 
     private void setControl() {

@@ -153,13 +153,13 @@ public class HomePageActivity extends AppCompatActivity {
         categoryAdapter = new CategoryAdapter(this, categoryModelList, categoryModel -> {
             if (categoryModel.getCatID() == "cat001") {
 
-                createNewProductPC("may tinh" ,"laptop");
+                createNewProductPC("máy tính" ,"laptop");
                 tvDanhmucSP.setText("danh mục máy tính");
             } else if (categoryModel.getCatID() == "cat002") {
-                createNewProductphone("dien thoai");
+                createNewProductphone("điện thoại");
                 tvDanhmucSP.setText("danh mục điện thoại");
             } else if (categoryModel.getCatID() == "cat003") {
-                createNewProductTBDT("may giat", "tu lanh", "ti vi", "dieu hoa");
+                createNewProductTBDT("máy giặt", "tủ lạnh", "ti vi", "điều hòa");
                 tvDanhmucSP.setText("danh mục thiết bị sản phẩm");
 
             } else if (categoryModel.getCatID() == "cat004") {

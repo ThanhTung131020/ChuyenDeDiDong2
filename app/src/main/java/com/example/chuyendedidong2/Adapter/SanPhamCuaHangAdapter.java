@@ -48,7 +48,7 @@ public class SanPhamCuaHangAdapter extends RecyclerView.Adapter<SanPhamCuaHangAd
     @Override
     public void onBindViewHolder(@NonNull SPCHViewHolder holder, int position) {
         database = FirebaseDatabase.getInstance();
-         product = list.get(position);
+        product = list.get(position);
         Glide.with(context).load(product.getImg_url()).into(holder.ivSP);
         holder.tvNameSP.setText(product.getName());
         holder.tvSLSP.setText("Đã bán: ");
@@ -82,6 +82,7 @@ public class SanPhamCuaHangAdapter extends RecyclerView.Adapter<SanPhamCuaHangAd
                 }
             }
         });
+
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -107,16 +108,11 @@ public class SanPhamCuaHangAdapter extends RecyclerView.Adapter<SanPhamCuaHangAd
             }
         });
 
-        DatabaseReference root = database.getReference("product").child(product.getProduct_id());
-        root.child("check_box").setValue(product.getCheck_box());
+
+
     }
 
- public void xoaSP(){
-        if(product.getCheck_box() == true){
-            DatabaseReference root = database.getReference("product").child(product.getProduct_id());
-            root.child("check_box").removeValue();
-        }
- }
+
 
 
     @Override

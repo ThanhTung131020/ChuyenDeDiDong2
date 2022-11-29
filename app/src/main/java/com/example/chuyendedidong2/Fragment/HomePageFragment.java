@@ -124,14 +124,14 @@ public class HomePageFragment extends Fragment {
 
             public void OnclickItemCategory(CategoryModel cate) {
                 if (cate.getCatID() == "cat001") {
-                    createNewProductPC("laptop" , "may tinh");
+                    createNewProductPC("laptop" , "máy tính");
                     tvSp.setText("danh mục Laptop , máy tính");
 
                 } else if (cate.getCatID() == "cat002") {
-                    createNewProductphone("dien thoai");
+                    createNewProductphone("điện thoại");
                     tvSp.setText("danh mục điện thoại");
                 } else if (cate.getCatID() == "cat003") {
-                    createNewProductTBDT("may giat", "tu lanh", "ti vi", "dieu hoa");
+                    createNewProductTBDT("máy giặt", "tủ lạnh", "ti vi", "điều hòa");
                     tvSp.setText("danh mục thiết bị sản phẩm");
 
                 } else if (cate.getCatID() == "cat004") {

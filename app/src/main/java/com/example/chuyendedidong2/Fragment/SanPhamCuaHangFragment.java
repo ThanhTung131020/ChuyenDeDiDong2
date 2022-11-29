@@ -104,15 +104,16 @@ public class SanPhamCuaHangFragment extends Fragment {
         btnXoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                XoaSanPham();
+               XoaSanPham();
             }
         });
     }
 
 
     private void XoaSanPham() {
+
         dialogOk.ShowDiaLog("Chức năng đang được cập nhât, muốn xóa vui lòng bấm vào sản phẩm!");
+
     }
 
 
