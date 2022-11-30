@@ -159,7 +159,7 @@ public class HomePageActivity extends AppCompatActivity {
                 createNewProductphone("điện thoại");
                 tvDanhmucSP.setText("danh mục điện thoại");
             } else if (categoryModel.getCatID() == "cat003") {
-                createNewProductTBDT("máy giặt", "tủ lạnh", "ti vi", "điều hòa");
+                createNewProductTBDT("máy giặt", "tủ lạnh", "tivi", "điều hòa");
                 tvDanhmucSP.setText("danh mục thiết bị sản phẩm");
 
             } else if (categoryModel.getCatID() == "cat004") {

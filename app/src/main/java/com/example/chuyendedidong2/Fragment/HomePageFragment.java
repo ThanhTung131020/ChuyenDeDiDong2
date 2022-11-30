@@ -131,7 +131,7 @@ public class HomePageFragment extends Fragment {
                     createNewProductphone("điện thoại");
                     tvSp.setText("danh mục điện thoại");
                 } else if (cate.getCatID() == "cat003") {
-                    createNewProductTBDT("máy giặt", "tủ lạnh", "ti vi", "điều hòa");
+                    createNewProductTBDT("máy giặt", "tủ lạnh", "tivi", "điều hòa");
                     tvSp.setText("danh mục thiết bị sản phẩm");
 
                 } else if (cate.getCatID() == "cat004") {
