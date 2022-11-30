@@ -92,8 +92,6 @@ public class ChiTietDuyetSanPhamAdminActivity extends AppCompatActivity {
                 });
             }
         });
-        DatabaseReference sp = database.getReference("product_register");
-        sp.child(id).removeValue();
         btnXoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
