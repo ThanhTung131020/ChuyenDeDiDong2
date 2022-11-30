@@ -68,6 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
+                    android:inputType="number"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/edit_text_gb"
                     android:hint="giá"

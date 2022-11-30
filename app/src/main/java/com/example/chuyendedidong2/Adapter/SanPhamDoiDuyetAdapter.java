@@ -3,12 +3,14 @@ package com.example.chuyendedidong2.Adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.chuyendedidong2.DiaLogLoanding;
 import com.example.chuyendedidong2.DialogOkActivity;
+import com.example.chuyendedidong2.HomePageCuaHangActivity;
 import com.example.chuyendedidong2.Model.ProductModel;
 import com.example.chuyendedidong2.R;
 import com.example.chuyendedidong2.SuaSanPhamActivity;
@@ -66,16 +69,13 @@ public class SanPhamDoiDuyetAdapter extends RecyclerView.Adapter<SanPhamDoiDuyet
                 alert.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        diaLogLoanding.ShowDiaLog("Đang xóa...");
                         DatabaseReference root = database.getReference("product_register").child(product.getProduct_id());
                         root.removeValue(new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                diaLogLoanding.HideDialog();
-                                dialogOk.ShowDiaLog("Xóa thành công!");
+                                dialogOk.ShowDiaLog("Xóa thành công");
                             }
                         });
-                        diaLogLoanding.HideDialog();
                     }
                 });
                 alert.setNegativeButton("không",null);

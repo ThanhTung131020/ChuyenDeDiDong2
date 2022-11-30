@@ -2,9 +2,9 @@ package com.example.chuyendedidong2;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,9 +48,9 @@ public class SuaSanPhamActivity extends AppCompatActivity {
         btnSua = findViewById(R.id.btnSuaSP);
         btnXoa = findViewById(R.id.btnXoaSP);
         hinh = findViewById(R.id.ivSuaHinhSP);
-        hinh1 = findViewById(R.id.ivThemHinh1);
-        hinh2 = findViewById(R.id.ivThemHinh2);
-        hinh3 = findViewById(R.id.ivThemHinh3);
+        hinh1 = findViewById(R.id.ivSuaHinh1);
+        hinh2 = findViewById(R.id.ivSuaHinh2);
+        hinh3 = findViewById(R.id.ivSuaHinh3);
     }
     private void setEvent() {
         product = new ProductModel();
@@ -58,16 +58,13 @@ public class SuaSanPhamActivity extends AppCompatActivity {
         Bundle bundle = intent.getBundleExtra("suasanpham");
         String name = bundle.getString("sname");
         String id = bundle.getString("sid");
-        String id_shop = bundle.getString("sid_shop");
         String image = bundle.getString("simage");
         String pic1 = bundle.getString("spic1");
         String pic2 = bundle.getString("spic2");
         String pic3 = bundle.getString("spic3");
         int price = bundle.getInt("sprice");
-        float rating = bundle.getFloat("srating");
         String des = bundle.getString("sdes");
         String nameShop = bundle.getString("snameShop");
-        int sl = bundle.getInt("ssl");
         Glide.with(getApplicationContext()).load(image).into(hinh);
         Glide.with(getApplicationContext()).load(pic1).into(hinh1);
         Glide.with(getApplicationContext()).load(pic2).into(hinh2);
@@ -75,21 +72,20 @@ public class SuaSanPhamActivity extends AppCompatActivity {
         ten.setText(name);
         gia.setText(String.valueOf(price));
         chitiet.setText(des);
-
         btnSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 diaLogLoanding.ShowDiaLog("Đang cập nhật...");
-                DatabaseReference root = database.getReference("product_register");
-                ProductModel product = new ProductModel(id,image,0,ten.getText().toString(),Integer.parseInt(gia.getText().toString()),chitiet.getText().toString(),id_shop,nameShop,pic1,pic2,pic3,false);
-                root.child(id).setValue(product, new DatabaseReference.CompletionListener() {
+                DatabaseReference root = database.getReference("product");
+                product.setName(ten.getText().toString().trim());
+                product.setPrice(Integer.parseInt(gia.getText().toString().trim()));
+                product.setDesciption(chitiet.getText().toString().trim());
+                root.child(id).updateChildren(product.toMap(),new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                        Toast.makeText(SuaSanPhamActivity.this, "Sửa thành công, chờ admin duyệt lại sản phẩm cho bạn!", Toast.LENGTH_SHORT).show();
-                        DatabaseReference root = database.getReference("product").child(id);
-                        root.removeValue();
+                        diaLogLoanding.HideDialog();
+                        Toast.makeText(SuaSanPhamActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(SuaSanPhamActivity.this,HomePageCuaHangActivity.class));
-                        finishAffinity();
                     }
                 });
             }

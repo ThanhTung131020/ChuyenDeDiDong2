@@ -208,7 +208,6 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
                                         });
                                     }
                                 });
-                                diaLogLoanding.HideDialog();
                             }
 
                             @Override

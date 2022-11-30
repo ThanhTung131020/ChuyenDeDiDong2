@@ -95,7 +95,7 @@
                     android:weightSum="4">
 
                     <ImageView
-                        android:id="@+id/ivThemHinh1"
+                        android:id="@+id/ivSuaHinh1"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="3"
@@ -119,7 +119,7 @@
                     android:weightSum="4">
 
                     <ImageView
-                        android:id="@+id/ivThemHinh2"
+                        android:id="@+id/ivSuaHinh2"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="3"
@@ -142,7 +142,7 @@
                     android:weightSum="4">
 
                     <ImageView
-                        android:id="@+id/ivThemHinh3"
+                        android:id="@+id/ivSuaHinh3"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="3"
