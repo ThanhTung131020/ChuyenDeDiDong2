@@ -60,32 +60,22 @@ public class SuaSanPhamActivity extends AppCompatActivity {
         String id = bundle.getString("sid");
         String id_shop = bundle.getString("sid_shop");
         String image = bundle.getString("simage");
-        int price = bundle.getInt("sprice");
-        String des = bundle.getString("sdes");
-        String nameShop = bundle.getString("snameShop");
         String pic1 = bundle.getString("spic1");
         String pic2 = bundle.getString("spic2");
         String pic3 = bundle.getString("spic3");
+        int price = bundle.getInt("sprice");
+        float rating = bundle.getFloat("srating");
+        String des = bundle.getString("sdes");
+        String nameShop = bundle.getString("snameShop");
+        int sl = bundle.getInt("ssl");
         Glide.with(getApplicationContext()).load(image).into(hinh);
-        if (hinh1 == null){
-            hinh1.setImageAlpha(R.drawable.thietbidientu);
-        }else {
-            Glide.with(getApplicationContext()).load(pic1).into(hinh1);
-        }
-        if (hinh2 == null){
-            hinh2.setImageAlpha(R.drawable.thietbidientu);
-        }else {
-            Glide.with(getApplicationContext()).load(pic2).into(hinh2);
-        }
-        if (hinh3 == null){
-            hinh3.setImageAlpha(R.drawable.thietbidientu);
-        }else {
-            Glide.with(getApplicationContext()).load(pic3).into(hinh3);
-        }
-
+        Glide.with(getApplicationContext()).load(pic1).into(hinh1);
+        Glide.with(getApplicationContext()).load(pic2).into(hinh2);
+        Glide.with(getApplicationContext()).load(pic3).into(hinh3);
         ten.setText(name);
         gia.setText(String.valueOf(price));
         chitiet.setText(des);
+
         btnSua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

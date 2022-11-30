@@ -57,31 +57,32 @@ public class SanPhamCuaHangAdapter extends RecyclerView.Adapter<SanPhamCuaHangAd
             public void onClick(View view) {
                 Intent intent = new Intent(context, SuaSanPhamActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("simage", product.getImg_url());
-                bundle.putString("sid", product.getProduct_id());
-                bundle.putString("sid_shop", product.getIdShop());
-                bundle.putString("sname", product.getName());
+                bundle.putString("simage",product.getImg_url());
+                bundle.putString("sid",product.getProduct_id());
+                bundle.putString("sid_shop",product.getIdShop());
+                bundle.putString("spic1",product.getProduct_id());
+                bundle.putString("spic2",product.getPic1());
+                bundle.putString("spic3",product.getPic2());
+                bundle.putString("sname",product.getPic3());
                 bundle.putInt("sprice", product.getPrice());
                 bundle.putFloat("srating", product.getNumStar());
-                bundle.putString("sdes", product.getDesciption());
-                bundle.putString("snameShop", product.getNameShop());
-                bundle.putString("spic1", product.getPic1());
-                bundle.putString("spic2", product.getPic2());
-                bundle.putString("spic3", product.getPic3());
-                intent.putExtra("suasanpham", bundle);
+                bundle.putString("sdes",product.getDesciption());
+                bundle.putString("snameShop",product.getNameShop());
+                //bundle.putInt("ssl", product.getSoLuong());
+                intent.putExtra("suasanpham",bundle);
                 context.startActivity(intent);
             }
         });
-        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b) {
-                    product.setCheck_box(true);
-                } else {
-                    product.setCheck_box(false);
-                }
-            }
-        });
+//        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+//                if (b) {
+//                    product.setCheck_box(true);
+//                } else {
+//                    product.setCheck_box(false);
+//                }
+//            }
+//        });
 
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
