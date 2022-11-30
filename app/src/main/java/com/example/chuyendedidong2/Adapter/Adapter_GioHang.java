@@ -173,7 +173,6 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
         holder.mua_ngay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                diaLogLoanding.ShowDiaLog("Đang mua...");
                 DatabaseReference donhang = database.getReference("bill");
                 DatabaseReference cart = database.getReference("cart").child(auth.getUid());
                 DatabaseReference user = database.getReference("personal");
@@ -202,7 +201,6 @@ public class Adapter_GioHang extends RecyclerView.Adapter<Adapter_GioHang.GioHan
                                         cart.child(gioHang.getProduct_id()).removeValue(new DatabaseReference.CompletionListener() {
                                             @Override
                                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                                diaLogLoanding.HideDialog();
                                                 dialogOk.ShowDiaLog("Đã mua! Vui lòng check đơn hàng");
                                             }
                                         });
